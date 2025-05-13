@@ -13,9 +13,6 @@ namespace KhoHang_XNK.Repositories
         Task <int> GetKhoByMaDonNhapAsync(int madon);
         Task<IEnumerable<DonNhapHang>>? GetByKhoAsync(int maKho);
 
-        Task<IEnumerable<DoanhThuThangDto>> GetTongTienNhapTheoThangAsync();
-
-
-
+        Task<IEnumerable<DoanhThuThangDto>> GetTongTienNhapTheoThangAsync(int? khoId = null);
     }
 }

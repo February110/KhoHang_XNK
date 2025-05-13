@@ -1,6 +1,8 @@
 ﻿using KhoHang_XNK.Models;
 using KhoHang_XNK.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace KhoHang_XNK.Controllers
@@ -33,26 +35,40 @@ namespace KhoHang_XNK.Controllers
             _chiTietDonXuatRepository = chiTietDonXuatRepository;
         }
 
-        public async Task<IActionResult> Index()
+        //public async Task<IActionResult> Index()
+        //{
+
+        //    var doanhThuNhapHang = await _donNhapHangRepository.GetTongTienNhapTheoThangAsync();
+
+        //    // Lấy tổng tiền xuất hàng
+        //    var doanhThuXuatHang = await _donXuatHangRepository.GetTongTienXuatTheoThangAsync();
+
+        //    // Tạo model chứa cả 2 thông tin
+        //    var viewModel = new ThongKeDoanhThuViewModel
+        //    {
+        //        DoanhThuNhapHang = doanhThuNhapHang,
+        //        DoanhThuXuatHang = doanhThuXuatHang
+        //    };
+        //    ViewBag.DoanhThuNhapHangJson = JsonConvert.SerializeObject(doanhThuNhapHang);
+        //    ViewBag.DoanhThuXuatHangJson = JsonConvert.SerializeObject(doanhThuXuatHang);
+
+        //    return View(viewModel);
+
+        //}
+        public async Task<IActionResult> Index(int? khoId)
         {
-
-            var doanhThuNhapHang = await _donNhapHangRepository.GetTongTienNhapTheoThangAsync();
-
-            // Lấy tổng tiền xuất hàng
-            var doanhThuXuatHang = await _donXuatHangRepository.GetTongTienXuatTheoThangAsync();
-
-            // Tạo model chứa cả 2 thông tin
             var viewModel = new ThongKeDoanhThuViewModel
             {
-                DoanhThuNhapHang = doanhThuNhapHang,
-                DoanhThuXuatHang = doanhThuXuatHang
+                SelectedKhoId = khoId,
+                DanhSachKho = (await _khoHangRepository.GetAllKhoHangsAsync()).ToList(),
+                DoanhThuNhapHang = await _donNhapHangRepository.GetTongTienNhapTheoThangAsync(khoId),
+                DoanhThuXuatHang = await _donXuatHangRepository.GetTongTienXuatTheoThangAsync(khoId)
             };
-            ViewBag.DoanhThuNhapHangJson = JsonConvert.SerializeObject(doanhThuNhapHang);
-            ViewBag.DoanhThuXuatHangJson = JsonConvert.SerializeObject(doanhThuXuatHang);
 
             return View(viewModel);
-
         }
+
+
 
     }
 }

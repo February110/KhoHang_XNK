@@ -79,20 +79,54 @@ namespace KhoHang_XNK.Repositories
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<DoanhThuThangDto>> GetTongTienNhapTheoThangAsync()
+        //public async Task<IEnumerable<DoanhThuThangDto>> GetTongTienNhapTheoThangAsync()
+        //{
+        //    return await _context.ChiTietDonNhaps
+        //        .Include(c => c.DonNhapHang)
+        //        .GroupBy(c => new { c.DonNhapHang.NgayNhap.Year, c.DonNhapHang.NgayNhap.Month})
+        //        .Select(g => new DoanhThuThangDto
+        //        {
+        //            Nam = g.Key.Year,
+        //            Thang = g.Key.Month,
+        //            TongTien = g.Sum(x => x.SoLuong * x.DonGia)
+        //        })
+        //        .OrderBy(x => x.Nam).ThenBy(x => x.Thang)
+        //        .ToListAsync();
+        //}
+        // Lấy tổng tiền NHẬP theo tháng và theo từng kho
+        public async Task<IEnumerable<DoanhThuThangDto>> GetTongTienNhapTheoThangAsync(int? khoId = null)
         {
-            return await _context.ChiTietDonNhaps
+            var query = _context.ChiTietDonNhaps
                 .Include(c => c.DonNhapHang)
-                .GroupBy(c => new { c.DonNhapHang.NgayNhap.Year, c.DonNhapHang.NgayNhap.Month })
+                .AsQueryable();
+
+            // Thêm điều kiện lọc nếu có khoId
+            if (khoId.HasValue)
+            {
+                query = query.Where(x => x.DonNhapHang.MaKho == khoId.Value);
+            }
+
+            return await query
+                .GroupBy(c => new
+                {
+                    c.DonNhapHang.MaKho,
+                    Year = c.DonNhapHang.NgayNhap.Year,
+                    Month = c.DonNhapHang.NgayNhap.Month
+                })
                 .Select(g => new DoanhThuThangDto
                 {
+                    KhoId = g.Key.MaKho,
                     Nam = g.Key.Year,
                     Thang = g.Key.Month,
                     TongTien = g.Sum(x => x.SoLuong * x.DonGia)
                 })
-                .OrderBy(x => x.Nam).ThenBy(x => x.Thang)
+                .OrderBy(x => x.KhoId)
+                .ThenBy(x => x.Nam)
+                .ThenBy(x => x.Thang)
                 .ToListAsync();
         }
+
+
 
     }
 }

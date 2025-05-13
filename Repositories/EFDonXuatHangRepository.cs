@@ -78,21 +78,55 @@ namespace KhoHang_XNK.Repositories
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<DoanhThuThangDto>> GetTongTienXuatTheoThangAsync()
+        //public async Task<IEnumerable<DoanhThuThangDto>> GetTongTienXuatTheoThangAsync()
+        //{
+        //    return await _context.ChiTietDonXuats
+        //        .Include(c => c.DonXuatHang) // Phải include để truy cập NgayXuat
+        //        .GroupBy(c => new { c.DonXuatHang.NgayXuat.Year, c.DonXuatHang.NgayXuat.Month})
+        //        .Select(g => new DoanhThuThangDto
+        //        {
+        //            Nam = g.Key.Year,
+        //            Thang = g.Key.Month,
+        //            TongTien = g.Sum(x => x.SoLuong * x.DonGia)
+        //        })
+        //        .OrderBy(x => x.Nam)
+        //        .ThenBy(x => x.Thang)
+        //        .ToListAsync();
+        //}
+        // Lấy tổng tiền XUẤT theo tháng và theo từng kho
+        public async Task<IEnumerable<DoanhThuThangDto>> GetTongTienXuatTheoThangAsync(int? khoId = null)
         {
-            return await _context.ChiTietDonXuats
-                .Include(c => c.DonXuatHang) // Phải include để truy cập NgayXuat
-                .GroupBy(c => new { c.DonXuatHang.NgayXuat.Year, c.DonXuatHang.NgayXuat.Month })
+            var query = _context.ChiTietDonXuats
+                .Include(c => c.DonXuatHang)
+                .AsQueryable();
+
+            // Thêm điều kiện lọc nếu có khoId
+            if (khoId.HasValue)
+            {
+                query = query.Where(x => x.DonXuatHang.MaKho == khoId.Value);
+            }
+
+            return await query
+                .GroupBy(c => new
+                {
+                    c.DonXuatHang.MaKho,
+                    Year = c.DonXuatHang.NgayXuat.Year,
+                    Month = c.DonXuatHang.NgayXuat.Month
+                })
                 .Select(g => new DoanhThuThangDto
                 {
+                    KhoId = g.Key.MaKho,
                     Nam = g.Key.Year,
                     Thang = g.Key.Month,
                     TongTien = g.Sum(x => x.SoLuong * x.DonGia)
                 })
-                .OrderBy(x => x.Nam)
+                .OrderBy(x => x.KhoId)
+                .ThenBy(x => x.Nam)
                 .ThenBy(x => x.Thang)
                 .ToListAsync();
         }
+
+
 
     }
 }

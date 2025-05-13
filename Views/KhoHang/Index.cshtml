@@ -10,7 +10,7 @@
 
 			<!-- Logo -->
 			<div class="logo">
-				<h2 class="mb-0"><img src="#"> WareTrack</h2>
+				<h2 class="mb-0"><img src="~/images/logo/logo_sidebar.png"> WareTrack</h2>
 			</div>
 
 			<ul class="side-menu">
@@ -118,78 +118,94 @@
 	<div class="container-fluid dashboard">
 
 
-		<div class="col-md-6 col-lg-3">
-			<div class="card">
-				<div class="card-body">
-					<div class="row">
-						<div class="col-4 d-flex align-items-center">
-							<i class="fas fa-inbox icon-home bg-primary text-light"></i>
-						</div>
-						<div class="col-8">
-							<p>Revenue</p>
-							<h5>$65</h5>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="col-md-6 col-lg-3">
-			<div class="card">
-				<div class="card-body">
-					<div class="row">
-						<div class="col-4 d-flex align-items-center">
-							<i class="fas fa-clipboard-list icon-home bg-success text-light"></i>
-						</div>
-						<div class="col-8">
-							<p>Orders</p>
-							<h5>3000</h5>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="col-md-6 col-lg-3">
-			<div class="card">
-				<div class="card-body">
-					<div class="row">
-						<div class="col-4 d-flex align-items-center">
-							<i class="fas fa-chart-bar  icon-home bg-info text-light"></i>
-						</div>
-						<div class="col-8">
-							<p>Sales</p>
-							<h5>5500</h5>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="col-md-6 col-lg-3">
-			<div class="card">
-				<div class="card-body">
-					<div class="row">
-						<div class="col-4 d-flex align-items-center">
-							<i class="fas fa-id-card  icon-home bg-warning text-light"></i>
-						</div>
-						<div class="col-8">
-							<p>Employes</p>
-							<h5>256</h5>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
-
 		<div class="content-header">
-			<h1>Danh Sách Kho Hàng</h1>
+			<h1>Quản Lý Kho Hàng Xuất Nhập Khẩu</h1>
 			<p></p>
 		</div>
 
 		<div class="row">
 
+			<div class="col-md-6 col-lg-3" asp-controller="KhoHang" asp-action="Index">
+				<a asp-controller="KhoHang" asp-action="Index" class="text-decoration-none">
+					<div class="card">
+						<div class="card-body">
+							
+							<div class="row">
+								
+								<div class="col-4 d-flex align-items-center">
+									<i class="fas fa-store-alt icon-home bg-primary text-light"></i>
+								</div>
+								<div class="col-8">
+									<p>Kho Hàng</p>
+									<h5>@ViewBag.SoLuongKhoHang</h5>
+								</div>
+							
+							</div>
+						
+						</div>
+					</div>
+				</a>
+
+			</div>
+
+			<div class="col-md-6 col-lg-3" asp-controller="HangHoa" asp-action="Index">
+				 <a asp-controller="HangHoa" asp-action="Index" class="text-decoration-none">
+					<div class="card">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-4 d-flex align-items-center">
+									<i class="fa-solid fa-box-open icon-home bg-success text-light"></i>
+								</div>
+								<div class="col-8">
+									<p>Hàng Hóa</p>
+									<h5>@ViewBag.SoLuongHangHoa</h5>
+								</div>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+
+			<div class="col-md-6 col-lg-3">
+				<a asp-controller="NhaCungCap" asp-action="Index" class="text-decoration-none">
+					<div class="card">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-4 d-flex align-items-center">
+									<i class="fas fa-truck icon-home bg-info text-light"></i>
+								</div>
+								<div class="col-8">
+									<p>Nhà Cung Cấp</p>
+									<h5>@ViewBag.SoLuongNhaCungCap</h5>
+								</div>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+
+			<div class="col-md-6 col-lg-3">
+				<a asp-controller="NhanVien" asp-action="Index" class="text-decoration-none">
+					<div class="card">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-4 d-flex align-items-center">
+									<i class="fas fa-id-card  icon-home bg-warning text-light"></i>
+								</div>
+								<div class="col-8">
+									<p>Nhân Viên</p>
+									<h5>@ViewBag.SoLuongNhanVien</h5>
+								</div>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+
+			<div class="content-header">
+				<h4>Danh Sách Kho Hàng</h4>
+				<p></p>
+			</div>
 			<div class="col-md-12">
 				<div class="card">
 					<div class="card-header">

@@ -8,15 +8,43 @@ namespace KhoHang_XNK.Controllers
     public class KhoHangController : Controller
     {
         private readonly IKhoHangRepository _khoHangRepository;
-
-        public KhoHangController(IKhoHangRepository khoHangRepository)
+        private readonly INhanVienRepository _nhanVienRepository;
+        private readonly IHangHoaRepository _hangHoaRepository;
+        private readonly INhaCungCapRepository _nhaCungCapRepository;
+        public KhoHangController(IKhoHangRepository khoHangRepository, INhanVienRepository nhanVienRepository, IHangHoaRepository hangHoaRepository, INhaCungCapRepository nhaCungCapRepository)
         {
             _khoHangRepository = khoHangRepository;
+            _nhanVienRepository = nhanVienRepository;
+            _hangHoaRepository = hangHoaRepository;
+            _nhaCungCapRepository = nhaCungCapRepository;
         }
-
+        //public async Task<IActionResult> Index(string searchString, int pageNumber = 1, int pageSize = 10)
+        //{
+        //    var khoHangs = await _khoHangRepository.GetAllKhoHangsAsync();
+        //    if (!string.IsNullOrEmpty(searchString))
+        //    {
+        //        khoHangs = khoHangs.Where(k => k.TenKho.Contains(searchString));
+        //    }
+        //    // Phân trang
+        //    var paginatedList = khoHangs.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+        //    ViewBag.CurrentPage = pageNumber;
+        //    ViewBag.TotalPages = (int)Math.Ceiling((double)khoHangs.Count() / pageSize);
+        //    ViewBag.SearchString = searchString;
+        //    return View(paginatedList);
+        //}
         public async Task<IActionResult> Index()
         {
             var khoHangs = await _khoHangRepository.GetAllKhoHangsAsync();
+            var hangHoas = await _hangHoaRepository.GetAllAsync();
+            var nhaCungCaps = await _nhaCungCapRepository.GetAllNhaCungCapsAsync();
+            var nhanViens = await _nhanVienRepository.GetAllAsync();
+
+            ViewBag.SoLuongKhoHang = khoHangs.Count();
+            ViewBag.SoLuongHangHoa = hangHoas.Count();
+            ViewBag.SoLuongNhaCungCap = nhaCungCaps.Count();
+            ViewBag.SoLuongNhanVien = nhanViens.Count();
+
+
             return View(khoHangs);  // Truyền danh sách vào view
         }
         public async Task<IActionResult> Details(int id)

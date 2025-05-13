@@ -1,0 +1,86 @@
+﻿@model KhoHang_XNK.Models.PhieuKiemKe
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1 class="text-primary">Chỉnh sửa phiếu kiểm kê</h1>
+
+<h4>Phiếu Kiểm Kê</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="MaKiemKe" />
+
+            <!-- Chọn Nhân Viên -->
+            <div class="form-group">
+                <label asp-for="MaNV" class="control-label">Nhân Viên</label>
+                <select asp-for="MaNV" class="form-control" asp-items="ViewBag.NhanViens">
+                    <option value="">-- Chọn Nhân Viên --</option>
+                </select>
+                <span asp-validation-for="MaNV" class="text-danger"></span>
+            </div>
+
+            <!-- Chọn Kho -->
+            <div class="form-group">
+                <label asp-for="MaKho" class="control-label">Kho Hàng</label>
+                <select asp-for="MaKho" class="form-control" asp-items="ViewBag.Khos">
+                    <option value="">-- Chọn Kho --</option>
+                </select>
+                <span asp-validation-for="MaKho" class="text-danger"></span>
+            </div>
+
+            <!-- Ngày Kiểm Kê -->
+            <div class="form-group">
+                <label asp-for="NgayKiemKe" class="control-label">Ngày Kiểm Kê</label>
+                <input asp-for="NgayKiemKe" class="form-control" type="date" id="NgayKiemKe" />
+                <span id="NgayKiemKeError" class="text-danger"></span> <!-- Hiển thị lỗi -->
+                <span asp-validation-for="NgayKiemKe" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Lưu Thay Đổi" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<script>
+    // Kiểm tra ngày kiểm kê không lớn hơn ngày hiện tại
+    document.getElementById('NgayKiemKe').addEventListener('change', function () {
+        var ngayKiemKe = new Date(this.value);  // Lấy ngày kiểm kê người dùng nhập vào
+        var ngayHienTai = new Date();  // Lấy ngày hiện tại
+
+        // Kiểm tra nếu ngày kiểm kê lớn hơn ngày hiện tại
+        if (ngayKiemKe > ngayHienTai) {
+            // Hiển thị thông báo lỗi nếu ngày kiểm kê lớn hơn ngày hiện tại
+            document.getElementById('NgayKiemKeError').textContent = "Ngày kiểm kê không được lớn hơn ngày hiện tại.";
+        } else {
+            // Ẩn thông báo lỗi nếu người dùng chọn ngày hợp lệ
+            document.getElementById('NgayKiemKeError').textContent = "";
+        }
+    });
+
+    // Kiểm tra khi người dùng rời khỏi trường nhập ngày (focusout)
+    document.getElementById('NgayKiemKe').addEventListener('focusout', function () {
+        var ngayKiemKe = new Date(this.value);  // Lấy ngày kiểm kê người dùng nhập vào
+        var ngayHienTai = new Date();  // Lấy ngày hiện tại
+
+        // Nếu ngày hợp lệ, ẩn thông báo lỗi
+        if (ngayKiemKe <= ngayHienTai && this.value !== "") {
+            document.getElementById('NgayKiemKeError').textContent = "";  // Ẩn thông báo lỗi khi ngày hợp lệ
+        }
+    });
+</script>

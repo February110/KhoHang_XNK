@@ -1,0 +1,23 @@
+﻿@model string[]
+
+
+@{
+    ViewData["Title"] = "Mã khôi phục 2FA";
+}
+
+<h2>@ViewData["Title"] cho @ViewBag.Email</h2>
+<div class="alert alert-warning">
+    <strong>Lưu các mã này ở nơi an toàn!</strong>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        @foreach (var code in Model)
+        {
+            <p class="recovery-code">@code</p>
+        }
+    </div>
+</div>
+
+<a asp-action="Verify2fa" asp-route-email="@ViewBag.Email"
+   class="btn btn-primary">Tiếp tục đăng nhập</a>

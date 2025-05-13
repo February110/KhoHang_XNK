@@ -1,0 +1,59 @@
+﻿@model KhoHang_XNK.Models.NhaCungCap
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="container-fluid p-4">
+    <h1 class="text-center mb-4">Chỉnh Sửa Nhà Cung Cấp</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h4 class="mb-3">Thông tin Nhà Cung Cấp</h4>
+            <hr />
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <input type="hidden" asp-for="MaNCC" />
+
+                <div class="form-group mb-3">
+                    <label asp-for="TenNCC" class="control-label">Tên Nhà Cung Cấp</label>
+                    <input asp-for="TenNCC" class="form-control" />
+                    <span asp-validation-for="TenNCC" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="DiaChi" class="control-label">Địa Chỉ</label>
+                    <input asp-for="DiaChi" class="form-control" />
+                    <span asp-validation-for="DiaChi" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="SoDienThoai" class="control-label">Số Điện Thoại</label>
+                    <input asp-for="SoDienThoai" class="form-control" />
+                    <span asp-validation-for="SoDienThoai" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Email" class="control-label">Email</label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group text-center mb-4">
+                    <input type="submit" value="Lưu Thay Đổi" class="btn btn-success" />
+                </div>
+            </form>
+
+            <div class="text-center">
+                <a asp-action="Index" class="btn btn-secondary btn-sm">Quay lại danh sách</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

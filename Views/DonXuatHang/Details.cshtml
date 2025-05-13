@@ -1,0 +1,48 @@
+﻿@model KhoHang_XNK.Models.DonXuatHang
+@{
+    ViewData["Title"] = "Chi Tiết Đơn Xuất Hàng";
+    decimal tongTien = 0;
+}
+
+<h2>Chi Tiết Đơn Xuất Hàng</h2>
+
+<p><strong>Khách Hàng:</strong> @Model.KhachHang.TenKH</p>
+<p><strong>Nhân Viên:</strong> @Model.NhanVien.HoTen</p>
+<p><strong>Kho:</strong> @Model.KhoHang.TenKho</p>
+<p><strong>Ngày Xuất:</strong> @Model.NgayXuat.ToString("dd/MM/yyyy")</p>
+
+<table class="table table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Tên Hàng Hóa</th>
+            <th>Số Lượng</th>
+            <th>Đơn Giá</th>
+            <th>Tổng Giá</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.ChiTietList)
+        {
+            decimal thanhTien = item.SoLuong * item.DonGia;
+            tongTien += thanhTien;
+            <tr>
+                <td>@item.HangHoa.TenHangHoa</td>
+                <td>@item.SoLuong</td>
+                <td>@item.DonGia.ToString("N0") đ</td>
+                <td>@thanhTien.ToString("N0")  đ</td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (User.IsInRole("Admin"))
+{
+    if (Model.trangthaithanhtoan == 0)
+    {
+        <form method="post" asp-action="ConfirmPayment" asp-route-id="@Model.MaDonXuat">
+            <button type="submit" class="btn btn-success">
+                Xác nhận thanh toán
+            </button>
+        </form>
+    }
+}
+<a href="@Url.Action("Index", "DonXuatHang")" class="btn btn-secondary">Quay lại danh sách</a>

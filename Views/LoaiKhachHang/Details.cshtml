@@ -1,0 +1,37 @@
+﻿@model KhoHang_XNK.Models.LoaiKhachHang
+
+@{
+    ViewData["Title"] = "Chi tiết Loại Khách Hàng";
+}
+
+<div class="container mt-4">
+    <h1 class="text-center text-primary">Chi tiết Loại Khách Hàng</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h4 class="text-primary">Thông Tin Loại Khách Hàng</h4>
+            <hr />
+
+            <dl class="row">
+                <dt class="col-sm-3">Tên Loại:</dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.TenLoai)
+                </dd>
+            </dl>
+
+            <div class="text-center mt-3">
+                <a asp-action="Edit" asp-route-id="@Model?.MaLoaiKH" class="btn btn-warning"><i class="fas fa-edit"></i> Chỉnh Sửa</a> |
+                <a asp-action="Index" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Quay lại danh sách</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<!-- Thêm Font Awesome nếu cần -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">

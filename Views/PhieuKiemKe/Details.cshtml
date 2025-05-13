@@ -1,0 +1,64 @@
+﻿@model KhoHang_XNK.Models.PhieuKiemKe
+
+@{
+    ViewData["Title"] = "Chi tiết phiếu kiểm kê";
+    var chiTietPhieuKiemKes = ViewBag.ChiTietPhieuKiemKes as List<KhoHang_XNK.Models.ChiTietPhieuKiemKe>;
+}
+
+<h2 class="text-success">Chi tiết phiếu kiểm kê</h2>
+
+<table class="table table-striped">
+    <tr>
+        <th>Mã Kiểm Kê</th>
+        <td>@Model.MaKiemKe</td>
+    </tr>
+    <tr>
+        <th>Nhân Viên</th>
+        <td>@Model.NhanVien.HoTen</td>
+    </tr>
+    <tr>
+        <th>Kho Hàng</th>
+        <td>@Model.KhoHang.TenKho</td>
+    </tr>
+    <tr>
+        <th>Ngày Kiểm Kê</th>
+        <td>@Model.NgayKiemKe.ToString("dd/MM/yyyy")</td>
+    </tr>
+</table>
+
+<h3 class="mt-4 text-primary">Chi tiết hàng hóa kiểm kê</h3>
+
+<table class="table table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th>Mã Hàng Hóa</th>
+            <th>Tên Hàng Hóa</th>
+            <th>Số Lượng Thực Tế</th>
+            <th>Số Lượng Chênh Lệch</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (chiTietPhieuKiemKes != null && chiTietPhieuKiemKes.Any())
+        {
+            foreach (var item in chiTietPhieuKiemKes)
+            {
+                <tr>
+                    <td>@item.MaHangHoa</td>
+                    <td>@item.HangHoa.TenHangHoa</td>
+                    <td>@item.SoLuongThucTe</td>
+                    <td>@item.SoLuongChenhLech</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4" class="text-center">Không có dữ liệu kiểm kê</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="mt-3">
+    <a asp-action="Index" class="btn btn-primary">Quay lại danh sách</a>
+</div>

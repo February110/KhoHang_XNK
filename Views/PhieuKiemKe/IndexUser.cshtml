@@ -1,0 +1,41 @@
+﻿@model IEnumerable<KhoHang_XNK.Models.PhieuKiemKe>
+
+@{
+    ViewData["Title"] = "Danh Sách Phiếu Kiểm Kê";
+}
+
+<h1 class="text-center">Danh Sách Phiếu Kiểm Kê</h1>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <a asp-action="Create" class="btn btn-primary">Tạo Phiếu Kiểm Kê Mới</a>
+    <input type="text" id="searchInput" class="form-control w-25" placeholder="Tìm kiếm...">
+    <a asp-controller="CTPhieuKiemKe" asp-action="Index" class="btn btn-danger btn-sm">CT phiếu kiểm kê</a>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-hover table-bordered text-center align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>Tên nhân viên</th>
+                <th>Tên kho</th>
+                <th>Ngày kiểm kê</th>
+                <th class="text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.NhanVien.HoTen)</td>
+                    <td>@Html.DisplayFor(modelItem => item.KhoHang.TenKho)</td>
+                    <td>@item.NgayKiemKe.ToString("dd/MM/yyyy")</td> <!-- Hiển thị ngày theo định dạng dd/MM/yyyy -->
+                    <td class="text-center">
+                        <a asp-action="Edit" asp-route-id="@item.MaKiemKe" class="btn btn-warning btn-sm">Sửa</a>
+                        <a asp-action="Details" asp-route-id="@item.MaKiemKe" class="btn btn-info btn-sm">Chi tiết</a>
+                        <a asp-action="Delete" asp-route-id="@item.MaKiemKe" class="btn btn-danger btn-sm">Xóa</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

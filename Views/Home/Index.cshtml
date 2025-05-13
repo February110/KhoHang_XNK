@@ -1,0 +1,527 @@
+﻿
+@{
+    Layout = null;
+   
+}
+
+<!DOCTYPE html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>WareTrack - Quản lý kho hàng XNK</title>
+    <meta name="description" content="Hệ thống quản lý kho hàng xuất nhập khẩu chuyên nghiệp" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Place favicon.ico in the root directory -->
+    <!-- ========================= CSS here ========================= -->
+    <link rel="stylesheet" href="~/css/bootstrap-5.0.0-beta1.min.css" />
+    <link rel="stylesheet" href="~/css/LineIcons.2.0.css" />
+    <link rel="stylesheet" href="~/css/tiny-slider.css" />
+    <link rel="stylesheet" href="~/css/animate.css" />
+    <link rel="stylesheet" href="~/css/lindy-uikit.css" />
+
+</head>
+<body>
+
+    <!-- ========================= preloader start ========================= -->
+    <div class="preloader">
+        <div class="loader">
+            <div class="spinner">
+                <div class="spinner-container">
+                    <div class="spinner-rotator">
+                        <div class="spinner-left">
+                            <div class="spinner-circle"></div>
+                        </div>
+                        <div class="spinner-right">
+                            <div class="spinner-circle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ========================= preloader end ========================= -->
+    <!-- ========================= hero-section-wrapper-5 start ========================= -->
+    <section id="home" class="hero-section-wrapper-5">
+
+        <!-- ========================= header-6 start ========================= -->
+        <header class="header header-6">
+            <div class="navbar-area">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-12">
+                            <nav class="navbar navbar-expand-lg">
+                                <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                                    <img src="~/images/logo/logo.png" alt="Logo">
+                                </a>
+
+                                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent6" aria-controls="navbarSupportedContent6" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="toggler-icon"></span>
+                                    <span class="toggler-icon"></span>
+                                    <span class="toggler-icon"></span>
+                                </button>
+
+                                <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent6">
+                                    <ul id="nav6" class="navbar-nav ms-auto">
+                                        <li class="nav-item">
+                                            <a class="page-scroll active" href="#home">Trang chủ</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="page-scroll" href="#feature">Tính năng</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="page-scroll" href="#about">Giới thiệu</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="page-scroll" href="#pricing">Bảng giá</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="page-scroll" href="#contact">Liên hệ</a>
+                                        </li>
+                                    </ul>
+                                    <!-- Phần login đặt ở bên phải -->
+                                    <ul class="navbar-nav">
+                                        <partial name="_LoginPartial" />
+                                    </ul>
+                                   
+                                </div>
+
+                                <div class="header-action d-flex">
+                                    @if (User.Identity.IsAuthenticated)
+                                    { 
+                                    <a class="nav-link" asp-controller="Account" asp-action="Manage"> <i class="lni lni-user"></i> </a>
+                                    }
+                                   
+                                </div>
+                                <!-- navbar collapse -->
+                            </nav>
+                           
+                            <!-- navbar -->
+                        </div>
+                    </div>
+                    <!-- row -->
+                </div>
+                <!-- container -->
+            </div>
+            <!-- navbar area -->
+        </header>
+        <!-- ========================= header-6 end ========================= -->
+        <!-- ========================= hero-5 start ========================= -->
+        <div class="hero-section hero-style-5 img-bg" style="background-image: url('/images/hero/hero-5/hero-bg.svg')">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="hero-content-wrapper">
+                            <h2 class="mb-30">Giải pháp quản lý kho hàng xuất nhập khẩu</h2>
+                            <p class="mb-30">Hệ thống quản lý kho thông minh, tích hợp đầy đủ tính năng cho doanh nghiệp xuất nhập khẩu.</p>
+                            <a asp-controller="Home" asp-action="RedirectBasedOnRole" class="button button-lg radius-50">
+                                Bắt đầu ngay <i class="lni lni-chevron-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 align-self-end">
+                        <div class="hero-image">
+                            <img src="/images/hero/hero-5/hero-img.svg" alt="Hệ thống quản lý kho">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ========================= hero-5 end ========================= -->
+
+    </section>
+    <!-- ========================= hero-section-wrapper-6 end ========================= -->
+    <!-- ========================= feature style-5 start ========================= -->
+    <section id="feature" class="feature-section feature-style-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xxl-5 col-xl-5 col-lg-7 col-md-8">
+                    <div class="section-title text-center mb-60">
+                        <h3 class="mb-15 wow fadeInUp" data-wow-delay=".2s">Tính năng nổi bật</h3>
+                        <p class="wow fadeInUp" data-wow-delay=".4s">Giải pháp toàn diện cho quản lý kho hàng xuất nhập khẩu với các tính năng ưu việt</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-feature wow fadeInUp" data-wow-delay=".2s">
+                        <div class="icon">
+                            <i class="lni lni-cargo"></i>
+                            <svg width="110" height="72" viewBox="0 0 110 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M110 54.7589C110 85.0014 85.3757 66.2583 55 66.2583C24.6243 66.2583 0 85.0014 0 54.7589C0 24.5164 24.6243 0 55 0C85.3757 0 110 24.5164 110 54.7589Z" fill="#EBF4FF" />
+                            </svg>
+                        </div>
+                        <div class="content">
+                            <h5>Quản lý tồn kho</h5>
+                            <p>Theo dõi chính xác số lượng hàng hóa, vị trí lưu trữ và hạn sử dụng.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-feature wow fadeInUp" data-wow-delay=".4s">
+                        <div class="icon">
+                            <i class="lni lni-investment"></i>
+                            <svg width="110" height="72" viewBox="0 0 110 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M110 54.7589C110 85.0014 85.3757 66.2583 55 66.2583C24.6243 66.2583 0 85.0014 0 54.7589C0 24.5164 24.6243 0 55 0C85.3757 0 110 24.5164 110 54.7589Z" fill="#EBF4FF" />
+                            </svg>
+                        </div>
+                        <div class="content">
+                            <h5>Xuất nhập khẩu</h5>
+                            <p>Quản lý toàn bộ quy trình từ đặt hàng, vận chuyển đến thông quan.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-feature wow fadeInUp" data-wow-delay=".6s">
+                        <div class="icon">
+                            <i class="lni lni-stats-up"></i>
+                            <svg width="110" height="72" viewBox="0 0 110 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M110 54.7589C110 85.0014 85.3757 66.2583 55 66.2583C24.6243 66.2583 0 85.0014 0 54.7589C0 24.5164 24.6243 0 55 0C85.3757 0 110 24.5164 110 54.7589Z" fill="#EBF4FF" />
+                            </svg>
+                        </div>
+                        <div class="content">
+                            <h5>Báo cáo thông minh</h5>
+                            <p>Hệ thống báo cáo đa chiều, phân tích hiệu quả kinh doanh.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-feature wow fadeInUp" data-wow-delay=".2s">
+                        <div class="icon">
+                            <i class="lni lni-checkmark-circle"></i>
+                            <svg width="110" height="72" viewBox="0 0 110 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M110 54.7589C110 85.0014 85.3757 66.2583 55 66.2583C24.6243 66.2583 0 85.0014 0 54.7589C0 24.5164 24.6243 0 55 0C85.3757 0 110 24.5164 110 54.7589Z" fill="#EBF4FF" />
+                            </svg>
+                        </div>
+                        <div class="content">
+                            <h5>Kiểm kê tự động</h5>
+                            <p>Công nghệ quét mã vạch, RFID giúp kiểm kê nhanh chóng, chính xác.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-feature wow fadeInUp" data-wow-delay=".4s">
+                        <div class="icon">
+                            <i class="lni lni-lock"></i>
+                            <svg width="110" height="72" viewBox="0 0 110 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M110 54.7589C110 85.0014 85.3757 66.2583 55 66.2583C24.6243 66.2583 0 85.0014 0 54.7589C0 24.5164 24.6243 0 55 0C85.3757 0 110 24.5164 110 54.7589Z" fill="#EBF4FF" />
+                            </svg>
+                        </div>
+                        <div class="content">
+                            <h5>Bảo mật dữ liệu</h5>
+                            <p>Hệ thống bảo mật đa lớp, sao lưu dữ liệu định kỳ.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-feature wow fadeInUp" data-wow-delay=".6s">
+                        <div class="icon">
+                            <i class="lni lni-cloud-network"></i>
+                            <svg width="110" height="72" viewBox="0 0 110 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M110 54.7589C110 85.0014 85.3757 66.2583 55 66.2583C24.6243 66.2583 0 85.0014 0 54.7589C0 24.5164 24.6243 0 55 0C85.3757 0 110 24.5164 110 54.7589Z" fill="#EBF4FF" />
+                            </svg>
+                        </div>
+                        <div class="content">
+                            <h5>Đa nền tảng</h5>
+                            <p>Truy cập mọi lúc mọi nơi trên web, mobile app, bất cứ ở đâu.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <!-- ========================= feature style-5 end ========================= -->
+    <!-- ========================= about style-4 start ========================= -->
+    <section id="about" class="about-section about-style-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-xl-5 col-lg-6">
+                    <div class="about-content-wrapper">
+                        <div class="section-title mb-30">
+                            <h3 class="mb-25 wow fadeInUp" data-wow-delay=".2s">Giải pháp quản lý kho hàng thế hệ mới</h3>
+                            <p class="wow fadeInUp" data-wow-delay=".3s">WarehousePro mang đến hệ thống quản lý kho hàng xuất nhập khẩu hiện đại, giúp doanh nghiệp tối ưu hiệu quả hoạt động.</p>
+                        </div>
+                        <ul>
+                            <li class="wow fadeInUp" data-wow-delay=".35s">
+                                <i class="lni lni-checkmark-circle"></i>
+                                Quản lý tập trung toàn bộ quy trình xuất nhập khẩu
+                            </li>
+                            <li class="wow fadeInUp" data-wow-delay=".4s">
+                                <i class="lni lni-checkmark-circle"></i>
+                                Tích hợp thông quan điện tử, quản lý HS Code, thuế suất
+                            </li>
+                            <li class="wow fadeInUp" data-wow-delay=".45s">
+                                <i class="lni lni-checkmark-circle"></i>
+                                Cảnh báo thông minh khi hàng hóa sắp hết hoặc quá hạn
+                            </li>
+                        </ul>
+                        <a href="#0" class="button button-lg radius-10 wow fadeInUp" data-wow-delay=".5s">Tìm hiểu thêm</a>
+                    </div>
+                </div>
+                <div class="col-xl-7 col-lg-6">
+                    <div class="about-image text-lg-right wow fadeInUp" data-wow-delay=".5s">
+                        <img src="~/images/about/about-4/about-img.svg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ========================= about style-4 end ========================= -->
+    <!-- ========================= pricing style-4 start ========================= -->
+    <section id="pricing" class="pricing-section pricing-style-4 bg-light">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-xl-5 col-lg-6">
+                    <div class="section-title mb-60">
+                        <h3 class="mb-15 wow fadeInUp" data-wow-delay=".2s">Gói dịch vụ</h3>
+                        <p class="wow fadeInUp" data-wow-delay=".4s">Lựa chọn gói dịch vụ phù hợp với quy mô và nhu cầu của doanh nghiệp bạn. WarehousePro đồng hành cùng sự phát triển của bạn.</p>
+                    </div>
+                </div>
+                <div class="col-xl-7 col-lg-6">
+                    <div class="pricing-active-wrapper wow fadeInUp" data-wow-delay=".4s">
+                        <div class="pricing-active">
+                            <div class="single-pricing-wrapper">
+                                <div class="single-pricing">
+                                    <h6>Cơ bản</h6>
+                                    <h4>Dành cho Startup</h4>
+                                    <h3>5.000.000đ</h3>
+                                    <ul>
+                                        <li>Quản lý tối đa 1.000 SKU</li>
+                                        <li>5 user sử dụng</li>
+                                        <li>Báo cáo cơ bản</li>
+                                        <li>Hỗ trợ qua email</li>
+                                    </ul>
+                                    <a href="#0" class="button radius-30">Đăng ký ngay</a>
+                                </div>
+                            </div>
+                            <div class="single-pricing-wrapper">
+                                <div class="single-pricing">
+                                    <h6>Tiêu chuẩn</h6>
+                                    <h4>Dành cho DN vừa</h4>
+                                    <h3>15.000.000đ</h3>
+                                    <ul>
+                                        <li>Quản lý không giới hạn SKU</li>
+                                        <li>20 user sử dụng</li>
+                                        <li>Báo cáo nâng cao</li>
+                                        <li>Hỗ trợ 24/7</li>
+                                    </ul>
+                                    <a href="#0" class="button radius-30">Đăng ký ngay</a>
+                                </div>
+                            </div>
+                            <div class="single-pricing-wrapper">
+                                <div class="single-pricing">
+                                    <h6>Doanh nghiệp</h6>
+                                    <h4>Dành cho tập đoàn</h4>
+                                    <h3>Liên hệ</h3>
+                                    <ul>
+                                        <li>Quản lý đa kho, đa chi nhánh</li>
+                                        <li>User không giới hạn</li>
+                                        <li>Tích hợp ERP, CRM</li>
+                                        <li>Hỗ trợ tận nơi</li>
+                                    </ul>
+                                    <a href="#0" class="button radius-30">Liên hệ</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ========================= pricing style-4 end ========================= -->
+    <!-- ========================= contact-style-3 start ========================= -->
+    <section id="contact" class="contact-section contact-style-3">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xxl-5 col-xl-5 col-lg-7 col-md-10">
+                    <div class="section-title text-center mb-50">
+                        <h3 class="mb-15">Liên hệ với chúng tôi</h3>
+                        <p>Để lại thông tin để được tư vấn và hỗ trợ tốt nhất về giải pháp quản lý kho hàng</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="contact-form-wrapper">
+                        <form action="#" method="POST">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="single-input">
+                                        <input type="text" id="name" name="name" class="form-input" placeholder="Họ và tên">
+                                        <i class="lni lni-user"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="single-input">
+                                        <input type="email" id="email" name="email" class="form-input" placeholder="Email">
+                                        <i class="lni lni-envelope"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="single-input">
+                                        <input type="text" id="number" name="number" class="form-input" placeholder="Số điện thoại">
+                                        <i class="lni lni-phone"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="single-input">
+                                        <input type="text" id="subject" name="subject" class="form-input" placeholder="Tiêu đề">
+                                        <i class="lni lni-text-format"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="single-input">
+                                        <textarea name="message" id="message" class="form-input" placeholder="Nội dung" rows="6"></textarea>
+                                        <i class="lni lni-comments-alt"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-button">
+                                        <button type="submit" class="button"> <i class="lni lni-telegram-original"></i> Gửi thông tin</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="left-wrapper">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-6">
+                                <div class="single-item">
+                                    <div class="icon">
+                                        <i class="lni lni-phone"></i>
+                                    </div>
+                                    <div class="text">
+                                        <p>Hotline: 1900 1234</p>
+                                        <p>Hỗ trợ: 0909 123 456</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-6">
+                                <div class="single-item">
+                                    <div class="icon">
+                                        <i class="lni lni-envelope"></i>
+                                    </div>
+                                    <div class="text">
+                                        <p>sales@warehousepro.vn</p>
+                                        <p>support@warehousepro.vn</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-6">
+                                <div class="single-item">
+                                    <div class="icon">
+                                        <i class="lni lni-map-marker"></i>
+                                    </div>
+                                    <div class="text">
+                                        <p>Tòa nhà Techcombank, 23 Lê Duẩn, Quận 1, TP.HCM</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ========================= contact-style-3 end ========================= -->
+    <!-- ========================= clients-logo start ========================= -->
+    @* <section class="clients-logo-section pt-100 pb-100"> *@
+    @*     <div class="container"> *@
+    @*         <div class="row"> *@
+    @*             <div class="col-lg-12"> *@
+    @*                 <div class="client-logo wow fadeInUp" data-wow-delay=".2s"> *@
+    @*                     <img src="~/images/clients/brands.svg" alt="" class="w-100"> *@
+    @*                 </div> *@
+    @*             </div> *@
+    @*         </div> *@
+    @*     </div> *@
+    @* </section> *@
+    <!-- ========================= clients-logo end ========================= -->
+    <!-- ========================= footer style-4 start ========================= -->
+    <footer class="footer footer-style-4">
+        <div class="container">
+            <div class="widget-wrapper">
+                <div class="row">
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="footer-widget wow fadeInUp" data-wow-delay=".2s">
+                            <div class="logo">
+                                <a href="#0"> <img src="~/images/logo/logo.png" alt="" width="173" height="43" > </a>
+                            </div>
+                            <p class="desc">Giải pháp quản lý kho hàng xuất nhập khẩu toàn diện, giúp doanh nghiệp tối ưu hiệu quả hoạt động logistics.</p>
+                            <ul class="socials">
+                                <li> <a href="#0"> <i class="lni lni-facebook-filled"></i> </a> </li>
+                                <li> <a href="#0"> <i class="lni lni-youtube"></i> </a> </li>
+                                <li> <a href="#0"> <i class="lni lni-linkedin-original"></i> </a> </li>
+                                <li> <a href="#0"> <i class="lni lni-zip"></i> </a> </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 offset-xl-1 col-lg-2 col-md-6 col-sm-6">
+                        <div class="footer-widget wow fadeInUp" data-wow-delay=".3s">
+                            <h6>Liên kết nhanh</h6>
+                            <ul class="links">
+                                <li> <a href="#home">Trang chủ</a> </li>
+                                <li> <a href="#feature">Tính năng</a> </li>
+                                <li> <a href="#about">Giới thiệu</a> </li>
+                                <li> <a href="#pricing">Bảng giá</a> </li>
+                                <li> <a href="#contact">Liên hệ</a> </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+                        <div class="footer-widget wow fadeInUp" data-wow-delay=".4s">
+                            <h6>Tài nguyên</h6>
+                            <ul class="links">
+                                <li> <a href="#0">Tài liệu hướng dẫn</a> </li>
+                                <li> <a href="#0">Video demo</a> </li>
+                                <li> <a href="#0">Câu hỏi thường gặp</a> </li>
+                                <li> <a href="#0">Chính sách bảo mật</a> </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-6">
+                        <div class="footer-widget wow fadeInUp" data-wow-delay=".5s">
+                            <h6>Tải ứng dụng</h6>
+                            <ul class="download-app">
+                                <li>
+                                    <a href="#0">
+                                        <span class="icon"><i class="lni lni-apple"></i></span>
+                                        <span class="text">Tải trên <b>App Store</b> </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#0">
+                                        <span class="icon"><i class="lni lni-play-store"></i></span>
+                                        <span class="text">Tải trên <b>Google Play</b> </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright-wrapper wow fadeInUp" data-wow-delay=".2s">
+                <p>© 2023 WarehousePro. Bản quyền thuộc về <a href="#0" rel="nofollow" target="_blank">Công ty CP Công nghệ WarehousePro</a></p>
+            </div>
+        </div>
+    </footer>
+    <!-- ========================= footer style-4 end ========================= -->
+    <!-- ========================= scroll-top start ========================= -->
+    <a href="#" class="scroll-top"> <i class="lni lni-chevron-up"></i> </a>
+    <!-- ========================= scroll-top end ========================= -->
+    <!-- ========================= JS here ========================= -->
+
+    <script src="~/js/bootstrap-5.0.0-beta1.min.js"></script>
+    <script src="~/js/tiny-slider.js"></script>
+    <script src="~/js/wow.min.js"></script>
+    <script src="~/js/main.js"></script>
+</body>
+</html>

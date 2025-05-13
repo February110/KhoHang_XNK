@@ -1,0 +1,92 @@
+﻿@model KhoHang_XNK.Models.DonXuatHang
+
+@{
+    ViewData["Title"] = "Tạo Đơn Xuất Hàng";
+}
+
+<h2 class="text-primary">Tạo Đơn Xuất Hàng</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- Ngày Xuất -->
+            <div class="form-group">
+                <label asp-for="NgayXuat" class="control-label">Ngày Xuất</label>
+                <input asp-for="NgayXuat" class="form-control" type="date" id="NgayXuat" />
+                <span id="NgayXuatError" class="text-danger"></span>
+                <span asp-validation-for="NgayXuat" class="text-danger"></span>
+            </div>
+
+            <!-- Khách Hàng -->
+            <div class="form-group">
+                <label asp-for="MaKhachHang" class="control-label">Khách Hàng</label>
+                <select asp-for="MaKhachHang" class="form-control" asp-items="ViewBag.KhachHangs">
+                    <option value="">-- Chọn Khách Hàng --</option>
+                </select>
+                <span asp-validation-for="MaKhachHang" class="text-danger"></span>
+            </div>
+
+            <!-- Kho Hàng -->
+            <div class="form-group">
+                <label asp-for="MaKho" class="control-label">Kho Hàng</label>
+                <select asp-for="MaKho" class="form-control" asp-items="ViewBag.Khos" id="MaKho">
+                    <option value="">-- Chọn Kho --</option>
+                </select>
+                <span asp-validation-for="MaKho" class="text-danger"></span>
+            </div>
+
+            <!-- Nhân Viên -->
+            <div class="form-group">
+                <label asp-for="MaNV" class="control-label">Nhân Viên</label>
+                <select asp-for="MaNV" class="form-control" id="MaNV">
+                    <option value="">-- Chọn Nhân Viên --</option>
+                </select>
+                <span asp-validation-for="MaNV" class="text-danger"></span>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="btn btn-success mt-3">Lưu</button>
+            <a asp-action="Index" class="btn btn-secondary mt-3">Quay Lại</a>
+        </form>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Kiểm tra ngày xuất không lớn hơn ngày hiện tại
+        $('#NgayXuat').change(function () {
+            var ngayXuat = new Date(this.value);
+            var ngayHienTai = new Date();
+            ngayHienTai.setHours(0, 0, 0, 0);
+
+            if (this.value === "") {
+                $('#NgayXuatError').text("Vui lòng chọn ngày xuất.");
+            } else if (ngayNhap < ngayHienTai) {
+                $('#NgayNhapError').text("Ngày nhập không được ngày nhỏ hơn ngày hiện tại.");
+            } else {
+                $('#NgayXuatError').text("");
+            }
+        });
+
+        // Cập nhật danh sách nhân viên khi chọn kho
+        $('#MaKho').change(function () {
+            var maKho = parseInt($(this).val());
+
+            if (!isNaN(maKho)) {
+                $.getJSON('/DonXuatHang/GetNhanViensByKho', { maKho: maKho }, function (data) {
+                    var nhanVienDropdown = $('#MaNV');
+                    nhanVienDropdown.empty().append('<option value="">-- Chọn Nhân Viên --</option>');
+                    $.each(data, function (index, item) {
+                        nhanVienDropdown.append('<option value="' + item.maNV + '">' + item.hoTen + '</option>');
+                    });
+                });
+            } else {
+                $('#MaNV').empty().append('<option value="">-- Chọn Nhân Viên --</option>');
+            }
+        });
+    });
+</script>

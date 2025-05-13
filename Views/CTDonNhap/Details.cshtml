@@ -1,0 +1,32 @@
+﻿@model KhoHang_XNK.Models.ChiTietDonNhap
+
+@{
+    ViewData["Title"] = "Chi tiết đơn nhập";
+}
+
+<h2 class="mb-4">@ViewData["Title"]</h2>
+
+<div class="card shadow-sm p-4">
+    <div class="card-body">
+        <h5 class="card-title">Thông tin chi tiết</h5>
+        <dl class="row">
+            <dt class="col-sm-4">Mã Đơn Nhập</dt>
+            <dd class="col-sm-8">@Model.MaDonNhap</dd>
+
+            <dt class="col-sm-4">Mã Hàng Hóa</dt>
+            <dd class="col-sm-8">@Model.MaHangHoa</dd>
+
+            <dt class="col-sm-4">Số Lượng</dt>
+            <dd class="col-sm-8">@Model.SoLuong</dd>
+
+            <dt class="col-sm-4">Đơn Giá</dt>
+            <dd class="col-sm-8">@Model.DonGia</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="mt-3">
+    <a href="@Url.Action("Index")" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Quay lại danh sách
+    </a>
+</div>

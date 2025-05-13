@@ -1,0 +1,45 @@
+﻿@model KhoHang_XNK.Models.ChiTietDonXuat
+
+@{
+    ViewData["Title"] = "Chỉnh sửa Chi Tiết Đơn Xuất";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Edit" method="post">
+    <!-- Hidden fields for MaDonXuat and MaHangHoa -->
+    <input type="hidden" asp-for="MaDonXuat" />
+    <input type="hidden" asp-for="MaHangHoa" />
+
+    <!-- Đơn Xuất -->
+    <div class="form-group">
+        <label>Đơn Xuất</label>
+        <select asp-for="MaDonXuat" class="form-control" asp-items="ViewBag.DonXuatHangs" disabled></select>
+        <!-- Disabled select box, to show but not modify MaDonXuat -->
+    </div>
+
+    <!-- Hàng Hóa -->
+    <div class="form-group">
+        <label>Hàng Hóa</label>
+        <select asp-for="MaHangHoa" class="form-control" asp-items="ViewBag.HangHoas" disabled></select>
+        <!-- Disabled select box, to show but not modify MaHangHoa -->
+    </div>
+
+    <!-- Số Lượng -->
+    <div class="form-group">
+        <label>Số Lượng</label>
+        <input asp-for="SoLuong" class="form-control" />
+        <span asp-validation-for="SoLuong" class="text-danger"></span>
+    </div>
+
+    <!-- Đơn Giá -->
+    <div class="form-group">
+        <label>Đơn Giá</label>
+        <input asp-for="DonGia" class="form-control" />
+        <span asp-validation-for="DonGia" class="text-danger"></span>
+    </div>
+
+    <!-- Save and Cancel buttons -->
+    <button type="submit" class="btn btn-primary">Lưu</button>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</form>

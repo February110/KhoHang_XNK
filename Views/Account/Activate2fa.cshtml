@@ -1,0 +1,46 @@
+﻿@model KhoHang_XNK.Models.Enable2faViewModel
+
+@{
+    ViewData["Title"] = "Kích hoạt xác thực hai yếu tố (2FA)";
+}
+
+<h2>@ViewData["Title"]</h2>
+<p>Vui lòng thực hiện các bước sau để kích hoạt xác thực hai yếu tố:</p>
+
+<div class="row">
+    <div class="col-md-6">
+        <ol>
+            <li>
+                Tải ứng dụng Google Authenticator từ
+                <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2">Android</a> hoặc
+                <a href="https://apps.apple.com/us/app/google-authenticator/id388497605">iOS</a>
+            </li>
+            <li>Quét mã QR sau bằng ứng dụng:</li>
+        </ol>
+
+        <div id="qrCode" class="mb-3"></div>
+        <div class="alert alert-info">
+            Hoặc nhập thủ công mã này: <strong>@Model.SharedKey</strong>
+        </div>
+
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Code">Mã xác minh</label>
+                <input asp-for="Code" class="form-control" autocomplete="off" />
+                <span asp-validation-for="Code" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Xác minh</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/qrcodejs/qrcode.min.js"></script>
+    <script>
+        new QRCode(document.getElementById("qrCode"), {
+            text: "@Html.Raw(Model.AuthenticatorUri)",
+            width: 200,
+            height: 200
+        });
+    </script>
+}

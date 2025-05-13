@@ -1,0 +1,43 @@
+﻿@model KhoHang_XNK.Models.LoaiKhachHang
+
+@{
+    ViewData["Title"] = "Delete Loại Khách Hàng";
+}
+
+<div class="container mt-4">
+    <h1 class="text-center text-danger">Xóa Loại Khách Hàng</h1>
+    <h3 class="text-center">Bạn có chắc chắn muốn xóa loại khách hàng này?</h3>
+    <hr />
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div>
+                <h4 class="text-primary">Loại Khách Hàng</h4>
+                <dl class="row">
+                    <dt class="col-sm-3">Tên Loại:</dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.TenLoai)
+                    </dd>
+                </dl>
+            </div>
+
+            <form asp-action="Delete" method="post">
+                <input type="hidden" asp-for="MaLoaiKH" />
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Xóa</button>
+                    <a asp-action="Index" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Quay lại</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<!-- Thêm Font Awesome nếu cần -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">

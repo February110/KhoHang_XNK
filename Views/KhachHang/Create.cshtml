@@ -1,0 +1,61 @@
+﻿@model KhoHang_XNK.Models.KhachHang
+
+@{
+    ViewData["Title"] = "Thêm khách hàng";
+}
+
+<h1 class="mb-4">Thêm khách hàng</h1>
+
+<div class="card p-4 shadow-sm">
+    <h4 class="mb-3">Thông tin khách hàng</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                <div class="mb-3">
+                    <label asp-for="TenKH" class="form-label fw-bold"></label>
+                    <input asp-for="TenKH" class="form-control" placeholder="Nhập tên khách hàng" />
+                    <span asp-validation-for="TenKH" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="DiaChi" class="form-label fw-bold"></label>
+                    <input asp-for="DiaChi" class="form-control" placeholder="Nhập địa chỉ" />
+                    <span asp-validation-for="DiaChi" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="SoDienThoai" class="form-label fw-bold"></label>
+                    <input asp-for="SoDienThoai" class="form-control" placeholder="Nhập số điện thoại" />
+                    <span asp-validation-for="SoDienThoai" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label fw-bold"></label>
+                    <input asp-for="Email" class="form-control" placeholder="Nhập email" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="MaLoaiKH" class="form-label fw-bold"></label>
+                    <select asp-for="MaLoaiKH" class="form-select" asp-items="ViewBag.MaLoaiKH">
+                        <option value="">Chọn loại khách hàng</option>
+                    </select>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+                    <button type="submit" class="btn btn-primary">Thêm mới</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

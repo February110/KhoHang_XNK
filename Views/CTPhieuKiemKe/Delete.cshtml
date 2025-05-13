@@ -1,0 +1,57 @@
+﻿@model KhoHang_XNK.Models.ChiTietPhieuKiemKe
+
+@{
+    ViewData["Title"] = "Xóa";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h3>Bạn có chắc muốn xóa mục này không?</h3>
+
+<div>
+    <h4>Thông tin chi tiết phiếu kiểm kê</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SoLuongThucTe)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SoLuongThucTe)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SoLuongChenhLech)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SoLuongChenhLech)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PhieuKiemKe)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PhieuKiemKe.MaKiemKe)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.HangHoa)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.HangHoa.TenHangHoa)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <!-- Hidden fields to pass the necessary IDs -->
+        <input type="hidden" asp-for="MaKiemKe" />
+        <input type="hidden" asp-for="MaHangHoa" />
+
+        <div class="mt-3">
+            <!-- Delete button -->
+            <input type="submit" value="Xóa" class="btn btn-danger" />
+            <span>|</span>
+            <!-- Back to List button -->
+            <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,133 @@
+﻿using KhoHang_XNK.Models;
+using KhoHang_XNK.Repositories;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
+namespace KhoHang_XNK.Controllers
+{
+    public class PhieuKiemKeController : Controller
+    {
+        private readonly IPhieuKiemKeRepository _phieuKiemKeRepository;
+        private readonly INhanVienRepository _nhanVienRepository;
+        private readonly IKhoHangRepository _khoHangRepository;
+        public PhieuKiemKeController(
+          IPhieuKiemKeRepository phieuKiemKeRepository,
+          INhanVienRepository nhanVienRepository,
+          IKhoHangRepository khoHangRepository)
+        {
+            _phieuKiemKeRepository = phieuKiemKeRepository;
+            _nhanVienRepository = nhanVienRepository;
+            _khoHangRepository = khoHangRepository;
+        }
+
+        // Hiển thị danh sách phiếu kiểm kê
+        public async Task<IActionResult> Index()
+        {
+            var phieuKiemKes = await _phieuKiemKeRepository.GetAllAsync();
+            return View(phieuKiemKes);
+        }
+        public async Task<IActionResult> IndexUser(int id)
+        {
+            var list = await _phieuKiemKeRepository.GetByKhoAsync(id);
+            return View(list);
+        }
+        // GET: Tạo mới phiếu kiểm kê
+        public async Task<IActionResult> Create()
+        {
+            ViewBag.NhanViens = new SelectList(await _nhanVienRepository.GetAllAsync(), "MaNV", "HoTen");
+            ViewBag.Khos = new SelectList(await _khoHangRepository.GetAllKhoHangsAsync(), "MaKho", "TenKho");
+
+            return View();
+        }
+
+        // POST: Tạo mới phiếu kiểm kê
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(PhieuKiemKe phieuKiemKe)
+        {
+            if (phieuKiemKe != null)
+            {
+                await _phieuKiemKeRepository.AddAsync(phieuKiemKe);
+                if (User.IsInRole("Admin"))
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "User");
+                }
+            }
+            ViewBag.NhanViens = new SelectList(await _nhanVienRepository.GetAllAsync(), "MaNV", "HoTen");
+            ViewBag.Khos = new SelectList(await _khoHangRepository.GetAllKhoHangsAsync(), "MaKho", "TenKho");
+            return View(phieuKiemKe);
+        }
+
+        // Xem chi tiết phiếu kiểm kê
+        public async Task<IActionResult> Details(int id)
+        {
+            var phieuKiemKe = await _phieuKiemKeRepository.GetByIdAsync(id);
+            if (phieuKiemKe == null)
+            {
+                return NotFound();
+            }
+
+            // Lấy danh sách chi tiết phiếu kiểm kê của phiếu này
+            var chiTietPhieuKiemKes = await _phieuKiemKeRepository.GetChiTietByPhieuKiemKeIdAsync(id);
+
+            // Gửi dữ liệu sang View
+            ViewBag.ChiTietPhieuKiemKes = chiTietPhieuKiemKes;
+
+            return View(phieuKiemKe);
+        }
+
+        // Xóa phiếu kiểm kê
+        public async Task<IActionResult> Delete(int id)
+        {
+            var phieuKiemKe = await _phieuKiemKeRepository.GetByIdAsync(id);
+            if (phieuKiemKe == null)
+            {
+                return NotFound();
+            }
+
+         
+            return View(phieuKiemKe);
+        }
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            await _phieuKiemKeRepository.DeleteAsync(id);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            var phieuKiemKe = await _phieuKiemKeRepository.GetByIdAsync(id);
+            if (phieuKiemKe == null)
+            {
+                return NotFound();
+            }
+            ViewBag.NhanViens = new SelectList(await _nhanVienRepository.GetAllAsync(), "MaNV", "HoTen");
+            ViewBag.Khos = new SelectList(await _khoHangRepository.GetAllKhoHangsAsync(), "MaKho", "TenKho");
+            return View(phieuKiemKe);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, PhieuKiemKe phieuKiemKe)
+        {
+            if (id != phieuKiemKe.MaKiemKe)
+            {
+                return NotFound();
+            }
+            if (phieuKiemKe != null)
+            {
+                await _phieuKiemKeRepository.UpdateAsync(phieuKiemKe);
+                return RedirectToAction(nameof(Index));
+            }
+            ViewBag.NhanViens = new SelectList(await _nhanVienRepository.GetAllAsync(), "MaNV", "HoTen");
+            ViewBag.Khos = new SelectList(await _khoHangRepository.GetAllKhoHangsAsync(), "MaKho", "TenKho");
+            return View(phieuKiemKe);
+        }
+
+    }
+}

@@ -1,0 +1,32 @@
+﻿ @using Microsoft.AspNetCore.Identity 
+ @using KhoHang_XNK.Models 
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <a id="manage" class="nav-link form-control-plaintext" asp-area="" asp-controller="Account" asp-action="Manage">
+                Chào @UserManager.GetUserName(User)  <!-- Hiển thị tên người dùng -->
+            </a>
+        </li>
+        <li class="nav-item">
+            <form id="logoutForm" class="form-inline" asp-area="" asp-controller="Account" asp-action="Logout">
+                <button id="logout" type="submit" class="nav-link btn btn-link form-control-plaintext border-0">
+                    Đăng xuất  <!-- Nút đăng xuất -->
+                </button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <!-- Khi người dùng chưa đăng nhập -->
+        <li class="nav-item">
+            <a class="nav-link form-control-plaintext" id="login-register" asp-area="" asp-controller="Account" asp-action="Index">Đăng nhập / Đăng ký</a>
+            <!-- Hiển thị nút cho đăng nhập hoặc đăng ký -->
+        </li>
+    }
+</ul>
+

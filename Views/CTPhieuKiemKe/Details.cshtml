@@ -1,0 +1,60 @@
+﻿@model KhoHang_XNK.Models.ChiTietPhieuKiemKe
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Chi Tiết Phiếu Kiểm Kê</h1>
+
+<div>
+    <h2>Thông tin chi tiết phiếu kiểm kê</h2>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MaKiemKe)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PhieuKiemKe.MaKiemKe)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MaHangHoa)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.HangHoa.MaHangHoa)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SoLuongThucTe)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SoLuongThucTe)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SoLuongChenhLech)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SoLuongChenhLech)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PhieuKiemKe.NgayKiemKe)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.PhieuKiemKe.NgayKiemKe.ToString("dd/MM/yyyy")
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.HangHoa.TenHangHoa)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.HangHoa.TenHangHoa)
+        </dd>
+    </dl>
+</div>
+
+<p>
+    <a asp-action="Edit" asp-route-maKiemKe="@Model.MaKiemKe" asp-route-maHangHoa="@Model.MaHangHoa" class="btn btn-primary">Edit</a>
+    |
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</p>

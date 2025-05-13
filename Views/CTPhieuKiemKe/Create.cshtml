@@ -1,0 +1,63 @@
+﻿@model KhoHang_XNK.Models.ChiTietPhieuKiemKe
+
+@{
+    ViewData["Title"] = "Thêm mới Chi Tiết Phiếu Kiểm Kê";
+}
+
+<h2 class="mb-3">@ViewData["Title"]</h2>
+
+<div class="card shadow-lg p-4">
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger d-none"></div>
+
+            <!-- Mã Kiểm Kê -->
+            <div class="mb-3">
+                <label asp-for="MaKiemKe" class="form-label fw-bold">Mã Kiểm Kê</label>
+                <select asp-for="MaKiemKe" class="form-select" asp-items="ViewBag.MaKiemKe">
+                    <option value="">-- Chọn Mã Kiểm Kê --</option>
+                </select>
+                <span asp-validation-for="MaKiemKe" class="text-danger"></span>
+            </div>
+
+            <!-- Mã Hàng Hóa -->
+            <div class="mb-3">
+                <label asp-for="MaHangHoa" class="form-label fw-bold">Mã Hàng Hóa</label>
+                <select asp-for="MaHangHoa" class="form-select" asp-items="ViewBag.MaHangHoa">
+                    <option value="">-- Chọn Hàng Hóa --</option>
+                </select>
+                <span asp-validation-for="MaHangHoa" class="text-danger"></span>
+            </div>
+
+            <!-- Số Lượng Thực Tế -->
+            <div class="mb-3">
+                <label asp-for="SoLuongThucTe" class="form-label fw-bold">Số Lượng Thực Tế</label>
+                <input asp-for="SoLuongThucTe" class="form-control" placeholder="Nhập số lượng thực tế" />
+                <span asp-validation-for="SoLuongThucTe" class="text-danger"></span>
+            </div>
+
+            <!-- Số Lượng Chênh Lệch -->
+            <div class="mb-3">
+                <label asp-for="SoLuongChenhLech" class="form-label fw-bold">Số Lượng Chênh Lệch</label>
+                <input asp-for="SoLuongChenhLech" class="form-control" placeholder="Nhập số lượng chênh lệch" />
+                <span asp-validation-for="SoLuongChenhLech" class="text-danger"></span>
+            </div>
+
+            <!-- Nút thao tác -->
+            <div class="d-flex justify-content-between">
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Quay lại
+                </a>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Lưu
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

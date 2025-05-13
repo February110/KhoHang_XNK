@@ -1,0 +1,45 @@
+﻿@model KhoHang_XNK.Models.PhieuKiemKe
+
+@{
+    ViewData["Title"] = "Xóa";
+}
+
+<h1>Xóa Phiếu Kiểm Kê</h1>
+
+<h3 class="text-danger">Bạn có chắc chắn muốn xóa không?</h3>
+
+<div>
+    <h4>Chi tiết Phiếu Kiểm Kê</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.MaNV)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.MaNV)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.MaKho)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.MaKho)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.NgayKiemKe)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.NgayKiemKe)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="MaKiemKe" />
+        <div class="alert alert-warning" role="alert">
+            <strong>Cảnh báo:</strong> Việc xóa sẽ không thể khôi phục lại!
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Xóa" class="btn btn-danger" />
+            <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
+        </div>
+    </form>
+</div>

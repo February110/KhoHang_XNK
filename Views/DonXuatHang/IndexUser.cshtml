@@ -1,0 +1,57 @@
+﻿@model IEnumerable<KhoHang_XNK.Models.DonXuatHang>
+
+@{
+    ViewData["Title"] = "Danh sách đơn xuất hàng";
+}
+
+<h2 class="mb-4">Danh sách đơn xuất hàng</h2>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <a asp-action="Create" class="btn btn-success">+ Thêm đơn xuất hàng</a>
+
+    <input type="text" id="searchInput" class="form-control w-25" placeholder="Tìm kiếm...">
+    <a asp-controller="CTDonXuat" asp-action="Index" class="btn btn-danger btn-sm">CT Đơn Xuất</a>
+</div>
+
+<table class="table table-hover table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Mã đơn xuất</th> <!-- Thêm cột Mã đơn -->
+            <th>Tên khách hàng</th>
+            <th>Tên nhân viên</th>
+            <th>Tên kho hàng</th>
+            <th>Ngày xuất đơn</th>
+            <th class="text-center">Thao tác</th>
+        </tr>
+    </thead>
+    <tbody id="dataTable">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaDonXuat</td> <!-- Hiển thị Mã đơn xuất hàng -->
+                <td>@Html.DisplayFor(modelItem => item.KhachHang.TenKH)</td>
+                <td>@Html.DisplayFor(modelItem => item.NhanVien.HoTen)</td>
+                <td>@Html.DisplayFor(modelItem => item.KhoHang.TenKho)</td>
+                <td>@Html.DisplayFor(modelItem => item.NgayXuat)</td>
+                <td class="text-center">
+                    <a asp-action="Edit" asp-route-id="@item.MaDonXuat" class="btn btn-warning btn-sm">Sửa</a>
+                    <a asp-action="Details" asp-route-id="@item.MaDonXuat" class="btn btn-info btn-sm">Chi tiết</a>
+                    <a asp-action="Delete" asp-route-id="@item.MaDonXuat" class="btn btn-danger btn-sm">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        document.getElementById("searchBox").addEventListener("keyup", function () {
+            let filter = this.value.toLowerCase();
+            let rows = document.querySelectorAll("#customerTable tr");
+            rows.forEach(row => {
+                let text = row.innerText.toLowerCase();
+                row.style.display = text.includes(filter) ? "" : "none";
+            });
+        });
+    </script>
+}

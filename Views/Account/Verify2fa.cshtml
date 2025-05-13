@@ -1,0 +1,447 @@
+﻿@model KhoHang_XNK.Models.Verify2faViewModel
+
+@{
+    Layout = null;
+
+    ViewData["Title"] = "Xác minh hai yếu tố";
+}
+<!DOCTYPE html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>WareTrack - Quản lý kho hàng XNK</title>
+    <meta name="description" content="Hệ thống quản lý kho hàng xuất nhập khẩu chuyên nghiệp" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Place favicon.ico in the root directory -->
+    <!-- ========================= CSS here ========================= -->
+    <link rel="stylesheet" href="~/css/bootstrap-5.0.0-beta1.min.css" />
+    <link rel="stylesheet" href="~/css/LineIcons.2.0.css" />
+    <link rel="stylesheet" href="~/css/tiny-slider.css" />
+    <link rel="stylesheet" href="~/css/animate.css" />
+    <link rel="stylesheet" href="~/css/lindy-uikit.css" />
+    <style>
+        .hero-content-wrapper {
+            margin-top: -250px; /* Thử thêm giá trị âm để kéo lên */
+            padding-top: 0;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- ========================= preloader start ========================= -->
+    <div class="preloader">
+        <div class="loader">
+            <div class="spinner">
+                <div class="spinner-container">
+                    <div class="spinner-rotator">
+                        <div class="spinner-left">
+                            <div class="spinner-circle"></div>
+                        </div>
+                        <div class="spinner-right">
+                            <div class="spinner-circle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ========================= preloader end ========================= -->
+    <!-- ========================= hero-section-wrapper-5 start ========================= -->
+    <section id="home" class="hero-section-wrapper-5">
+
+        <!-- ========================= header-6 start ========================= -->
+        <header class="header header-6">
+            <div class="navbar-area">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-12">
+                            <nav class="navbar navbar-expand-lg">
+                                <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                                    <img src="~/images/logo/logo.png" alt="Logo">
+                                </a>
+
+                                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent6" aria-controls="navbarSupportedContent6" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="toggler-icon"></span>
+                                    <span class="toggler-icon"></span>
+                                    <span class="toggler-icon"></span>
+                                </button>
+
+                                <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent6">
+                                    <ul id="nav6" class="navbar-nav ms-auto">
+                                        <li class="nav-item">
+                                            <a class="page-scroll active" href="index/home">Trang chủ</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="page-scroll" href="index/#feature">Tính năng</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="page-scroll" href="index/#about">Giới thiệu</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="page-scroll" href="index/#pricing">Bảng giá</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="page-scroll" href="index/#contact">Liên hệ</a>
+                                        </li>
+                                    </ul>
+                                    <!-- Phần login đặt ở bên phải -->
+                                    <ul class="navbar-nav">
+                                        <partial name="_LoginPartial" />
+                                    </ul>
+
+                                </div>
+
+                                <div class="header-action d-flex">
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <a class="nav-link" asp-controller="Account" asp-action="Manage"> <i class="lni lni-user"></i> </a>
+                                    }
+
+
+                                </div>
+                                <!-- navbar collapse -->
+                            </nav>
+                            <!-- navbar -->
+                        </div>
+                    </div>
+                    <!-- row -->
+                </div>
+                <!-- container -->
+            </div>
+
+            <!-- navbar area -->
+        </header>
+        <div class="hero-section hero-style-5 img-bg" style="background-image: url('/images/hero/hero-5/hero-bg.svg')">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-6">
+                        <div class="hero-content-wrapper">
+                            <div class="d-flex justify-content-center align-items-center" background-color: #f8f9fa;">
+                                <div class="card shadow-lg" style="max-width: 450px; width: 100%; border-radius: 12px; border: none;">
+                                    <div class="card-header bg-primary text-white text-center py-3" style="border-radius: 12px 12px 0 0;">
+                                        <h4 class="mb-0 fw-bold">
+                                            <i class="fas fa-shield-alt me-2"></i>Xác minh hai yếu tố
+                                        </h4>
+                                    </div>
+                                    <div class="card-body px-4 py-4">
+                                        <div class="text-center mb-4">
+                                            <!-- Biểu tượng Google Authenticator chính thức -->
+                                            <div class="auth-icon-wrapper bg-light-blue rounded-circle d-inline-flex align-items-center justify-content-center p-3 mb-3">
+                                                <img src="~/images/logo/google-authenticator-logo.png"
+                                                     alt="Google Authenticator"
+                                                     style="width: 48px; height: 48px;">
+                                            </div>
+                                            <p class="text-muted mb-2">
+                                                Vui lòng nhập mã xác minh từ ứng dụng
+                                            </p>
+                                            <h5 class="text-primary fw-bold">
+                                                <span class="google-blue">G</span>
+                                                <span class="google-red">o</span>
+                                                <span class="google-yellow">o</span>
+                                                <span class="google-blue">g</span>
+                                                <span class="google-green">l</span>
+                                                <span class="google-red">e</span>
+                                                <span class="ms-2">Authenticator</span>
+                                            </h5>
+                                        </div>
+
+                                        <form method="post" class="mt-4">
+                                            <input asp-for="Email" type="hidden" />
+
+                                            <div class="mb-4">
+                                                <label asp-for="Code" class="form-label fw-bold">Mã xác minh</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text bg-light">
+                                                        <i class="fas fa-key text-primary"></i>
+                                                    </span>
+                                                    <input asp-for="Code" class="form-control form-control-lg"
+                                                           placeholder="Nhập mã 6 chữ số"
+                                                           autocomplete="off"
+                                                           style="letter-spacing: 2px; font-weight: 500;" />
+                                                </div>
+                                                <span asp-validation-for="Code" class="text-danger small mt-1 d-block"></span>
+                                            </div>
+
+                                            <div class="form-check mb-4">
+                                                <input asp-for="RememberMe" class="form-check-input" style="width: 1.2em; height: 1.2em;" />
+                                                <label asp-for="RememberMe" class="form-check-label ms-2">
+                                                    @Html.DisplayNameFor(m => m.RememberMe)
+                                                </label>
+                                            </div>
+
+                                            <div class="d-grid gap-2">
+                                                <button type="submit" class="btn btn-primary btn-lg py-2 fw-bold">
+                                                    <i class="fas fa-check-circle me-2"></i>Xác minh
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6 align-self-end">
+                        <div class="hero-image">
+                            <img src="/images/hero/hero-5/hero-img.svg" alt="Hệ thống quản lý kho">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ========================= header-6 end ========================= -->
+        <!-- ========================= hero-5 start ========================= -->
+        <!-- ========================= hero-5 end ========================= -->
+
+    </section>
+
+
+    <!-- ========================= about style-4 end ========================= -->
+    <section id="contact" class="contact-section contact-style-3">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xxl-5 col-xl-5 col-lg-7 col-md-10">
+                    <div class="section-title text-center mb-50">
+                        <h3 class="mb-15">Liên hệ với chúng tôi</h3>
+                        <p>Để lại thông tin để được tư vấn và hỗ trợ tốt nhất về giải pháp quản lý kho hàng</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="contact-form-wrapper">
+                        <form action="#" method="POST">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="single-input">
+                                        <input type="text" id="name" name="name" class="form-input" placeholder="Họ và tên">
+                                        <i class="lni lni-user"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="single-input">
+                                        <input type="email" id="email" name="email" class="form-input" placeholder="Email">
+                                        <i class="lni lni-envelope"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="single-input">
+                                        <input type="text" id="number" name="number" class="form-input" placeholder="Số điện thoại">
+                                        <i class="lni lni-phone"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="single-input">
+                                        <input type="text" id="subject" name="subject" class="form-input" placeholder="Tiêu đề">
+                                        <i class="lni lni-text-format"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="single-input">
+                                        <textarea name="message" id="message" class="form-input" placeholder="Nội dung" rows="6"></textarea>
+                                        <i class="lni lni-comments-alt"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-button">
+                                        <button type="submit" class="button"> <i class="lni lni-telegram-original"></i> Gửi thông tin</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="left-wrapper">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-6">
+                                <div class="single-item">
+                                    <div class="icon">
+                                        <i class="lni lni-phone"></i>
+                                    </div>
+                                    <div class="text">
+                                        <p>Hotline: 1900 1234</p>
+                                        <p>Hỗ trợ: 0909 123 456</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-6">
+                                <div class="single-item">
+                                    <div class="icon">
+                                        <i class="lni lni-envelope"></i>
+                                    </div>
+                                    <div class="text">
+                                        <p>sales@warehousepro.vn</p>
+                                        <p>support@warehousepro.vn</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-6">
+                                <div class="single-item">
+                                    <div class="icon">
+                                        <i class="lni lni-map-marker"></i>
+                                    </div>
+                                    <div class="text">
+                                        <p>Tòa nhà Techcombank, 23 Lê Duẩn, Quận 1, TP.HCM</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ========================= contact-style-3 end ========================= -->
+    <!-- ========================= clients-logo start ========================= -->
+    <!-- ========================= clients-logo end ========================= -->
+    <!-- ========================= footer style-4 start ========================= -->
+    <footer class="footer footer-style-4">
+        <div class="container">
+            <div class="widget-wrapper">
+                <div class="row">
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="footer-widget wow fadeInUp" data-wow-delay=".2s">
+                            <div class="logo">
+                                <a href="#0"> <img src="~/images/logo/logo.png" alt="" width="173" height="43"> </a>
+                            </div>
+                            <p class="desc">Giải pháp quản lý kho hàng xuất nhập khẩu toàn diện, giúp doanh nghiệp tối ưu hiệu quả hoạt động logistics.</p>
+                            <ul class="socials">
+                                <li> <a href="#0"> <i class="lni lni-facebook-filled"></i> </a> </li>
+                                <li> <a href="#0"> <i class="lni lni-youtube"></i> </a> </li>
+                                <li> <a href="#0"> <i class="lni lni-linkedin-original"></i> </a> </li>
+                                <li> <a href="#0"> <i class="lni lni-zip"></i> </a> </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 offset-xl-1 col-lg-2 col-md-6 col-sm-6">
+                        <div class="footer-widget wow fadeInUp" data-wow-delay=".3s">
+                            <h6>Liên kết nhanh</h6>
+                            <ul class="links">
+                                <li> <a href="#home">Trang chủ</a> </li>
+                                <li> <a href="#feature">Tính năng</a> </li>
+                                <li> <a href="#about">Giới thiệu</a> </li>
+                                <li> <a href="#pricing">Bảng giá</a> </li>
+                                <li> <a href="#contact">Liên hệ</a> </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+                        <div class="footer-widget wow fadeInUp" data-wow-delay=".4s">
+                            <h6>Tài nguyên</h6>
+                            <ul class="links">
+                                <li> <a href="#0">Tài liệu hướng dẫn</a> </li>
+                                <li> <a href="#0">Video demo</a> </li>
+                                <li> <a href="#0">Câu hỏi thường gặp</a> </li>
+                                <li> <a href="#0">Chính sách bảo mật</a> </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-6">
+                        <div class="footer-widget wow fadeInUp" data-wow-delay=".5s">
+                            <h6>Tải ứng dụng</h6>
+                            <ul class="download-app">
+                                <li>
+                                    <a href="#0">
+                                        <span class="icon"><i class="lni lni-apple"></i></span>
+                                        <span class="text">Tải trên <b>App Store</b> </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#0">
+                                        <span class="icon"><i class="lni lni-play-store"></i></span>
+                                        <span class="text">Tải trên <b>Google Play</b> </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright-wrapper wow fadeInUp" data-wow-delay=".2s">
+                <p>© 2023 WarehousePro. Bản quyền thuộc về <a href="#0" rel="nofollow" target="_blank">Công ty CP Công nghệ WarehousePro</a></p>
+            </div>
+        </div>
+    </footer>
+    <!-- ========================= footer style-4 end ========================= -->
+    <!-- ========================= scroll-top start ========================= -->
+    <a href="#" class="scroll-top"> <i class="lni lni-chevron-up"></i> </a>
+    <!-- ========================= scroll-top end ========================= -->
+    <!-- ========================= JS here ========================= -->
+    <script src="~/js/bootstrap-5.0.0-beta1.min.js"></script>
+    <script src="~/js/tiny-slider.js"></script>
+    <script src="~/js/wow.min.js"></script>
+    <script src="~/js/main.js"></script>
+</body>
+</html>
+
+
+
+    <partial name="_ValidationScriptsPartial" />
+    <!-- Thêm Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+    <style>
+        /* Màu sắc Google */
+        .google-blue {
+            color: #4285F4;
+        }
+
+        .google-red {
+            color: #EA4335;
+        }
+
+        .google-yellow {
+            color: #FBBC05;
+        }
+
+        .google-green {
+            color: #34A853;
+        }
+
+        /* Hiệu ứng form */
+        .form-control:focus {
+            border-color: #86b7fe;
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+        }
+
+        /* Nút bấm */
+        .btn-primary {
+            background-color: #0d6efd;
+            border: none;
+            transition: all 0.3s;
+        }
+
+            .btn-primary:hover {
+                background-color: #0b5ed7;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+        /* Biểu tượng xác thực */
+        .bg-light-blue {
+            background-color: #e8f0fe;
+        }
+
+        .auth-icon-wrapper {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+        }
+
+        /* Hiệu ứng card */
+        .card {
+            transition: transform 0.3s;
+        }
+
+            .card:hover {
+                transform: translateY(-5px);
+            }
+    </style>

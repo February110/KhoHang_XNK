@@ -1,0 +1,44 @@
+﻿@model IEnumerable<KhoHang_XNK.Models.TonKho>
+
+@{
+    ViewData["Title"] = "Danh sách tồn kho";
+}
+
+<h1 class="mb-4 text-primary">@ViewData["Title"]</h1>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <input type="text" id="searchInput" class="form-control w-25 rounded-pill shadow-sm border-primary" placeholder="🔍 Tìm kiếm...">
+</div>
+
+<table class="table table-hover table-bordered text-center shadow-sm">
+    <thead class="table-primary">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.KhoHang)</th>
+            <th>@Html.DisplayNameFor(model => model.HangHoa)</th>
+            <th>@Html.DisplayNameFor(model => model.SoLuong)</th>
+            <th>Hanh dong</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.KhoHang.TenKho)</td>
+                <td>@Html.DisplayFor(modelItem => item.HangHoa.TenHangHoa)</td>
+                <td>@Html.DisplayFor(modelItem => item.SoLuong)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-maKho="@item.MaKho" asp-route-maHangHoa="@item.MaHangHoa" class="btn btn-warning btn-sm">
+                        <i class="bi bi-pencil-square"></i> Sửa
+                    </a>
+                    <a asp-action="Details" asp-route-maKho="@item.MaKho" asp-route-maHangHoa="@item.MaHangHoa" class="btn btn-info btn-sm">
+                        <i class="bi bi-eye"></i> Chi tiết
+                    </a>
+                    <a asp-action="Delete" asp-route-maKho="@item.MaKho" asp-route-maHangHoa="@item.MaHangHoa" class="btn btn-danger btn-sm">
+                        <i class="bi bi-trash"></i> Xóa
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

@@ -1,0 +1,30 @@
+﻿@model IEnumerable<KhoHang_XNK.Models.DonXuatHang>
+
+@{
+    ViewData["Title"] = "Danh Sách Đơn Xuất Hàng";
+}
+
+<h2 class="text-primary">Danh Sách Đơn Xuất Hàng</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Mã Đơn Xuất Hàng</th>
+            <th>Ngày Xuất</th>
+            <th>Ghi Chú</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaDonXuat</td>
+                <td>@item.NgayXuat.ToString("dd/MM/yyyy")</td>
+                <a asp-action="ChiTietDonXuat" asp-route-id="@item.MaKhachHang" class="btn btn-danger btn-sm">CT Đơn Hàng</a>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+<a asp-action="Index" class="btn btn-secondary">Quay lại</a>

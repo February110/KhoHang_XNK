@@ -1,0 +1,69 @@
+﻿@model KhoHang_XNK.Models.DonXuatHang
+
+@{
+    ViewData["Title"] = "Chỉnh Sửa Đơn Xuất Hàng";
+}
+
+<h1>Chỉnh Sửa Đơn Xuất Hàng</h1>
+
+<h4>Thông Tin Đơn Xuất Hàng</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <!-- Hidden Field for MaDonXuat -->
+            <input type="hidden" asp-for="MaDonXuat" />
+
+            <!-- Ngày Xuất -->
+            <div class="form-group">
+                <label asp-for="NgayXuat" class="control-label">Ngày Xuất</label>
+                <input asp-for="NgayXuat" class="form-control" type="date" />
+                <span asp-validation-for="NgayXuat" class="text-danger"></span>
+            </div>
+
+            <!-- Khách Hàng -->
+            <div class="form-group">
+                <label asp-for="MaKhachHang" class="control-label">Khách Hàng</label>
+                <select asp-for="MaKhachHang" class="form-control" asp-items="ViewBag.KhachHangs">
+                    <option value="">-- Chọn Khách Hàng --</option>
+                </select>
+                <span asp-validation-for="MaKhachHang" class="text-danger"></span>
+            </div>
+
+            <!-- Nhân Viên -->
+            <div class="form-group">
+                <label asp-for="MaNV" class="control-label">Nhân Viên</label>
+                <select asp-for="MaNV" class="form-control" asp-items="ViewBag.NhanViens">
+                    <option value="">-- Chọn Nhân Viên --</option>
+                </select>
+                <span asp-validation-for="MaNV" class="text-danger"></span>
+            </div>
+
+            <!-- Kho -->
+            <div class="form-group">
+                <label asp-for="MaKho" class="control-label">Kho</label>
+                <select asp-for="MaKho" class="form-control" asp-items="ViewBag.Khos">
+                    <option value="">-- Chọn Kho --</option>
+                </select>
+                <span asp-validation-for="MaKho" class="text-danger"></span>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-group">
+                <input type="submit" value="Lưu Thay Đổi" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Back to List -->
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

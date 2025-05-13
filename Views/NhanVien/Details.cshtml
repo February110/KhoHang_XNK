@@ -1,0 +1,72 @@
+﻿@model NhanVienDetailsViewModel
+
+<h2 class="text-primary">Thông tin Nhân Viên</h2>
+<p><strong>Mã NV:</strong> @Model.NhanVien.MaNV</p>
+<p><strong>Họ Tên:</strong> @Model.NhanVien.HoTen</p>
+
+<h3 class="mt-4 text-success">Đơn Nhập Hàng</h3>
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Mã Đơn</th>
+            <th>Ngày Nhập</th>
+            <th>Nhà Cung Cấp</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var don in Model.DonNhapHangs)
+        {
+            <tr>
+                <td>@don.MaDonNhap</td>
+                <td>@don.NgayNhap.ToShortDateString()</td>
+                <td>@don.NhaCungCap.TenNCC</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3 class="mt-4 text-success">Đơn Xuất Hàng</h3>
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Mã Đơn</th>
+            <th>Ngày Xuất</th>
+            <th>Khách Hàng</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var don in Model.DonXuatHangs)
+        {
+            <tr>
+                <td>@don.MaDonXuat</td>
+                <td>@don.NgayXuat.ToShortDateString()</td>
+                <td>@don.KhachHang.TenKH</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3 class="mt-4 text-success">Phiếu Kiểm Kê</h3>
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Mã Phiếu</th>
+            <th>Ngày Kiểm Kê</th>
+            <th>Kho Hàng</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var phieu in Model.PhieuKiemKes)
+        {
+            <tr>
+                <td>@phieu.MaKiemKe</td>
+                <td>@phieu.NgayKiemKe.ToShortDateString()</td>
+                <td>@phieu.KhoHang.TenKho</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="mt-4">
+    <a asp-action="Index" class="btn btn-secondary btn-lg">Quay lại danh sách</a>
+</div>

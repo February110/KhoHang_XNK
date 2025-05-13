@@ -1,0 +1,39 @@
+﻿@model KhoHang_XNK.Models.LoaiKhachHang
+
+@{
+    ViewData["Title"] = "Create Loại Khách Hàng";
+}
+
+<div class="container mt-4">
+    <h1 class="text-center text-primary">Tạo Loại Khách Hàng Mới</h1>
+    <h4 class="text-center">Nhập thông tin loại khách hàng</h4>
+    <hr />
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="TenLoai" class="form-label">Tên Loại Khách Hàng</label>
+                    <input asp-for="TenLoai" class="form-control" />
+                    <span asp-validation-for="TenLoai" class="text-danger"></span>
+                </div>
+
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Lưu</button>
+                    <a asp-action="Index" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Quay lại</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<!-- Thêm Font Awesome nếu cần -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">

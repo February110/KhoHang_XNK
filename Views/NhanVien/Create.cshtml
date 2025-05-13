@@ -1,0 +1,90 @@
+﻿@model KhoHang_XNK.Models.NhanVien
+
+@{
+    ViewData["Title"] = "Thêm Nhân Viên";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg p-4">
+                <h2 class="text-center text-primary">Thêm Nhân Viên</h2>
+                <hr />
+                <form asp-action="Create" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <!-- Họ Tên -->
+                    <div class="form-group">
+                        <label asp-for="HoTen" class="control-label font-weight-bold"></label>
+                        <input asp-for="HoTen" class="form-control" placeholder="Nhập họ và tên..." />
+                        <span asp-validation-for="HoTen" class="text-danger"></span>
+                    </div>
+
+                    <!-- Ngày Sinh -->
+                    <div class="form-group">
+                        <label asp-for="NgaySinh" class="control-label font-weight-bold"></label>
+                        <input asp-for="NgaySinh" type="date" class="form-control" />
+                        <span asp-validation-for="NgaySinh" class="text-danger"></span>
+                    </div>
+
+                    <!-- Chức Vụ -->
+                    <div class="form-group">
+                        <label asp-for="ChucVu" class="control-label font-weight-bold"></label>
+                        <input asp-for="ChucVu" class="form-control" placeholder="Nhập chức vụ..." />
+                        <span asp-validation-for="ChucVu" class="text-danger"></span>
+                    </div>
+
+                    <!-- Số Điện Thoại -->
+                    <div class="form-group">
+                        <label asp-for="SoDienThoai" class="control-label font-weight-bold"></label>
+                        <input asp-for="SoDienThoai" class="form-control" placeholder="Nhập số điện thoại..." />
+                        <span asp-validation-for="SoDienThoai" class="text-danger"></span>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label font-weight-bold"></label>
+                        <input asp-for="Email" type="email" class="form-control" placeholder="Nhập email..." />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <!-- Kho Hàng (Dropdown) -->
+                    <div class="form-group">
+                        <label asp-for="MaKho" class="control-label font-weight-bold"></label>
+                        <select asp-for="MaKho" class="form-control" asp-items="ViewBag.MaKho">
+                            <option value="">-- Chọn Kho Hàng --</option>
+                        </select>
+                        <span asp-validation-for="MaKho" class="text-danger"></span>
+                    </div>
+
+                    <!-- Ảnh Đại Diện -->
+                    <div class="form-group">
+                        <label asp-for="ImageUrl" class="control-label">Ảnh đại diện</label>
+                        <input type="file" asp-for="ImageUrl" class="form-control" />
+                        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-success btn-lg mt-3">Thêm Nhân Viên</button>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a asp-action="Index" class="btn btn-secondary btn-lg mt-3">Quay lại</a>                            
+                        }
+                        else
+                        {
+                            <a asp-controller="NhanVien" asp-action="IndexUser" class="btn btn-secondary btn-sm">Quay lại danh sách</a>
+                        }
+                        
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

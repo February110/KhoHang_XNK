@@ -1,0 +1,71 @@
+﻿@model KhoHang_XNK.Models.DonNhapHang
+
+@{
+    ViewData["Title"] = "Chỉnh Sửa Đơn Nhập Hàng";
+}
+
+<h2 class="mb-4">Chỉnh Sửa Đơn Nhập Hàng</h2>
+
+<div class="card shadow-sm p-4">
+    <div class="card-body">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger d-none"></div>
+            <input type="hidden" asp-for="MaDonNhap" />
+
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- Ngày nhập -->
+                    <div class="form-group">
+                        <label asp-for="NgayNhap" class="control-label"></label>
+                        <input asp-for="NgayNhap" class="form-control" placeholder="Chọn ngày nhập hàng" type="date" />
+                        <small class="text-danger" asp-validation-for="NgayNhap"></small>
+                    </div>
+
+                    <!-- Nhà cung cấp -->
+                    <div class="form-group">
+                        <label asp-for="MaNCC" class="control-label"></label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-truck"></i></span>
+                            <select asp-for="MaNCC" class="form-control" asp-items="ViewBag.NhaCungCaps"></select>
+                        </div>
+                        <small class="text-danger" asp-validation-for="MaNCC"></small>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <!-- Kho hàng -->
+                    <div class="form-group">
+                        <label asp-for="MaKho" class="control-label"></label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-warehouse"></i></span>
+                            <select asp-for="MaKho" class="form-control" asp-items="ViewBag.Khos"></select>
+                        </div>
+                        <small class="text-danger" asp-validation-for="MaKho"></small>
+                    </div>
+
+                    <!-- Nhân viên -->
+                    <div class="form-group">
+                        <label asp-for="MaNV" class="control-label"></label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            <select asp-for="MaNV" class="form-control" asp-items="ViewBag.NhanViens"></select>
+                        </div>
+                        <small class="text-danger" asp-validation-for="MaNV"></small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nút hành động -->
+            <div class="form-group mt-3">
+                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Lưu</button>
+                <a asp-action="Index" class="btn btn-secondary"><i class="fas fa-times"></i> Hủy</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

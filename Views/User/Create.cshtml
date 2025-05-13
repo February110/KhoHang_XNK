@@ -1,0 +1,65 @@
+﻿@model KhoHang_XNK.Models.KhoHang
+
+@{
+    ViewData["Title"] = "Tạo Kho Hàng Mới";
+}
+
+<h1 class="text-center">Tạo Kho Hàng Mới</h1>
+<hr />
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4>Tạo Kho Hàng Mới</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Create" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <!-- Tên Kho -->
+                    <div class="form-group">
+                        <label asp-for="TenKho" class="control-label">Tên Kho</label>
+                        <input asp-for="TenKho" class="form-control" placeholder="Nhập tên kho" />
+                        <span asp-validation-for="TenKho" class="text-danger"></span>
+                    </div>
+
+                    <!-- Địa Chỉ -->
+                    <div class="form-group">
+                        <label asp-for="DiaChi" class="control-label">Địa Chỉ</label>
+                        <input asp-for="DiaChi" class="form-control" placeholder="Nhập địa chỉ kho" />
+                        <span asp-validation-for="DiaChi" class="text-danger"></span>
+                    </div>
+
+                    <!-- Sức Chứa -->
+                    <div class="form-group">
+                        <label asp-for="SucChua" class="control-label">Sức Chứa</label>
+                        <input asp-for="SucChua" class="form-control" placeholder="Nhập sức chứa kho" />
+                        <span asp-validation-for="SucChua" class="text-danger"></span>
+                    </div>
+
+                    <!-- Ảnh Kho -->
+                    <div class="form-group">
+                        <label asp-for="ImageUrl" class="control-label">Tải Lên Ảnh</label>
+                        <input type="file" asp-for="ImageUrl" class="form-control" />
+                        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <div class="form-group text-center">
+                        <input type="submit" value="Tạo Kho Hàng" class="btn btn-success" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center mt-3">
+    <a asp-action="Index" class="btn btn-secondary">Trở lại danh sách</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

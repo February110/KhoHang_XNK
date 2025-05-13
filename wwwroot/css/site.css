@@ -1,0 +1,185 @@
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+
+/* Bố cục chung */
+#wrapper {
+    display: flex;
+    transition: all 0.3s ease;
+    min-height: 100vh; /* Đảm bảo độ cao đủ cho toàn màn hình */
+}
+
+/* Sidebar */
+#sidebar {
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    background: linear-gradient(180deg, #007bff, #0056b3);
+    color: white;
+    padding: 20px 15px;
+    transition: all 0.3s ease-in-out;
+    overflow-y: auto;
+    font-size: 16px; /* Chữ lớn cho dễ đọc */
+    box-shadow: 4px 0 6px rgba(0, 0, 0, 0.1); /* Để nổi bật thanh sidebar */
+}
+
+    /* Ẩn thanh cuộn trên Chrome, Edge, Safari */
+    #sidebar::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Khi sidebar ẩn hoàn toàn */
+    #sidebar.hidden {
+        width: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+
+/* Tiêu đề sidebar */
+.sidebar-header {
+    text-align: center;
+    padding: 10px 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+    /* Logo tròn */
+    .sidebar-header img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid white;
+        margin-bottom: 15px;
+    }
+
+/* Danh sách menu */
+#sidebar ul {
+    padding: 0;
+    list-style: none;
+}
+
+    /* Mục menu */
+    #sidebar ul li {
+        padding: 12px 18px;
+    }
+
+        /* Các liên kết trong menu */
+        #sidebar ul li a {
+            color: white;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background 0.3s, padding-left 0.2s;
+        }
+
+            /* Icon sidebar */
+            #sidebar ul li a span {
+                width: 30px;
+                text-align: center;
+                font-size: 1.4rem;
+            }
+
+            /* Hiệu ứng hover */
+            #sidebar ul li a:hover {
+                background: rgba(255, 255, 255, 0.2);
+                padding-left: 20px;
+            }
+
+        /* Làm nổi bật menu được chọn */
+        #sidebar ul li.active a {
+            background: white;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+/* Nội dung chính */
+#content {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+    transition: all 0.3s ease-in-out;
+    padding-top: 60px; /* Đảm bảo nội dung không bị che khuất bởi navbar */
+}
+
+    /* Khi sidebar ẩn, nội dung căn giữa */
+    #content.full-width {
+        margin-left: 0;
+        width: 100%;
+    }
+
+/* Navbar */
+
+/* Navbar */
+.navbar {
+    border-bottom: 1px solid #ddd;
+    z-index: 10; /* Đặt navbar lên trên cùng so với các phần tử khác */
+    position: fixed; /* Navbar cố định ở trên cùng */
+    top: 0;
+    left: 0; /* Đặt navbar ở đầu trang, không lệch */
+    width: 100%; /* Chiếm toàn bộ chiều rộng màn hình */
+    background-color: #fff;
+    padding: 15px 20px; /* Thêm padding cho navbar */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Bóng đổ cho navbar */
+    transition: width 0.3s ease-in-out;
+}
+
+/* Khi sidebar ẩn, navbar vẫn chiếm toàn bộ chiều rộng */
+#sidebar.hidden + #content .navbar {
+    width: 100%; /* Navbar chiếm toàn bộ chiều rộng màn hình khi sidebar ẩn */
+}
+
+/* Khi sidebar không ẩn, navbar sẽ chỉ chiếm chiều rộng còn lại */
+#sidebar:not(.hidden) + #content .navbar {
+    width: calc(100% - 250px); /* Navbar tràn qua bên phải thanh sidebar */
+    left: 250px; /* Đặt vị trí navbar tràn qua sidebar */
+}
+
+
+/* Nút menu toggle */
+#menu-toggle {
+    cursor: pointer;
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: #007bff;
+    padding: 0;
+    margin-left: 10px;
+}
+
+/* Responsive: Khi màn hình nhỏ */
+@media (max-width: 768px) {
+    #sidebar {
+        width: 200px; /* Rút ngắn chiều rộng sidebar */
+    }
+
+    #content {
+        margin-left: 200px;
+        width: calc(100% - 200px);
+    }
+
+        /* Khi sidebar ẩn trên màn hình nhỏ, nội dung tràn toàn bộ */
+        #content.full-width {
+            margin-left: 0;
+            width: 100%;
+        }
+}

@@ -1,0 +1,193 @@
+﻿@model KhoHang_XNK.Models.KhoHang
+
+@{
+    ViewData["Title"] = "Tạo Kho Hàng Mới";
+}
+
+<!--Sidebar-->
+<div class="sidebar transition overlay-scrollbars animate__animated  animate__slideInLeft">
+	<div class="sidebar-content">
+		<div id="sidebar">
+
+			<!-- Logo -->
+			<div class="logo">
+				<h2 class="mb-0"><img src="#"> WareTrack</h2>
+			</div>
+
+			<ul class="side-menu">
+				<li>
+					<a href="index.html" class="active">
+						<i class='bx bxs-dashboard icon'></i> Kho Hàng
+					</a>
+				</li>
+
+				<!-- Divider-->
+				<li class="divider" data-text="STARTER">Quản lý Hàng hóa</li>
+
+				<li>
+					<a href="blank-pages.html">
+						<i class='bx bx-columns icon'></i>
+						Hàng Hóa
+					</a>
+				</li>
+
+				<li>
+					<a href="blank-pages.html">
+						<i class='bx bxs-meh-blank icon'></i>
+						Loại Hàng Hóa
+					</a>
+				</li>
+
+				<li>
+					<a href="blank-pages.html">
+						<i class='fa fa-th icon'></i>
+						Tồn Kho
+					</a>
+				</li>
+
+				<!-- Divider-->
+				<li class="divider" data-text="Atrana">Quản lý Nhân sự và Khách hàng</li>
+
+				<li>
+					<a href="#">
+						<i class='bx bxs-user icon'></i>
+						Nhân Viên
+					</a>
+				</li>
+
+				<li>
+					<a href="#">
+						<i class='bx bxs-notepad icon'></i>
+						Khách Hàng
+					</a>
+				</li>
+
+				<li>
+					<a href="#">
+						<i class='bx bxs-widget icon'></i>
+						Loại Khách Hàng
+					</a>
+				</li>
+
+				<!-- Divider-->
+				<li class="divider" data-text="Pages">Quản lý Nhà cung cấp</li>
+				<li>
+					<a href="credits.html">
+						<i class='fa fa-pencil-ruler icon'></i>
+						Nhà Cung Cấp
+					</a>
+				</li>
+
+				<!-- Divider-->
+				<li class="divider" data-text="Pages">Quản lý Nhà cung cấp</li>
+				<li>
+					<a href="#">
+						<i class='bx bxs-notepad icon'></i>
+						Đơn Nhập Hàng
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<i class='bx bxs-notepad icon'></i>
+						Đơn Xuất Hàng
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<i class='bx bxs-notepad icon'></i>
+						Phiếu Kiểm Kê
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<i class="bx bxs-bar-chart-alt-2 icon"></i>
+						Thông Kê Doanh Thu
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+	</div>
+<!-- End Sidebar-->
+
+
+<div class="sidebar-overlay"></div>
+
+<!--Content Start-->
+<div class="content-start transition">
+
+	<div class="container-fluid dashboard">
+		<div class="content-header">
+			<h1>Tạo Kho Hàng Mới</h1>
+			<p></p>
+		</div>
+
+		<div class="row">
+
+			<div class="col-md-12">
+				<div class="card">
+					<div class="row justify-content-center">
+						<div class="col-md-8">
+							<div class="card">
+								<div class="card-header bg-primary text-white">
+									<h4></h4>
+								</div>
+								<div class="card-body">
+									<form asp-action="Create" enctype="multipart/form-data">
+										<div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+										<!-- Tên Kho -->
+										<div class="form-group">
+											<label asp-for="TenKho" class="control-label">Tên Kho</label>
+											<input asp-for="TenKho" class="form-control" placeholder="Nhập tên kho" />
+											<span asp-validation-for="TenKho" class="text-danger"></span>
+										</div>
+
+										<!-- Địa Chỉ -->
+										<div class="form-group">
+											<label asp-for="DiaChi" class="control-label">Địa Chỉ</label>
+											<input asp-for="DiaChi" class="form-control" placeholder="Nhập địa chỉ kho" />
+											<span asp-validation-for="DiaChi" class="text-danger"></span>
+										</div>
+
+										<!-- Sức Chứa -->
+										<div class="form-group">
+											<label asp-for="SucChua" class="control-label">Sức Chứa</label>
+											<input asp-for="SucChua" class="form-control" placeholder="Nhập sức chứa kho" />
+											<span asp-validation-for="SucChua" class="text-danger"></span>
+										</div>
+
+										<!-- Ảnh Kho -->
+										<div class="form-group">
+											<label asp-for="ImageUrl" class="control-label">Tải Lên Ảnh</label>
+											<input type="file" asp-for="ImageUrl" class="form-control" />
+											<span asp-validation-for="ImageUrl" class="text-danger"></span>
+										</div>
+										<br />
+										<div class="form-group text-center">
+											<input type="submit" value="Tạo Kho Hàng" class="btn btn-success" />
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="text-center mt-3">
+						<a asp-action="Index" class="btn btn-secondary">Trở lại danh sách</a>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,209 @@
+﻿ @using Microsoft.AspNetCore.Identity
+ @using KhoHang_XNK.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+<!doctype html>
+<html lang="en">
+<head>
+
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<title>Quản Lý Kho Hàng - XNK</title>
+
+	<!-- Bootstrap CSS-->
+	@* <link rel="stylesheet" href="~/assets/modules/bootstrap-5.1.3/css/bootstrap.css"> *@
+	<!-- Style CSS -->
+	<link rel="stylesheet" href="~/assets/css/style.css">
+	@* <!-- FontAwesome CSS--> *@
+	@* <link rel="stylesheet" href="~/assets/modules/fontawesome6.1.1/css/all.css"> *@
+	@* <!-- Boxicons CSS--> *@
+	@* <link rel="stylesheet" href="~/assets/modules/boxicons/css/boxicons.min.css"> *@
+	@* <!-- Apexcharts  CSS --> *@
+	@* <link rel="stylesheet" href="~/assets/modules/apexcharts/apexcharts.css"> *@
+</head>
+<body>
+
+	<!--Topbar -->
+	<div class="topbar transition d-flex justify-content-between align-items-center px-3">
+		<!-- Bên trái: Nút mở sidebar + tìm kiếm -->
+		<div class="d-flex align-items-center">
+			<!-- Nút mở sidebar -->
+			<div class="bars me-3">
+				<button type="button" class="btn transition" id="sidebar-toggle">
+					<i class="fa fa-bars"></i>
+				</button>
+			</div>
+
+			<!-- Ô tìm kiếm -->
+			<div class="search-form">
+				<form class="d-flex align-items-center" role="search">
+					<input class="form-control form-control-sm search-input" type="search" placeholder="Nhập để tìm kiếm..." aria-label="Search" style="width: 300px;">
+					<button class="btn btn-sm btn-primary ms-2" type="submit">
+						<i class="fa fa-search"></i>
+					</button>
+				</form>
+			</div>
+		</div>
+
+		<!-- Bên phải: Thông báo + avatar -->
+		<div class="menu d-flex align-items-center">
+			<ul class="d-flex align-items-center m-0">
+				<li class="nav-item dropdown dropdown-list-toggle">
+					<a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						<i class="fa fa-bell size-icon-1"></i><span class="badge bg-danger notif">4</span>
+					</a>
+					<div class="dropdown-menu dropdown-list">
+						<div class="dropdown-header">Notifications</div>
+						<div class="dropdown-list-content dropdown-list-icons">
+							<div class="custome-list-notif">
+								<a href="#" class="dropdown-item dropdown-item-unread">
+									<div class="dropdown-item-icon bg-primary text-white">
+										<i class="fas fa-code"></i>
+									</div>
+									<div class="dropdown-item-desc">
+										The Atrana template has the latest update!
+										<div class="time text-primary">3 Min Ago</div>
+									</div>
+								</a>
+
+								<a href="#" class="dropdown-item">
+									<div class="dropdown-item-icon bg-info text-white">
+										<i class="far fa-user"></i>
+									</div>
+									<div class="dropdown-item-desc">
+										Sri asks you for friendship!
+										<div class="time">12 Hours Ago</div>
+									</div>
+								</a>
+
+								<a href="#" class="dropdown-item">
+									<div class="dropdown-item-icon bg-danger text-white">
+										<i class="fas fa-check"></i>
+									</div>
+									<div class="dropdown-item-desc">
+										Storage has been cleared, now you can get back to work!
+										<div class="time">20 Hours Ago</div>
+									</div>
+								</a>
+
+
+								<a href="#" class="dropdown-item">
+									<div class="dropdown-item-icon bg-info text-white">
+										<i class="fas fa-bell"></i>
+									</div>
+									<div class="dropdown-item-desc">
+										Welcome to Atrana Template, I hope you enjoy using this template!
+										<div class="time">Yesterday</div>
+									</div>
+								</a>
+
+							</div>
+						</div>
+
+						<div class="dropdown-footer text-center">
+							<a href="#">View All</a>
+						</div>
+				</li>
+				@if (SignInManager.IsSignedIn(User))
+				{
+					<span class="ms-3" style="color: black;">@UserManager.GetUserName(User)</span>
+
+				}
+				<li class="nav-item dropdown ms-3">
+					<a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						<img src="~/assets/images/avatar/avatar-1.png" alt="">
+
+					</a>
+
+
+					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="my-profile.html"><i class="fa fa-user size-icon-1"></i> <span>My Profile</span></a>
+						<a class="dropdown-item" href="settings.html"><i class="fa fa-cog size-icon-1"></i> <span>Settings</span></a>
+						<hr class="dropdown-divider">
+						<a class="dropdown-item" href="#"><i class="fa fa-sign-out-alt size-icon-1"></i> <span>Logout</span></a>
+					</ul>
+				
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- End Topbar -->
+
+	@RenderBody();
+
+
+	<!-- Footer -->
+	<footer>
+		<div class="footer">
+			<div class="float-start">
+				<p>2025 &copy; AnhTai</p>
+			</div>
+			<div class="float-end">
+			</div>
+		</div>
+	</footer>
+
+
+	<!-- Preloader -->
+	<div class="loader">
+		<div class="spinner-border text-light" role="status">
+			<span class="sr-only">Loading...</span>
+		</div>
+	</div>
+
+	<!-- Loader -->
+	<div class="loader-overlay"></div>
+
+	<!-- General JS Scripts -->
+	<script src="~/assets/js/atrana.js"></script>
+
+	<!-- JS Libraies -->
+	<script src="~/assets/modules/jquery/jquery.min.js"></script>
+	<script src="~/assets/modules/bootstrap-5.1.3/js/bootstrap.bundle.min.js"></script>
+	<script src="~/assets/modules/popper/popper.min.js"></script>
+
+	<!-- Chart Js -->
+	<script src="~/assets/modules/apexcharts/apexcharts.js"></script>
+	<script src="~/assets/js/ui-apexcharts.js"></script>
+
+	<!-- Template JS File -->
+	<script src="~/assets/js/script.js"></script>
+	<script src="~/assets/js/custom.js"></script>
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
+@* @if (User.IsInRole("Admin")) *@
+@* { *@
+@*     <li><a asp-controller="KhoHang" asp-action="Index"><span>🏠</span> Kho Hàng</a></li> *@
+@*     <li><a asp-controller="HangHoa" asp-action="Index"><span>📦</span> Hàng hóa</a></li> *@
+@*     <li><a asp-controller="LoaiHangHoa" asp-action="Index"><span>📁</span> Loại Hàng hóa</a></li> *@
+@*     <li><a asp-controller="TonKho" asp-action="Index"><span>📊</span> Tồn kho</a></li> *@
+@*     <li><a asp-controller="NhanVien" asp-action="Index"><span>👨‍💼</span> Nhân Viên</a></li> *@
+@*     <li><a asp-controller="KhachHang" asp-action="Index"><span>🧑‍🤝‍🧑</span> Khách Hàng</a></li> *@
+@*     <li><a asp-controller="LoaiKhachHang" asp-action="Index"><span>🔖</span> Loại Khách Hàng</a></li> *@
+@*     <li><a asp-controller="NhaCungCap" asp-action="Index"><span>🏭</span> Nhà Cung Cấp</a></li> *@
+@*     <li><a asp-controller="DonNhapHang" asp-action="Index"><span>📥</span> Đơn Nhập Hàng</a></li> *@
+@*     <li><a asp-controller="DonXuatHang" asp-action="Index"><span>📤</span> Đơn Xuất Hàng</a></li> *@
+@*     <li><a asp-controller="PhieuKiemKe" asp-action="Index"><span>📜</span> Phiếu Kiểm Kê</a></li> *@
+@* } *@
+@* else *@
+@* { *@
+@*     <li><a asp-controller="User" asp-action="Index"><span>🏠</span> Kho Hàng</a></li> *@
+@*     <li><a asp-controller="User" asp-action="Index"><span>📦</span> Hàng hóa</a></li> *@
+@*     <li><a asp-controller="User" asp-action="Index"><span>📁</span> Loại Hàng hóa</a></li> *@
+@*     <li><a asp-controller="User" asp-action="Index"><span>📊</span> Tồn kho</a></li> *@
+@*     <li><a asp-controller="User" asp-action="Index"><span>👨‍💼</span> Nhân Viên</a></li> *@
+@*     <li><a asp-controller="User" asp-action="Index"><span>🧑‍🤝‍🧑</span> Khách Hàng</a></li> *@
+@*     <li><a asp-controller="User" asp-action="Index"><span>🔖</span> Loại Khách Hàng</a></li> *@
+@*     <li><a asp-controller="User" asp-action="Index"><span>🏭</span> Nhà Cung Cấp</a></li> *@
+@*     <li><a asp-controller="User" asp-action="Index"><span>📥</span> Đơn Nhập Hàng</a></li> *@
+@*     <li><a asp-controller="User" asp-action="Index"><span>📤</span> Đơn Xuất Hàng</a></li> *@
+@*     <li><a asp-controller="User" asp-action="Index"><span>📜</span> Phiếu Kiểm Kê</a></li> *@
+@* } *@
+

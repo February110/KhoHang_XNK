@@ -1,0 +1,59 @@
+﻿@model KhoHang_XNK.Models.ChiTietPhieuKiemKe
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Chỉnh sửa thông tin chi tiết phiếu kiểm kê</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- MaKiemKe Drop-down (disabled) -->
+            <div class="form-group">
+                <label asp-for="MaKiemKe" class="control-label"></label>
+                <select asp-for="MaKiemKe" class="form-control" asp-items="ViewBag.MaKiemKe" disabled></select>
+                <span asp-validation-for="MaKiemKe" class="text-danger"></span>
+            </div>
+
+            <!-- MaHangHoa Drop-down (disabled) -->
+            <div class="form-group">
+                <label asp-for="MaHangHoa" class="control-label"></label>
+                <select asp-for="MaHangHoa" class="form-control" asp-items="ViewBag.MaHangHoa" disabled></select>
+                <span asp-validation-for="MaHangHoa" class="text-danger"></span>
+            </div>
+
+            <!-- SoLuongThucTe Input -->
+            <div class="form-group">
+                <label asp-for="SoLuongThucTe" class="control-label"></label>
+                <input asp-for="SoLuongThucTe" class="form-control" />
+                <span asp-validation-for="SoLuongThucTe" class="text-danger"></span>
+            </div>
+
+            <!-- SoLuongChenhLech Input -->
+            <div class="form-group">
+                <label asp-for="SoLuongChenhLech" class="control-label"></label>
+                <input asp-for="SoLuongChenhLech" class="form-control" />
+                <span asp-validation-for="SoLuongChenhLech" class="text-danger"></span>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-group">
+                <input type="submit" value="Lưu thay đổi" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Trở lại</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

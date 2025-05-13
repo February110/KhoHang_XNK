@@ -1,0 +1,48 @@
+﻿@model KhoHang_XNK.Models.DonNhapHang
+
+@{
+    ViewData["Title"] = "Xóa Đơn Nhập Hàng";
+}
+
+<h1 class="text-danger">Xóa Đơn Nhập Hàng</h1>
+
+<h3 class="text-warning">Bạn có chắc chắn muốn xóa đơn nhập hàng này không?</h3>
+
+<div class="card mt-4">
+    <div class="card-body">
+        <h4 class="card-title">Thông Tin Đơn Nhập</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-3 font-weight-bold">Ngày Nhập:</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.NgayNhap)</dd>
+
+            <dt class="col-sm-3 font-weight-bold">Nhà Cung Cấp:</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.NhaCungCap.TenNCC)</dd>
+
+            <dt class="col-sm-3 font-weight-bold">Kho Hàng:</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.KhoHang.TenKho)</dd>
+
+            <dt class="col-sm-3 font-weight-bold">Nhân Viên:</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.NhanVien.HoTen)</dd>
+        </dl>
+    </div>
+</div>
+
+<form asp-action="Delete" onsubmit="return confirmDelete()">
+    <input type="hidden" asp-for="MaDonNhap" />
+
+    <div class="mt-3">
+        <button type="submit" class="btn btn-danger">
+            <i class="fas fa-trash-alt"></i> Xóa
+        </button>
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Quay lại danh sách
+        </a>
+    </div>
+</form>
+
+<script>
+    function confirmDelete() {
+        return confirm("Bạn có chắc chắn muốn xóa đơn nhập hàng này? Hành động này không thể hoàn tác!");
+    }
+</script>

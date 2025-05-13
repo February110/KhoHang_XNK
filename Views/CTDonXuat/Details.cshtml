@@ -1,0 +1,48 @@
+﻿@model KhoHang_XNK.Models.ChiTietDonXuat
+
+@{
+    ViewData["Title"] = "Chi tiết đơn xuất";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <h4>Thông tin chi tiết đơn xuất</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SoLuong)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SoLuong)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DonGia)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DonGia)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DonXuatHang)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DonXuatHang.MaDonXuat)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.HangHoa)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.HangHoa.TenHangHoa)
+        </dd>
+    </dl>
+</div>
+
+<div class="mt-3">
+    <!-- Edit Link -->
+    @Html.ActionLink("Chỉnh sửa", "Edit", new { id = Model.MaDonXuat }) |
+    <!-- Back to List Link -->
+    <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
+</div>

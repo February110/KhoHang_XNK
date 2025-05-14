@@ -134,7 +134,7 @@
             <div class="row">
                 <div class="col-md-6 mb-4">
                     <div class="card h-100">
-                        <div class="card-header bg-primary text-white">
+                        <div class="alert alert-info">
                             <h5 class="card-title mb-0">Doanh thu nhập hàng</h5>
                         </div>
                         <div class="card-body">
@@ -146,12 +146,30 @@
                 </div>
                 <div class="col-md-6 mb-4">
                     <div class="card h-100">
-                        <div class="card-header bg-success text-white">
+                        <div class="alert alert-info">
                             <h5 class="card-title mb-0">Doanh thu xuất hàng</h5>
                         </div>
                         <div class="card-body">
                             <div class="chart-container" style="height: 300px;">
                                 <canvas id="xuatHangChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Thêm biểu đồ lãi suất -->
+                <div class="col-md-12 mb-4">
+                    <!-- Dùng col-12 để chiều rộng đầy đủ -->
+                    <div class="card h-100">
+                        <div class="card-header bg-warning text-dark">
+                            <h5 class="card-title mb-0">
+                                <i class="fas fa-percentage"></i> Lãi suất
+                               
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container" style="height: 350px;">
+                                <!-- Cao hơn 1 chút -->
+                                <canvas id="laiSuatChart"></canvas>
                             </div>
                         </div>
                     </div>
@@ -167,19 +185,25 @@
     </div>
 </div>
 
-
-
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+        // Khai báo biến toàn cục để lưu trữ các chart
+        let nhapHangChart, xuatHangChart, laiSuatChart;
+
         document.addEventListener('DOMContentLoaded', function() {
             // Lấy dữ liệu từ Model
             var nhapHangData = @Html.Raw(Json.Serialize(Model.DoanhThuNhapHang));
             var xuatHangData = @Html.Raw(Json.Serialize(Model.DoanhThuXuatHang));
 
-            // Vẽ biểu đồ
-            renderChart('nhapHangChart', nhapHangData, 'Doanh thu nhập hàng', '#36a2eb');
-            renderChart('xuatHangChart', xuatHangData, 'Doanh thu xuất hàng', '#4bc0c0');
+            // Tính toán lãi suất từ dữ liệu nhập/xuất
+            var laiSuatData = calculateLaiSuat(nhapHangData, xuatHangData);
+
+            // Vẽ các biểu đồ
+            nhapHangChart = renderBarChart('nhapHangChart', nhapHangData, 'Doanh thu nhập hàng', '#36a2eb', 'VND');
+            xuatHangChart = renderBarChart('xuatHangChart', xuatHangData, 'Doanh thu xuất hàng', '#4bc0c0', 'VND');
+            laiSuatChart = renderLineChart('laiSuatChart', laiSuatData, 'Lãi suất', '#ff9800', '%');
+
 
             // Xử lý in biểu đồ
             document.getElementById('printButton').addEventListener('click', function() {
@@ -187,20 +211,38 @@
             });
         });
 
+        // Hàm tính toán lãi suất từ dữ liệu nhập/xuất
+        function calculateLaiSuat(nhapHangData, xuatHangData) {
+            // Tạo dictionary từ dữ liệu xuất hàng để tra cứu nhanh
+            const xuatHangDict = {};
+            xuatHangData.forEach(item => {
+                const key = `${item.thang}_${item.nam}`;
+                xuatHangDict[key] = item.tongTien;
+            });
 
-        function renderChart(chartId, data, title, color) {
+            // Tính toán lãi suất
+            return nhapHangData.map(item => {
+                const key = `${item.thang}_${item.nam}`;
+                const doanhThuXuat = xuatHangDict[key] || 0;
+                const laiSuat = doanhThuXuat !== 0 
+                    ? ((doanhThuXuat - item.tongTien) / doanhThuXuat * 100)
+                    : 0;
+                    
+                return {
+                    thang: item.thang,
+                    nam: item.nam,
+                    laiSuat: parseFloat(laiSuat.toFixed(2)) // Làm tròn 2 chữ số
+                };
+            });
+        }
+
+        // Hàm vẽ biểu đồ cột (cho doanh thu)
+        function renderBarChart(chartId, data, title, color, unit) {
             var ctx = document.getElementById(chartId);
+            var labels = data.map(item => `${item.thang}/${item.nam}`);
+            var values = data.map(item => item.tongTien);
 
-            // Chuẩn bị dữ liệu
-            var labels = data.map(function(item) {
-                return item.thang + '/' + item.nam;
-            });
-
-            var values = data.map(function(item) {
-                return item.tongTien;
-            });
-
-            new Chart(ctx, {
+            return new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: labels,
@@ -212,33 +254,94 @@
                         borderWidth: 1
                     }]
                 },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: true,
-                            position: 'top'
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return context.parsed.y.toLocaleString('vi-VN') + ' VND';
-                                }
+                options: getChartOptions(title, unit)
+            });
+        }
+
+        // Hàm vẽ biểu đồ đường (cho lãi suất)
+        function renderLineChart(chartId, data, title, color, unit) {
+            var ctx = document.getElementById(chartId);
+            var labels = data.map(item => `${item.thang}/${item.nam}`);
+            var values = data.map(item => item.laiSuat);
+
+            return new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: title,
+                        data: values,
+                        borderColor: color,
+                        backgroundColor: color.replace(')', ', 0.1)'),
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: true,
+                        pointBackgroundColor: color,
+                        pointRadius: 4
+                    }]
+                },
+                options: getChartOptions(title, unit)
+            });
+        }
+
+        // Cấu hình chung cho biểu đồ
+        function getChartOptions(title, unit) {
+            return {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: title,
+                        font: { size: 16 }
+                    },
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return unit === '%' 
+                                    ? `${context.parsed.y.toFixed(2)}%`
+                                    : `${context.parsed.y.toLocaleString('vi-VN')} ${unit}`;
                             }
                         }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                callback: function(value) {
-                                    return value.toLocaleString('vi-VN') + ' VND';
-                                }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: unit !== '%',
+                        ticks: {
+                            callback: function(value) {
+                                return unit === '%' 
+                                    ? value + '%'
+                                    : value.toLocaleString('vi-VN') + ' ' + unit;
                             }
                         }
                     }
                 }
+            };
+        }
+
+        // Hàm chuyển đổi chart thành hình ảnh
+        function getChartImage(chart) {
+            return new Promise((resolve) => {
+                const canvas = document.createElement('canvas');
+                canvas.width = chart.canvas.width;
+                canvas.height = chart.canvas.height;
+                
+                const tempChart = new Chart(canvas, {
+                    type: chart.config.type,
+                    data: JSON.parse(JSON.stringify(chart.config.data)),
+                    options: chart.config.options
+                });
+                
+                setTimeout(() => {
+                    const image = tempChart.toBase64Image();
+                    tempChart.destroy();
+                    resolve(image);
+                }, 500);
             });
         }
     </script>

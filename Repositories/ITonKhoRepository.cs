@@ -14,5 +14,6 @@ namespace KhoHang_XNK.Repositories
         Task<IEnumerable<object>> GetHangHoaAndTonKhoByMaKhoAsync(int maKho);
 
         Task<IEnumerable<HangHoa>>? GetHangHoasByMaKhoAsync(int maKho);
+        Task<TonKho> GetByMaHangHoa(int maHangHoa);
     }
 }

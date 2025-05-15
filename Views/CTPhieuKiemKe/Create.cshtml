@@ -14,7 +14,7 @@
             <!-- Mã Kiểm Kê -->
             <div class="mb-3">
                 <label asp-for="MaKiemKe" class="form-label fw-bold">Mã Kiểm Kê</label>
-                <select asp-for="MaKiemKe" class="form-select" asp-items="ViewBag.MaKiemKe">
+                <select asp-for="MaKiemKe" class="form-select" asp-items="ViewBag.MaKiemKe" id="maKiemKeSelect">
                     <option value="">-- Chọn Mã Kiểm Kê --</option>
                 </select>
                 <span asp-validation-for="MaKiemKe" class="text-danger"></span>
@@ -23,23 +23,30 @@
             <!-- Mã Hàng Hóa -->
             <div class="mb-3">
                 <label asp-for="MaHangHoa" class="form-label fw-bold">Mã Hàng Hóa</label>
-                <select asp-for="MaHangHoa" class="form-select" asp-items="ViewBag.MaHangHoa">
+                <select asp-for="MaHangHoa" class="form-select" asp-items="ViewBag.MaHangHoa" id="maHangHoaSelect">
                     <option value="">-- Chọn Hàng Hóa --</option>
                 </select>
                 <span asp-validation-for="MaHangHoa" class="text-danger"></span>
             </div>
 
+            <!-- Số Lượng Tồn Kho (chỉ đọc) -->
+            <div class="mb-3">
+                <label class="form-label fw-bold">Số Lượng Tồn Kho</label>
+                <input type="number" class="form-control" id="soLuongTonKho" readonly />
+            </div>
+
             <!-- Số Lượng Thực Tế -->
             <div class="mb-3">
                 <label asp-for="SoLuongThucTe" class="form-label fw-bold">Số Lượng Thực Tế</label>
-                <input asp-for="SoLuongThucTe" class="form-control" placeholder="Nhập số lượng thực tế" />
+                <input asp-for="SoLuongThucTe" class="form-control" id="soLuongThucTe"
+                       placeholder="Nhập số lượng thực tế" />
                 <span asp-validation-for="SoLuongThucTe" class="text-danger"></span>
             </div>
 
-            <!-- Số Lượng Chênh Lệch -->
+            <!-- Số Lượng Chênh Lệch (chỉ đọc) -->
             <div class="mb-3">
                 <label asp-for="SoLuongChenhLech" class="form-label fw-bold">Số Lượng Chênh Lệch</label>
-                <input asp-for="SoLuongChenhLech" class="form-control" placeholder="Nhập số lượng chênh lệch" />
+                <input asp-for="SoLuongChenhLech" class="form-control" id="soLuongChenhLech" readonly />
                 <span asp-validation-for="SoLuongChenhLech" class="text-danger"></span>
             </div>
 
@@ -57,7 +64,49 @@
 </div>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+
+    <script>
+        $(document).ready(function() {
+            // Lắng nghe sự kiện thay đổi của dropdown hàng hóa
+            $('#maHangHoaSelect').change(function() {
+                var maHangHoa = $(this).val();
+                var maKiemKe = $('#maKiemKeSelect').val();
+
+                if (maHangHoa && maKiemKe) {
+                    // Gọi API để lấy số lượng tồn kho
+                    $.get('/ChiTietPhieuKiemKe/GetSoLuongTonKho', {
+                        maKho: maKiemKe, // Giả sử mã kiểm kê chính là mã kho
+                        maHangHoa: maHangHoa
+                    }, function(data) {
+                        $('#soLuongTonKho').val(data.soLuongTon);
+                        calculateChenhLech();
+                    });
+                }
+            });
+
+            // Lắng nghe sự kiện thay đổi số lượng thực tế
+            $('#soLuongThucTe').on('input', function() {
+                calculateChenhLech();
+            });
+
+            // Hàm tính toán chênh lệch
+            function calculateChenhLech() {
+                var soLuongTon = parseInt($('#soLuongTonKho').val()) || 0;
+                var soLuongThucTe = parseInt($('#soLuongThucTe').val()) || 0;
+                var chenhLech = soLuongThucTe - soLuongTon;
+
+                $('#soLuongChenhLech').val(chenhLech);
+
+                // Đổi màu nếu cần
+                if (chenhLech > 0) {
+                    $('#soLuongChenhLech').removeClass('text-danger').addClass('text-warning');
+                } else if (chenhLech < 0) {
+                    $('#soLuongChenhLech').removeClass('text-warning').addClass('text-danger');
+                } else {
+                    $('#soLuongChenhLech').removeClass('text-danger text-warning');
+                }
+            }
+        });
+    </script>
 }

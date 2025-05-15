@@ -4315,3 +4315,11 @@ D:\KhoHang_XNK\KhoHang_XNK\obj\Debug\net9.0\compressed\x2wevpz356-hcerk5whas.gz
 D:\KhoHang_XNK\KhoHang_XNK\obj\Debug\net9.0\compressed\1zsmy0187x-g87wm0aulg.gz
 D:\KhoHang_XNK\KhoHang_XNK\obj\Debug\net9.0\compressed\x6rg9bo8lb-nu5lza4xt2.gz
 D:\KhoHang_XNK\KhoHang_XNK\obj\Debug\net9.0\compressed\uba3vc6ncz-0sghsm7od2.gz
+D:\KhoHang_XNK\KhoHang_XNK\bin\Debug\net9.0\ClosedXML.dll
+D:\KhoHang_XNK\KhoHang_XNK\bin\Debug\net9.0\ClosedXML.Parser.dll
+D:\KhoHang_XNK\KhoHang_XNK\bin\Debug\net9.0\DocumentFormat.OpenXml.dll
+D:\KhoHang_XNK\KhoHang_XNK\bin\Debug\net9.0\DocumentFormat.OpenXml.Framework.dll
+D:\KhoHang_XNK\KhoHang_XNK\bin\Debug\net9.0\ExcelNumberFormat.dll
+D:\KhoHang_XNK\KhoHang_XNK\bin\Debug\net9.0\RBush.dll
+D:\KhoHang_XNK\KhoHang_XNK\bin\Debug\net9.0\SixLabors.Fonts.dll
+D:\KhoHang_XNK\KhoHang_XNK\bin\Debug\net9.0\System.IO.Packaging.dll

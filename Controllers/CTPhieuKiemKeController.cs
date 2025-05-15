@@ -47,6 +47,13 @@ namespace KhoHang_XNK.Controllers
         }
 
 
+        [HttpGet]
+        public async Task<IActionResult> GetSoLuongTonKho(int maKho, int maHangHoa)
+        {
+            var tonKho = await _tonKhoRepository.GetByMaHangHoa(maHangHoa);
+            return Json(new { soLuongTon = tonKho?.SoLuong ?? 0 });
+        }
+
         public async Task<IActionResult> Create()
         {
             // Fetch available PhieuKiemKe and HangHoa data
@@ -54,8 +61,8 @@ namespace KhoHang_XNK.Controllers
             var hangHoaList = await _hangHoaRepository.GetAllAsync();
 
             // Populate the drop-down lists
-            ViewBag.MaKiemKe = new SelectList(phieuKiemKeList, "MaKiemKe", "MaKiemKe");  // Assuming MaKiemKe is the identifier
-            ViewBag.MaHangHoa = new SelectList(hangHoaList, "MaHangHoa", "TenHangHoa");    // Assuming TenHangHoa is the name of the item
+            ViewBag.MaKiemKe = new SelectList(phieuKiemKeList, "MaKiemKe", "MaKiemKe");  
+            ViewBag.MaHangHoa = new SelectList(hangHoaList, "MaHangHoa", "TenHangHoa");  
 
             return View();
         }

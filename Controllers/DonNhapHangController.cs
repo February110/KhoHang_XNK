@@ -2,6 +2,8 @@
 using KhoHang_XNK.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using ClosedXML.Excel;
+using System.IO;
 
 namespace KhoHang_XNK.Controllers
 {

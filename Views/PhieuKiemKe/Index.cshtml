@@ -156,7 +156,8 @@
 											<th scope="row">@Html.DisplayFor(modelItem => item.MaKiemKe)</th>
 											<td>@Html.DisplayFor(modelItem => item.KhoHang.TenKho)</td>
 											<td>@Html.DisplayFor(modelItem => item.NhanVien.HoTen)</td>
-											<td>@Html.DisplayFor(modelItem => item.NgayKiemKe)</td>
+											<td>@item.NgayKiemKe.ToString("dd/MM/yyyy")</td>
+
 
 											<td style="text-align: center;">
 												<a asp-action="Edit" asp-route-id="@item.MaKiemKe" class="btn btn-warning rounded-pill"><i class="fas fa-edit"></i> Sửa</a>

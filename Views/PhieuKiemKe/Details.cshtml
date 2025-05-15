@@ -1,64 +1,446 @@
 ﻿@model KhoHang_XNK.Models.PhieuKiemKe
-
 @{
     ViewData["Title"] = "Chi tiết phiếu kiểm kê";
     var chiTietPhieuKiemKes = ViewBag.ChiTietPhieuKiemKes as List<KhoHang_XNK.Models.ChiTietPhieuKiemKe>;
+    int tongChenhLech = chiTietPhieuKiemKes?.Sum(x => x.SoLuongChenhLech) ?? 0;
 }
+<!--Sidebar-->
+<div class="sidebar transition overlay-scrollbars animate__animated  animate__slideInLeft">
+    <div class="sidebar-content">
+        <div id="sidebar">
 
-<h2 class="text-success">Chi tiết phiếu kiểm kê</h2>
+            <!-- Logo -->
+            <div class="logo">
+                <h2 class="mb-0"><img src="~/images/logo/logo_sidebar.png"> WareTrack</h2>
+            </div>
 
-<table class="table table-striped">
-    <tr>
-        <th>Mã Kiểm Kê</th>
-        <td>@Model.MaKiemKe</td>
-    </tr>
-    <tr>
-        <th>Nhân Viên</th>
-        <td>@Model.NhanVien.HoTen</td>
-    </tr>
-    <tr>
-        <th>Kho Hàng</th>
-        <td>@Model.KhoHang.TenKho</td>
-    </tr>
-    <tr>
-        <th>Ngày Kiểm Kê</th>
-        <td>@Model.NgayKiemKe.ToString("dd/MM/yyyy")</td>
-    </tr>
-</table>
+            <ul class="side-menu">
+                <li>
+                    <a asp-controller="KhoHang" asp-action="Index">
+                        <i class='bx bxs-dashboard icon'></i> Kho Hàng
+                    </a>
+                </li>
 
-<h3 class="mt-4 text-primary">Chi tiết hàng hóa kiểm kê</h3>
+                <!-- Divider-->
+                <li class="divider" data-text="STARTER">Quản lý Hàng hóa</li>
 
-<table class="table table-bordered">
-    <thead class="thead-dark">
-        <tr>
-            <th>Mã Hàng Hóa</th>
-            <th>Tên Hàng Hóa</th>
-            <th>Số Lượng Thực Tế</th>
-            <th>Số Lượng Chênh Lệch</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (chiTietPhieuKiemKes != null && chiTietPhieuKiemKes.Any())
-        {
-            foreach (var item in chiTietPhieuKiemKes)
-            {
-                <tr>
-                    <td>@item.MaHangHoa</td>
-                    <td>@item.HangHoa.TenHangHoa</td>
-                    <td>@item.SoLuongThucTe</td>
-                    <td>@item.SoLuongChenhLech</td>
-                </tr>
+                <li>
+                    <a asp-controller="HangHoa" asp-action="Index">
+                        <i class='bx bx-columns icon'></i>
+                        Hàng Hóa
+                    </a>
+                </li>
+
+                <li>
+                    <a asp-controller="LoaiHangHoa" asp-action="Index">
+                        <i class='bx bxs-meh-blank icon'></i>
+                        Loại Hàng Hóa
+                    </a>
+                </li>
+
+                <li>
+                    <a asp-controller="TonKho" asp-action="Index">
+                        <i class='fa fa-th icon'></i>
+                        Tồn Kho
+                    </a>
+                </li>
+
+                <!-- Divider-->
+                <li class="divider" data-text="Atrana">Quản lý Nhân sự và Khách hàng</li>
+
+                <li>
+                    <a asp-controller="NhanVien" asp-action="Index">
+                        <i class='bx bxs-user icon'></i>
+                        Nhân Viên
+                    </a>
+                </li>
+
+                <li>
+                    <a asp-controller="KhachHang" asp-action="Index">
+                        <i class='bx bxs-notepad icon'></i>
+                        Khách Hàng
+                    </a>
+                </li>
+
+                <li>
+                    <a asp-controller="LoaiHangHoa" asp-action="Index">
+                        <i class='bx bxs-widget icon'></i>
+                        Loại Khách Hàng
+                    </a>
+                </li>
+
+                <!-- Divider-->
+                <li class="divider" data-text="Pages">Quản lý Nhà cung cấp</li>
+                <li>
+                    <a asp-controller="NhaCungCap" asp-action="Index">
+                        <i class='fa fa-pencil-ruler icon'></i>
+                        Nhà Cung Cấp
+                    </a>
+                </li>
+
+                <!-- Divider-->
+                <li class="divider" data-text="Pages">Quản lý Nhà cung cấp</li>
+                <li>
+                    <a asp-controller="DonNhapHang" asp-action="Index" >
+                        <i class='bx bxs-notepad icon'></i>
+                        Đơn Nhập Hàng
+                    </a>
+                </li>
+                <li>
+                    <a asp-controller="DonXuatHang" asp-action="Index">
+                        <i class='bx bxs-notepad icon'></i>
+                        Đơn Xuất Hàng
+                    </a>
+                </li>
+                <li>
+                    <a asp-controller="PhieuKiemKe" asp-action="Index" class="active">
+                        <i class='bx bxs-notepad icon'></i>
+                        Phiếu Kiểm Kê
+                    </a>
+                </li>
+                <li>
+                    <a asp-controller="ThongKe" asp-action="Index">
+                        <i class="bx bxs-bar-chart-alt-2 icon"></i>
+                        Thông Kê Doanh Thu
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- End Sidebar-->
+
+
+<div class="sidebar-overlay"></div>
+
+<div class="content-start transition">
+    <div class="container-fluid dashboard">
+            <div class="container invoice-container">
+                <!-- Header -->
+                <div class="invoice-header">
+                    <div class="company-logo">
+                        <img src="~/images/logo/logo.png" alt="Company Logo" class="img-fluid">
+                    </div>
+                    <div class="invoice-title">
+                            <h4 class="mb-0">
+                                <i class="fas fa-clipboard-check mr-2"></i> PHIẾU KIỂM KÊ KHO
+                            </h4>
+                            <span class="badge badge-light">
+                                Mã: KK-@Model.MaKiemKe.ToString("D5")
+                            </span>
+                    </div>
+                </div>
+
+                <!-- Info Section -->
+                <div class="invoice-info">
+                    <div class="row">
+                        <div class="col-md-6" style="color: #666;">
+                            <div class="info-card supplier-info">
+
+                                <h5><i class="fas fa-user mr-2"></i> Nhân Viên</h5>
+                                <div class="detail-row">
+                                    <span class="detail-label">Nhân viên:</span>
+                                    <span class="detail-value">@Model.NhanVien.HoTen</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Chức vụ:</span>
+                                    <span class="detail-value">@Model.NhanVien.ChucVu</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-card invoice-details">
+
+                                <h5><i class="fas fa-truck mr-2"></i>Kho Hàng</h5>
+                                <div class="detail-row">
+                                    <span class="detail-label">Tên kho:</span>
+                                    <span class="detail-value">@Model.KhoHang.TenKho</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">Ngày kiểm kê:</span>
+                                    <span class="detail-value">@Model.NgayKiemKe.ToString("dd/MM/yyyy")</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chi tiết kiểm kê -->
+                <div class="card mb-4 border-primary">
+                    <div class="card-header bg-light">
+                        <h5 class="mb-0 text-primary">
+                            <i class="fas fa-boxes mr-2"></i>DANH SÁCH HÀNG HÓA KIỂM KÊ
+                        </h5>
+                    </div>
+
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th class="text-center" width="5%">STT</th>
+                                        <th width="10%">Mã hàng</th>
+                                        <th width="35%">Tên hàng hóa</th>
+                                        <th class="text-center" width="15%">Số lượng hệ thống</th>
+                                        <th class="text-center" width="15%">Số lượng thực tế</th>
+                                        <th class="text-center" width="15%">Chênh lệch</th>
+                                        <th class="text-center" width="15%">Tình trạng</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (chiTietPhieuKiemKes != null && chiTietPhieuKiemKes.Any())
+                                    {
+                                        int stt = 1;
+                                        foreach (var item in chiTietPhieuKiemKes)
+                                        {
+                                            var soLuongHeThong = item.SoLuongThucTe - item.SoLuongChenhLech;
+                                            var statusClass = item.SoLuongChenhLech == 0 ? "success" :
+                                            item.SoLuongChenhLech > 0 ? "warning" : "danger";
+                                            var statusText = item.SoLuongChenhLech == 0 ? "Khớp" :
+                                            item.SoLuongChenhLech > 0 ? "Thừa" : "Thiếu";
+
+                                            <tr>
+                                                <td class="text-center">@stt</td>
+                                                <td>HH-@item.MaHangHoa.ToString("D5")</td>
+                                                <td>@item.HangHoa.TenHangHoa</td>
+                                                <td class="text-center">@soLuongHeThong</td>
+                                                <td class="text-center">@item.SoLuongThucTe</td>
+                                                <td class="text-center">
+                                                    <span class="badge badge-@statusClass">
+                                                        @(item.SoLuongChenhLech > 0 ? "+" : "")@item.SoLuongChenhLech
+                                                    </span>
+                                                </td>
+                                                <td class="text-center">
+                                                    <span class="badge badge-@statusClass">
+                                                        @statusText
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            stt++;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="7" class="text-center py-4 text-muted">
+                                                <i class="fas fa-box-open fa-2x mb-2"></i>
+                                                <p>Không có dữ liệu kiểm kê</p>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tổng hợp -->
+                <div class="invoice-summary">
+                    <div class="row justify-content-end">
+                        <div class="col-md-4" style="color: #666">
+                        <div class="summary-card bg-light p-3 rounded">
+                            <h5 class="text-primary mb-3">
+                                <i class="fas fa-chart-pie mr-2"></i>TỔNG HỢP
+                            </h5>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="font-weight-bold">Tổng mặt hàng kiểm kê:</span>
+                                <span>@(chiTietPhieuKiemKes?.Count ?? 0)</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="font-weight-bold">Số lượng khớp:</span>
+                                <span>@(chiTietPhieuKiemKes?.Count(x => x.SoLuongChenhLech == 0) ?? 0)</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="font-weight-bold">Số lượng chênh lệch:</span>
+                                <span class="@(tongChenhLech != 0 ? "text-danger font-weight-bold" : "")">
+                                    @tongChenhLech
+                                </span>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between">
+                                <span class="font-weight-bold">Tình trạng:</span>
+                                <span style="color:red" class="badge @(tongChenhLech == 0 ? "badge-success" : "badge-warning")">
+                                    @(tongChenhLech == 0 ? "Đạt yêu cầu" : "Cần xử lý")
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="invoice-footer">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="signature">
+                                <p class="text-center mb-5">Người lập phiếu</p>
+                                <p class="text-center font-italic">(Ký, ghi rõ họ tên)</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="signature">
+                                <p class="text-center mb-5">Người giao hàng</p>
+                                <p class="text-center font-italic">(Ký, ghi rõ họ tên)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="invoice-actions">
+                    <div class="d-flex justify-content-end">
+                            <div>
+                                <a asp-action="Index" class="btn btn-outline-secondary">
+                                    <i class="fas fa-arrow-left"></i> Quay lại
+                                </a>
+                                <button onclick="window.print()" class="btn btn-outline-primary">
+                                    <i class="fas fa-print"></i> In hóa đơn
+                                </button>
+                            </div>
+                        </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<style>
+        .company-logo {
+            text-align: center; /* Căn giữa logo */
+            margin-bottom: 20px; /* Khoảng cách dưới logo */
+        }
+
+            .company-logo img {
+                max-width: 250px; /* Giới hạn chiều rộng */
+                height: auto; /* Tự động điều chỉnh chiều cao theo tỉ lệ */
+                object-fit: contain; /* Giữ nguyên tỉ lệ ảnh */
+                opacity: 0.95; /* Độ trong suốt nhẹ nếu muốn */
+            }
+
+        .invoice-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .invoice-title h1 {
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .invoice-number .badge {
+            font-size: 16px;
+            padding: 8px 15px;
+        }
+
+        .info-card {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            height: 100%;
+        }
+
+            .info-card h5 {
+                color: #444;
+                border-bottom: 1px solid #ddd;
+                padding-bottom: 10px;
+                margin-bottom: 15px;
+            }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .detail-label {
+            font-weight: 500;
+            color: #666;
+        }
+
+        .detail-value {
+            font-weight: 600;
+            color: #666;
+        }
+
+        .invoice-items {
+            margin: 30px 0;
+        }
+
+            .invoice-items thead th {
+                border-top: none;
+                font-weight: 600;
+            }
+
+            .invoice-items tbody tr:hover {
+                background-color: #f8f9fa;
+            }
+
+        .summary-card {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+            .summary-row.total {
+                font-size: 18px;
+                margin-top: 10px;
+            }
+
+        .invoice-footer {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #eee;
+        }
+
+        .signature {
+            margin-top: 50px;
+        }
+
+        .invoice-actions {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        @@media print {
+            body * {
+                visibility: hidden;
+            }
+
+            .invoice-container, .invoice-container * {
+                visibility: visible;
+            }
+
+            .invoice-container {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                box-shadow: none;
+            }
+
+            .invoice-actions {
+                display: none;
             }
         }
-        else
-        {
-            <tr>
-                <td colspan="4" class="text-center">Không có dữ liệu kiểm kê</td>
-            </tr>
-        }
-    </tbody>
-</table>
+    </style>
 
-<div class="mt-3">
-    <a asp-action="Index" class="btn btn-primary">Quay lại danh sách</a>
-</div>

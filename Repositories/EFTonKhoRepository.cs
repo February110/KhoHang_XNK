@@ -96,6 +96,13 @@ namespace KhoHang_XNK.Repositories
                 .Distinct()
                 .ToListAsync();
         }
+
+        public async Task<TonKho> GetByMaHangHoa(int maHangHoa)
+        {
+            return await _context.TonKhos
+            .FirstOrDefaultAsync(t => t.MaHangHoa == maHangHoa);
+        }
+
     }
 
 }

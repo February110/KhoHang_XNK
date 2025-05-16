@@ -3,44 +3,156 @@
 @{
     ViewData["Title"] = "Delete";
 }
+<!--Sidebar-->
+<div class="sidebar transition overlay-scrollbars animate__animated  animate__slideInLeft">
+	<div class="sidebar-content">
+		<div id="sidebar">
 
-<h1>Delete</h1>
+			<!-- Logo -->
+			<div class="logo">
+				<h2 class="mb-0"><img src="~/images/logo/logo_sidebar.png"> WareTrack</h2>
+			</div>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>ChiTietDonNhap</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SoLuong)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SoLuong)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DonGia)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DonGia)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DonNhapHang)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DonNhapHang.MaDonNhap)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.HangHoa)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.HangHoa.TenHangHoa)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="MaDonNhap" />
-        <input type="hidden" asp-for="MaHangHoa" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+			<ul class="side-menu">
+				<li>
+					<a asp-controller="KhoHang" asp-action="Index">
+						<i class='bx bxs-dashboard icon'></i> Kho Hàng
+					</a>
+				</li>
+
+				<!-- Divider-->
+				<li class="divider" data-text="STARTER">Quản lý Hàng hóa</li>
+
+				<li>
+					<a asp-controller="HangHoa" asp-action="Index">
+						<i class='bx bx-columns icon'></i>
+						Hàng Hóa
+					</a>
+				</li>
+
+				<li>
+					<a asp-controller="LoaiHangHoa" asp-action="Index">
+						<i class='bx bxs-meh-blank icon'></i>
+						Loại Hàng Hóa
+					</a>
+				</li>
+
+				<li>
+					<a asp-controller="TonKho" asp-action="Index">
+						<i class='fa fa-th icon'></i>
+						Tồn Kho
+					</a>
+				</li>
+
+				<!-- Divider-->
+				<li class="divider" data-text="Atrana">Quản lý Nhân sự và Khách hàng</li>
+
+				<li>
+					<a asp-controller="NhanVien" asp-action="Index">
+						<i class='bx bxs-user icon'></i>
+						Nhân Viên
+					</a>
+				</li>
+
+				<li>
+					<a asp-controller="KhachHang" asp-action="Index">
+						<i class='bx bxs-notepad icon'></i>
+						Khách Hàng
+					</a>
+				</li>
+
+				<li>
+					<a asp-controller="LoaiKhachHang" asp-action="Index">
+						<i class='bx bxs-widget icon'></i>
+						Loại Khách Hàng
+					</a>
+				</li>
+
+				<!-- Divider-->
+				<li class="divider" data-text="Pages">Quản lý Nhà cung cấp</li>
+				<li>
+					<a asp-controller="NhaCungCap" asp-action="Index">
+						<i class='fa fa-pencil-ruler icon'></i>
+						Nhà Cung Cấp
+					</a>
+				</li>
+
+				<!-- Divider-->
+				<li class="divider" data-text="Pages">Quản lý Nhà cung cấp</li>
+				<li>
+					<a asp-controller="DonNhapHang" asp-action="Index" class="active">
+						<i class='bx bxs-notepad icon'></i>
+						Đơn Nhập Hàng
+					</a>
+				</li>
+				<li>
+					<a asp-controller="DonXuatHang" asp-action="Index">
+						<i class='bx bxs-notepad icon'></i>
+						Đơn Xuất Hàng
+					</a>
+				</li>
+				<li>
+					<a asp-controller="PhieuKiemKe" asp-action="Index">
+						<i class='bx bxs-notepad icon'></i>
+						Phiếu Kiểm Kê
+					</a>
+				</li>
+				<li>
+					<a asp-controller="ThongKe" asp-action="Index">
+						<i class="bx bxs-bar-chart-alt-2 icon"></i>
+						Thông Kê Doanh Thu
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
 </div>
+<!-- End Sidebar-->
+
+
+<div class="sidebar-overlay"></div>
+
+<div class="content-start transition">
+
+	<div class="container-fluid dashboard">
+		<div>
+			<h4>ChiTietDonNhap</h4>
+			<hr />
+			<dl class="row">
+				<dt class="col-sm-2">
+					@Html.DisplayNameFor(model => model.SoLuong)
+				</dt>
+				<dd class="col-sm-10">
+					@Html.DisplayFor(model => model.SoLuong)
+				</dd>
+				<dt class="col-sm-2">
+					@Html.DisplayNameFor(model => model.DonGia)
+				</dt>
+				<dd class="col-sm-10">
+					@Html.DisplayFor(model => model.DonGia)
+				</dd>
+				<dt class="col-sm-2">
+					@Html.DisplayNameFor(model => model.DonNhapHang)
+				</dt>
+				<dd class="col-sm-10">
+					@Html.DisplayFor(model => model.DonNhapHang.MaDonNhap)
+				</dd>
+				<dt class="col-sm-2">
+					@Html.DisplayNameFor(model => model.HangHoa)
+				</dt>
+				<dd class="col-sm-10">
+					@Html.DisplayFor(model => model.HangHoa.TenHangHoa)
+				</dd>
+			</dl>
+
+			<form asp-action="Delete">
+				<input type="hidden" asp-for="MaDonNhap" />
+				<input type="hidden" asp-for="MaHangHoa" />
+				<input type="submit" value="Delete" class="btn btn-danger" /> |
+				<a asp-action="Index">Back to List</a>
+			</form>
+		</div>
+	</div>
+</div>
+
+

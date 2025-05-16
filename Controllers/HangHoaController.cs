@@ -125,21 +125,26 @@ namespace KhoHang_XNK.Controllers
             return View(hangHoa);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(HangHoa hangHoa, IFormFile imageUrl)
         {
-            if (!ModelState.IsValid)
+            if (hangHoa == null)
             {
                 var loaiHangHoas = await _loaiHangHoaRepository.GetAllAsync();
                 ViewBag.MaLoaiHang = new SelectList(loaiHangHoas, "MaLoaiHang", "TenLoaiHang", hangHoa.MaLoaiHang);
                 return View(hangHoa);
             }
-            if (imageUrl != null)
+
+            if (imageUrl != null && imageUrl.Length > 0)
             {
                 hangHoa.ImageUrl = await SaveImage(imageUrl);
             }
+
             await _hangHoaRepository.UpdateAsync(hangHoa);
             return RedirectToAction(nameof(Index));
         }
+
+
 
 
         public async Task<IActionResult> Delete(int id)

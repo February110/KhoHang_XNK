@@ -17,7 +17,7 @@ namespace KhoHang_XNK.Models
 
         public string? ImageUrl { get; set; }
         // Thêm thuộc tính UserId
-        public string UserId { get; set; }  // Khóa ngoại tới AspNetUsers
+        public string? UserId { get; set; }  // Khóa ngoại tới AspNetUsers
 
         // Thuộc tính điều hướng (navigation property) tới bảng AspNetUsers
         public ApplicationUser User { get; set; }

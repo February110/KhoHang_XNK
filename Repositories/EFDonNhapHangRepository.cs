@@ -79,21 +79,6 @@ namespace KhoHang_XNK.Repositories
                 .ToListAsync();
         }
 
-        //public async Task<IEnumerable<DoanhThuThangDto>> GetTongTienNhapTheoThangAsync()
-        //{
-        //    return await _context.ChiTietDonNhaps
-        //        .Include(c => c.DonNhapHang)
-        //        .GroupBy(c => new { c.DonNhapHang.NgayNhap.Year, c.DonNhapHang.NgayNhap.Month})
-        //        .Select(g => new DoanhThuThangDto
-        //        {
-        //            Nam = g.Key.Year,
-        //            Thang = g.Key.Month,
-        //            TongTien = g.Sum(x => x.SoLuong * x.DonGia)
-        //        })
-        //        .OrderBy(x => x.Nam).ThenBy(x => x.Thang)
-        //        .ToListAsync();
-        //}
-        // Lấy tổng tiền NHẬP theo tháng và theo từng kho
         public async Task<IEnumerable<DoanhThuThangDto>> GetTongTienNhapTheoThangAsync(int? khoId = null)
         {
             var query = _context.ChiTietDonNhaps
@@ -104,29 +89,46 @@ namespace KhoHang_XNK.Repositories
             if (khoId.HasValue)
             {
                 query = query.Where(x => x.DonNhapHang.MaKho == khoId.Value);
+
+                // Nhóm theo kho khi chọn một kho cụ thể
+                return await query
+                    .GroupBy(c => new
+                    {
+                        c.DonNhapHang.MaKho,
+                        Year = c.DonNhapHang.NgayNhap.Year,
+                        Month = c.DonNhapHang.NgayNhap.Month
+                    })
+                    .Select(g => new DoanhThuThangDto
+                    {
+                        KhoId = g.Key.MaKho,
+                        Nam = g.Key.Year,
+                        Thang = g.Key.Month,
+                        TongTien = g.Sum(x => x.SoLuong * x.DonGia)
+                    })
+                    .OrderBy(x => x.Nam)
+                    .ThenBy(x => x.Thang)
+                    .ToListAsync();
             }
-
-            return await query
-                .GroupBy(c => new
-                {
-                    c.DonNhapHang.MaKho,
-                    Year = c.DonNhapHang.NgayNhap.Year,
-                    Month = c.DonNhapHang.NgayNhap.Month
-                })
-                .Select(g => new DoanhThuThangDto
-                {
-                    KhoId = g.Key.MaKho,
-                    Nam = g.Key.Year,
-                    Thang = g.Key.Month,
-                    TongTien = g.Sum(x => x.SoLuong * x.DonGia)
-                })
-                .OrderBy(x => x.KhoId)
-                .ThenBy(x => x.Nam)
-                .ThenBy(x => x.Thang)
-                .ToListAsync();
+            else
+            {
+                // Khi chọn "Tất cả kho", chỉ nhóm theo tháng và năm (không nhóm theo kho)
+                return await query
+                    .GroupBy(c => new
+                    {
+                        Year = c.DonNhapHang.NgayNhap.Year,
+                        Month = c.DonNhapHang.NgayNhap.Month
+                    })
+                    .Select(g => new DoanhThuThangDto
+                    {
+                        KhoId = 0, // Giá trị mặc định hoặc null
+                        Nam = g.Key.Year,
+                        Thang = g.Key.Month,
+                        TongTien = g.Sum(x => x.SoLuong * x.DonGia)
+                    })
+                    .OrderBy(x => x.Nam)
+                    .ThenBy(x => x.Thang)
+                    .ToListAsync();
+            }
         }
-
-
-
     }
 }

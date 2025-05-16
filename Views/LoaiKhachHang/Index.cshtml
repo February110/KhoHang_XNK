@@ -55,14 +55,14 @@
 				</li>
 
 				<li>
-					<a asp-controller="KhachHang" asp-action="Index" class="active">
+					<a asp-controller="KhachHang" asp-action="Index" >
 						<i class='bx bxs-notepad icon'></i>
 						Khách Hàng
 					</a>
 				</li>
 
 				<li>
-					<a asp-controller="LoaiHangHoa" asp-action="Index">
+					<a asp-controller="LoaiKhachHang" asp-action="Index" class="active">
 						<i class='bx bxs-widget icon'></i>
 						Loại Khách Hàng
 					</a>
@@ -114,48 +114,58 @@
 
 <!--Content Start-->
 <div class="content-start transition">
-
 	<div class="container-fluid dashboard">
 		<div class="content-header">
 			<h1>Danh Sách Loại Khách Hàng</h1>
 			<p></p>
 		</div>
-			<div class="row">
-					<div class="d-flex justify-content-between mb-3">
-						<a asp-action="Create" class="btn btn-primary">Thêm loại khách hàng mới</a>
-						<input type="text" id="searchBox" class="form-control w-25" placeholder="Tìm kiếm...">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header">
+						<div class="d-flex justify-content-between mb-3">
+							<a asp-action="Create" class="btn btn-primary">Thêm loại khách hàng mới</a>
+							<input type="text" id="searchBox" class="form-control w-25" placeholder="Tìm kiếm...">
+						</div>
 					</div>
 
-					<table class="table table-bordered table-hover">
-						<thead class="table-dark">
-							<tr>
-								<th scope="col">Mã loại khách hàng</th>
-								<th scope="col">Tên loại khách hàng</th>
-								<th scope="col" style="text-align: center;">Hành động</th>
-							</tr>
-						</thead>
-						<tbody id="customerTable">
-							@foreach (var item in Model)
-							{
-								<tr>
-									<th scope="row">@Html.DisplayFor(modelItem => item.MaLoaiKH)</th>
-									<td>
-										@Html.DisplayFor(modelItem => item.TenLoai)
-									</td>
-						
-									<td class="text-center">
-										<a asp-action="Edit" asp-route-id="@item.MaLoaiKH" class="btn btn-warning rounded-pill">Sửa</a>
-										<a asp-action="Details" asp-route-id="@item.MaLoaiKH" class="btn btn-info rounded-pill">Chi tiết</a>
-										<a asp-action="Delete" asp-route-id="@item.MaLoaiKH" class="btn btn-danger rounded-pill">Xóa</a>
-									</td>
-								</tr>
-							}
-						</tbody>
-					</table>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th scope="col">Mã loại khách hàng</th>
+										<th scope="col">Tên loại khách hàng</th>
+										<th scope="col" style="text-align: center;">Hành động</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									@foreach (var item in Model)
+									{
+										<tr>
+											<th scope="row">@Html.DisplayFor(modelItem => item.MaLoaiKH)</th>
+											<td>
+												@Html.DisplayFor(modelItem => item.TenLoai)
+											</td>
+
+											<td class="text-center">
+												<a asp-action="Edit" asp-route-id="@item.MaLoaiKH" class="btn btn-warning rounded-pill">Sửa</a>
+												<a asp-action="Details" asp-route-id="@item.MaLoaiKH" class="btn btn-info rounded-pill">Chi tiết</a>
+												<a asp-action="Delete" asp-route-id="@item.MaLoaiKH" class="btn btn-danger rounded-pill">Xóa</a>
+											</td>
+										</tr>
+									}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
 			</div>
+
+		</div>
 	</div>
 </div>
-
 
 <!-- Thêm Font Awesome nếu cần -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">

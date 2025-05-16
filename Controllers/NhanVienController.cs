@@ -75,30 +75,62 @@ namespace KhoHang_XNK.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var nhanVien = await _nhanVienRepository.GetByIdAsync(id);
-            var khoHangs = await _nhanVienRepository.GetAllAsync();
-            ViewBag.MaKho = new SelectList(khoHangs, "MaKho", "TenKho");
             if (nhanVien == null)
             {
                 return NotFound();
             }
+
+            var khoHangs = await _khoHangRepository.GetAllKhoHangsAsync();
+            ViewBag.MaKho = new SelectList(khoHangs, "MaKho", "TenKho", nhanVien.MaKho);
             return View(nhanVien);
         }
+
         [HttpPost]
         public async Task<IActionResult> Edit(NhanVien nhanVien, IFormFile imageUrl)
         {
-            if (!ModelState.IsValid)
+            if (nhanVien == null)
             {
-                var khoHangs = await _nhanVienRepository.GetAllAsync();
-                ViewBag.MaKho = new SelectList(khoHangs, "MaKho", "TenKho");
+                var khoHangs = await _khoHangRepository.GetAllKhoHangsAsync();
+                ViewBag.MaKho = new SelectList(khoHangs, "MaKho", "TenKho", nhanVien.MaKho);
                 return View(nhanVien);
             }
+
             if (imageUrl != null)
             {
                 nhanVien.ImageUrl = await SaveImage(imageUrl);
             }
+
             await _nhanVienRepository.UpdateAsync(nhanVien);
             return RedirectToAction(nameof(Index));
         }
+
+        //public async Task<IActionResult> Edit(int id)
+        //{
+        //    var nhanVien = await _nhanVienRepository.GetByIdAsync(id);
+        //    var khoHangs = await _nhanVienRepository.GetAllAsync();
+        //    ViewBag.MaKho = new SelectList(khoHangs, "MaKho", "TenKho");
+        //    if (nhanVien == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return View(nhanVien);
+        //}
+        //[HttpPost]
+        //public async Task<IActionResult> Edit(NhanVien nhanVien, IFormFile imageUrl)
+        //{
+        //    if (nhanVien == null)
+        //    {
+        //        var khoHangs = await _nhanVienRepository.GetAllAsync();
+        //        ViewBag.MaKho = new SelectList(khoHangs, "MaKho", "TenKho");
+        //        return View(nhanVien);
+        //    }
+        //    if (imageUrl != null)
+        //    {
+        //        nhanVien.ImageUrl = await SaveImage(imageUrl);
+        //    }
+        //    await _nhanVienRepository.UpdateAsync(nhanVien);
+        //    return RedirectToAction(nameof(Index));
+        //}
         public async Task<IActionResult> Delete(int id)
         {
             var nhanVien = await _nhanVienRepository.GetByIdAsync(id);

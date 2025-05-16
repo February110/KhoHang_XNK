@@ -18,20 +18,6 @@ namespace KhoHang_XNK.Controllers
             _hangHoaRepository = hangHoaRepository;
             _nhaCungCapRepository = nhaCungCapRepository;
         }
-        //public async Task<IActionResult> Index(string searchString, int pageNumber = 1, int pageSize = 10)
-        //{
-        //    var khoHangs = await _khoHangRepository.GetAllKhoHangsAsync();
-        //    if (!string.IsNullOrEmpty(searchString))
-        //    {
-        //        khoHangs = khoHangs.Where(k => k.TenKho.Contains(searchString));
-        //    }
-        //    // Phân trang
-        //    var paginatedList = khoHangs.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
-        //    ViewBag.CurrentPage = pageNumber;
-        //    ViewBag.TotalPages = (int)Math.Ceiling((double)khoHangs.Count() / pageSize);
-        //    ViewBag.SearchString = searchString;
-        //    return View(paginatedList);
-        //}
         public async Task<IActionResult> Index()
         {
             var khoHangs = await _khoHangRepository.GetAllKhoHangsAsync();

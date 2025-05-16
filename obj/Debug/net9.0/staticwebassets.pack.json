@@ -15897,20 +15897,52 @@
       "PackagePath": "staticwebassets\\fonts\\LineIcons.woff2"
     },
     {
+      "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\16a2fa3a-ad5f-4871-9f57-4f37ca08be1b_59788e0e-27e3-4c5c-b0dc-40c4c7c8bf74_avatar.png",
+      "PackagePath": "staticwebassets\\images\\16a2fa3a-ad5f-4871-9f57-4f37ca08be1b_59788e0e-27e3-4c5c-b0dc-40c4c7c8bf74_avatar.png"
+    },
+    {
       "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\18dd3c3b-aeb5-4850-b6ae-fb6655d48dea_apple-airpods-4-2.jpg",
       "PackagePath": "staticwebassets\\images\\18dd3c3b-aeb5-4850-b6ae-fb6655d48dea_apple-airpods-4-2.jpg"
+    },
+    {
+      "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\1dfd67d2-60be-4416-b3de-eb047943ef82_Nuoc-Lavie-500ml.webp",
+      "PackagePath": "staticwebassets\\images\\1dfd67d2-60be-4416-b3de-eb047943ef82_Nuoc-Lavie-500ml.webp"
+    },
+    {
+      "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\20bc1162-6f52-46d5-8941-cf78a27730fa_storedata.avif",
+      "PackagePath": "staticwebassets\\images\\20bc1162-6f52-46d5-8941-cf78a27730fa_storedata.avif"
     },
     {
       "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\20f3bf79-3a35-4d7c-a755-738ee10b676e_59788e0e-27e3-4c5c-b0dc-40c4c7c8bf74_avatar.png",
       "PackagePath": "staticwebassets\\images\\20f3bf79-3a35-4d7c-a755-738ee10b676e_59788e0e-27e3-4c5c-b0dc-40c4c7c8bf74_avatar.png"
     },
     {
+      "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\21b6124d-5b32-4698-96e6-426c8d06b219_images.jpg",
+      "PackagePath": "staticwebassets\\images\\21b6124d-5b32-4698-96e6-426c8d06b219_images.jpg"
+    },
+    {
       "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\22fd55dc-0ce8-419d-bdd2-244f1a09c54d_dich-vu-cho-thue-kho-bai12.jpg",
       "PackagePath": "staticwebassets\\images\\22fd55dc-0ce8-419d-bdd2-244f1a09c54d_dich-vu-cho-thue-kho-bai12.jpg"
     },
     {
+      "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\292637fc-3f7c-44fd-aa03-a376920b1764_f564e469-0691-4d09-9a38-77f95ab1d146.webp",
+      "PackagePath": "staticwebassets\\images\\292637fc-3f7c-44fd-aa03-a376920b1764_f564e469-0691-4d09-9a38-77f95ab1d146.webp"
+    },
+    {
+      "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\36373eb7-3ccc-4611-9d1c-f96e430960de_tl027-1_1c30035a05d74ccbb3fa05713c5a309f.webp",
+      "PackagePath": "staticwebassets\\images\\36373eb7-3ccc-4611-9d1c-f96e430960de_tl027-1_1c30035a05d74ccbb3fa05713c5a309f.webp"
+    },
+    {
       "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\3accc5dd-3d07-4e24-945d-10ca4750b3d1_527326ae-6ac3-4a15-a369-64e4671b48f1_ban-go-mam-non-hinh-chu-nhat-1.jpg",
       "PackagePath": "staticwebassets\\images\\3accc5dd-3d07-4e24-945d-10ca4750b3d1_527326ae-6ac3-4a15-a369-64e4671b48f1_ban-go-mam-non-hinh-chu-nhat-1.jpg"
+    },
+    {
+      "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\3d2cdfbe-a1c1-492b-8fd8-c7271b378910_59788e0e-27e3-4c5c-b0dc-40c4c7c8bf74_avatar.png",
+      "PackagePath": "staticwebassets\\images\\3d2cdfbe-a1c1-492b-8fd8-c7271b378910_59788e0e-27e3-4c5c-b0dc-40c4c7c8bf74_avatar.png"
+    },
+    {
+      "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\44e62b21-6205-4482-80b8-f27f267375af_32b4d1e2-f693-4f25-8b39-00ec2b647119_avatar-icon002_750950-52.avif",
+      "PackagePath": "staticwebassets\\images\\44e62b21-6205-4482-80b8-f27f267375af_32b4d1e2-f693-4f25-8b39-00ec2b647119_avatar-icon002_750950-52.avif"
     },
     {
       "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\527326ae-6ac3-4a15-a369-64e4671b48f1_ban-go-mam-non-hinh-chu-nhat-1.jpg",
@@ -15941,12 +15973,24 @@
       "PackagePath": "staticwebassets\\images\\6616ee66-2cf7-438c-9f7f-03e7576095d9_b926eb54-c244-4bef-a6f0-c2ba817be42f_acf96ad2-b219-4103-88d8-c9755f90dc95_L715BL-view-Elite-768x768.jpg"
     },
     {
+      "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\6c27e2e3-75da-4c8e-b3c9-ce84edf0bdf8_59788e0e-27e3-4c5c-b0dc-40c4c7c8bf74_avatar.png",
+      "PackagePath": "staticwebassets\\images\\6c27e2e3-75da-4c8e-b3c9-ce84edf0bdf8_59788e0e-27e3-4c5c-b0dc-40c4c7c8bf74_avatar.png"
+    },
+    {
+      "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\7b8e0c19-29ff-4914-818d-f8d1fbe4408c_09_f57f4acecf9a48c594f8e7716e11a53e_1024x1024.webp",
+      "PackagePath": "staticwebassets\\images\\7b8e0c19-29ff-4914-818d-f8d1fbe4408c_09_f57f4acecf9a48c594f8e7716e11a53e_1024x1024.webp"
+    },
+    {
       "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\7d2f2adf-4088-4ffd-8fc0-6f35784552a8.jpg",
       "PackagePath": "staticwebassets\\images\\7d2f2adf-4088-4ffd-8fc0-6f35784552a8.jpg"
     },
     {
       "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\81717fd5-af07-4ba9-ae01-47302c684a64_d45f0cad-d7d2-4829-bf72-378309d234a7_tom-alaska_6616296b96154242835e4c1242d9d255.jpg",
       "PackagePath": "staticwebassets\\images\\81717fd5-af07-4ba9-ae01-47302c684a64_d45f0cad-d7d2-4829-bf72-378309d234a7_tom-alaska_6616296b96154242835e4c1242d9d255.jpg"
+    },
+    {
+      "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\8805f61a-44aa-407f-86e0-b938348fc068_bc807eb5970005ab95da5d73372ddd92.webp",
+      "PackagePath": "staticwebassets\\images\\8805f61a-44aa-407f-86e0-b938348fc068_bc807eb5970005ab95da5d73372ddd92.webp"
     },
     {
       "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\889097b3-03ae-4fdd-8674-cf0eafe728d6_f45d11a5-d399-4a72-999a-7201c058867d_53655400895_8f7db2c905_k_13caf99a3f314423a45e60397818b63c_master.jpg",
@@ -15959,6 +16003,10 @@
     {
       "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\a8a295fc-a333-45f3-b997-e12acc330e60_59788e0e-27e3-4c5c-b0dc-40c4c7c8bf74_avatar.png",
       "PackagePath": "staticwebassets\\images\\a8a295fc-a333-45f3-b997-e12acc330e60_59788e0e-27e3-4c5c-b0dc-40c4c7c8bf74_avatar.png"
+    },
+    {
+      "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\ab7297d2-f2f0-46c1-8fee-e8518774efa4_db8f9999152227762ea1365f63d7b9f3.jpg",
+      "PackagePath": "staticwebassets\\images\\ab7297d2-f2f0-46c1-8fee-e8518774efa4_db8f9999152227762ea1365f63d7b9f3.jpg"
     },
     {
       "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\about\\about-4\\about-img.svg",
@@ -15993,12 +16041,28 @@
       "PackagePath": "staticwebassets\\images\\b34d24e4-876a-4a9b-9047-d77d61385a47_3-nhan-xi-mang-pooclang-hon-hop-pcb40.png"
     },
     {
+      "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\b38fc2af-dded-47ab-85bc-b64e5b7cee08_tivi-samsung-4k-ua55au7700kxxv.jpg",
+      "PackagePath": "staticwebassets\\images\\b38fc2af-dded-47ab-85bc-b64e5b7cee08_tivi-samsung-4k-ua55au7700kxxv.jpg"
+    },
+    {
       "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\b59a98e8-87bb-491f-ae46-4439323b9ebd_32b4d1e2-f693-4f25-8b39-00ec2b647119_avatar-icon002_750950-52.avif",
       "PackagePath": "staticwebassets\\images\\b59a98e8-87bb-491f-ae46-4439323b9ebd_32b4d1e2-f693-4f25-8b39-00ec2b647119_avatar-icon002_750950-52.avif"
     },
     {
+      "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\b69ef0ee-bbaa-4868-a724-4203cf464e4a_9146932b-d881-4052-9205-ab8299f0895c.jpg",
+      "PackagePath": "staticwebassets\\images\\b69ef0ee-bbaa-4868-a724-4203cf464e4a_9146932b-d881-4052-9205-ab8299f0895c.jpg"
+    },
+    {
+      "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\b76eea27-14ce-4b30-bf85-46d7211fcfdc_vn-11134207-7ras8-m2ubwv1ie77q41@resize_w900_nl.webp",
+      "PackagePath": "staticwebassets\\images\\b76eea27-14ce-4b30-bf85-46d7211fcfdc_vn-11134207-7ras8-m2ubwv1ie77q41@resize_w900_nl.webp"
+    },
+    {
       "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\b926eb54-c244-4bef-a6f0-c2ba817be42f_acf96ad2-b219-4103-88d8-c9755f90dc95_L715BL-view-Elite-768x768.jpg",
       "PackagePath": "staticwebassets\\images\\b926eb54-c244-4bef-a6f0-c2ba817be42f_acf96ad2-b219-4103-88d8-c9755f90dc95_L715BL-view-Elite-768x768.jpg"
+    },
+    {
+      "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\bf21612e-994c-450b-a236-b246713e0510_noi-com-dien-tu-sharp-18-lit-ks-com194ev-bk-thumb-600x600.jpg",
+      "PackagePath": "staticwebassets\\images\\bf21612e-994c-450b-a236-b246713e0510_noi-com-dien-tu-sharp-18-lit-ks-com194ev-bk-thumb-600x600.jpg"
     },
     {
       "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\c6e9aa01-4461-40a9-9c01-0d3252e98b90_b34d24e4-876a-4a9b-9047-d77d61385a47_3-nhan-xi-mang-pooclang-hon-hop-pcb40.png",
@@ -16025,8 +16089,24 @@
       "PackagePath": "staticwebassets\\images\\e00910fc-5f81-4c5f-a150-30a9ef4f3be8_59788e0e-27e3-4c5c-b0dc-40c4c7c8bf74_avatar.png"
     },
     {
+      "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\e04ba5b3-bccc-4a2e-bbf1-7812f37cd011_ST25-XANH-copy.jpg",
+      "PackagePath": "staticwebassets\\images\\e04ba5b3-bccc-4a2e-bbf1-7812f37cd011_ST25-XANH-copy.jpg"
+    },
+    {
+      "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\e09c78bd-d7e8-4570-9f0a-a4f0a7d57ec6_59788e0e-27e3-4c5c-b0dc-40c4c7c8bf74_avatar.png",
+      "PackagePath": "staticwebassets\\images\\e09c78bd-d7e8-4570-9f0a-a4f0a7d57ec6_59788e0e-27e3-4c5c-b0dc-40c4c7c8bf74_avatar.png"
+    },
+    {
+      "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\e2fb90d9-9910-4f71-ad53-067b052000b8_09_f57f4acecf9a48c594f8e7716e11a53e_1024x1024.webp",
+      "PackagePath": "staticwebassets\\images\\e2fb90d9-9910-4f71-ad53-067b052000b8_09_f57f4acecf9a48c594f8e7716e11a53e_1024x1024.webp"
+    },
+    {
       "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\f45d11a5-d399-4a72-999a-7201c058867d_53655400895_8f7db2c905_k_13caf99a3f314423a45e60397818b63c_master.jpg",
       "PackagePath": "staticwebassets\\images\\f45d11a5-d399-4a72-999a-7201c058867d_53655400895_8f7db2c905_k_13caf99a3f314423a45e60397818b63c_master.jpg"
+    },
+    {
+      "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\fff9a231-bd76-4038-b2b2-af033ac66945_f564e469-0691-4d09-9a38-77f95ab1d146.webp",
+      "PackagePath": "staticwebassets\\images\\fff9a231-bd76-4038-b2b2-af033ac66945_f564e469-0691-4d09-9a38-77f95ab1d146.webp"
     },
     {
       "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\hero\\hero-5\\hero-bg.svg",
@@ -16053,8 +16133,16 @@
       "PackagePath": "staticwebassets\\images\\logo\\logo_sidebar.png"
     },
     {
+      "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\warehouses\\4e0ada57-c915-4456-9ec2-3113f5083f88.png",
+      "PackagePath": "staticwebassets\\images\\warehouses\\4e0ada57-c915-4456-9ec2-3113f5083f88.png"
+    },
+    {
       "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\warehouses\\9146932b-d881-4052-9205-ab8299f0895c.jpg",
       "PackagePath": "staticwebassets\\images\\warehouses\\9146932b-d881-4052-9205-ab8299f0895c.jpg"
+    },
+    {
+      "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\warehouses\\ebf760a4-36a8-4d89-b5e3-358cce855c5a.jpg",
+      "PackagePath": "staticwebassets\\images\\warehouses\\ebf760a4-36a8-4d89-b5e3-358cce855c5a.jpg"
     },
     {
       "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\images\\warehouses\\feee6dcb-ee70-47d1-b100-52ee4e92dec8.jpg",

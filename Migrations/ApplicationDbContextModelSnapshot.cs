@@ -326,7 +326,6 @@ namespace KhoHang_XNK.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("MaKho");
@@ -758,8 +757,7 @@ namespace KhoHang_XNK.Migrations
                     b.HasOne("KhoHang_XNK.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("User");
                 });

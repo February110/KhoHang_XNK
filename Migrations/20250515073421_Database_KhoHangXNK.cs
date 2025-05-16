@@ -1,0 +1,22 @@
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+namespace KhoHang_XNK.Migrations
+{
+    /// <inheritdoc />
+    public partial class Database_KhoHangXNK : Migration
+    {
+        /// <inheritdoc />
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+
+        }
+    }
+}

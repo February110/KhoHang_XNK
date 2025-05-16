@@ -1,72 +1,185 @@
 ﻿@model NhanVienDetailsViewModel
+<!--Sidebar-->
+<div class="sidebar transition overlay-scrollbars animate__animated  animate__slideInLeft">
+	<div class="sidebar-content">
+		<div id="sidebar">
 
-<h2 class="text-primary">Thông tin Nhân Viên</h2>
-<p><strong>Mã NV:</strong> @Model.NhanVien.MaNV</p>
-<p><strong>Họ Tên:</strong> @Model.NhanVien.HoTen</p>
+			<!-- Logo -->
+			<div class="logo">
+				<h2 class="mb-0"><img src="~/images/logo/logo_sidebar.png"> WareTrack</h2>
+			</div>
 
-<h3 class="mt-4 text-success">Đơn Nhập Hàng</h3>
-<table class="table table-striped">
-    <thead class="thead-dark">
-        <tr>
-            <th>Mã Đơn</th>
-            <th>Ngày Nhập</th>
-            <th>Nhà Cung Cấp</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var don in Model.DonNhapHangs)
-        {
-            <tr>
-                <td>@don.MaDonNhap</td>
-                <td>@don.NgayNhap.ToShortDateString()</td>
-                <td>@don.NhaCungCap.TenNCC</td>
-            </tr>
-        }
-    </tbody>
-</table>
+			<ul class="side-menu">
+				<li>
+					<a asp-controller="KhoHang" asp-action="Index">
+						<i class='bx bxs-dashboard icon'></i> Kho Hàng
+					</a>
+				</li>
 
-<h3 class="mt-4 text-success">Đơn Xuất Hàng</h3>
-<table class="table table-striped">
-    <thead class="thead-dark">
-        <tr>
-            <th>Mã Đơn</th>
-            <th>Ngày Xuất</th>
-            <th>Khách Hàng</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var don in Model.DonXuatHangs)
-        {
-            <tr>
-                <td>@don.MaDonXuat</td>
-                <td>@don.NgayXuat.ToShortDateString()</td>
-                <td>@don.KhachHang.TenKH</td>
-            </tr>
-        }
-    </tbody>
-</table>
+				<!-- Divider-->
+				<li class="divider" data-text="STARTER">Quản lý Hàng hóa</li>
 
-<h3 class="mt-4 text-success">Phiếu Kiểm Kê</h3>
-<table class="table table-striped">
-    <thead class="thead-dark">
-        <tr>
-            <th>Mã Phiếu</th>
-            <th>Ngày Kiểm Kê</th>
-            <th>Kho Hàng</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var phieu in Model.PhieuKiemKes)
-        {
-            <tr>
-                <td>@phieu.MaKiemKe</td>
-                <td>@phieu.NgayKiemKe.ToShortDateString()</td>
-                <td>@phieu.KhoHang.TenKho</td>
-            </tr>
-        }
-    </tbody>
-</table>
+				<li>
+					<a asp-controller="HangHoa" asp-action="Index">
+						<i class='bx bx-columns icon'></i>
+						Hàng Hóa
+					</a>
+				</li>
 
-<div class="mt-4">
-    <a asp-action="Index" class="btn btn-secondary btn-lg">Quay lại danh sách</a>
+				<li>
+					<a asp-controller="LoaiHangHoa" asp-action="Index">
+						<i class='bx bxs-meh-blank icon'></i>
+						Loại Hàng Hóa
+					</a>
+				</li>
+
+				<li>
+					<a asp-controller="TonKho" asp-action="Index">
+						<i class='fa fa-th icon'></i>
+						Tồn Kho
+					</a>
+				</li>
+
+				<!-- Divider-->
+				<li class="divider" data-text="Atrana">Quản lý Nhân sự và Khách hàng</li>
+
+				<li>
+					<a asp-controller="NhanVien" asp-action="Index" class="active">
+						<i class='bx bxs-user icon'></i>
+						Nhân Viên
+					</a>
+				</li>
+
+				<li>
+					<a asp-controller="KhachHang" asp-action="Index">
+						<i class='bx bxs-notepad icon'></i>
+						Khách Hàng
+					</a>
+				</li>
+
+				<li>
+					<a asp-controller="LoaiKhachHang" asp-action="Index">
+						<i class='bx bxs-widget icon'></i>
+						Loại Khách Hàng
+					</a>
+				</li>
+
+				<!-- Divider-->
+				<li class="divider" data-text="Pages">Quản lý Nhà cung cấp</li>
+				<li>
+					<a asp-controller="NhaCungCap" asp-action="Index">
+						<i class='fa fa-pencil-ruler icon'></i>
+						Nhà Cung Cấp
+					</a>
+				</li>
+
+				<!-- Divider-->
+				<li class="divider" data-text="Pages">Quản lý Nhà cung cấp</li>
+				<li>
+					<a asp-controller="DonNhapHang" asp-action="Index">
+						<i class='bx bxs-notepad icon'></i>
+						Đơn Nhập Hàng
+					</a>
+				</li>
+				<li>
+					<a asp-controller="DonXuatHang" asp-action="Index">
+						<i class='bx bxs-notepad icon'></i>
+						Đơn Xuất Hàng
+					</a>
+				</li>
+				<li>
+					<a asp-controller="PhieuKiemKe" asp-action="Index">
+						<i class='bx bxs-notepad icon'></i>
+						Phiếu Kiểm Kê
+					</a>
+				</li>
+				<li>
+					<a asp-controller="ThongKe" asp-action="Index">
+						<i class="bx bxs-bar-chart-alt-2 icon"></i>
+						Thông Kê Doanh Thu
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
 </div>
+<!-- End Sidebar-->
+<div class="sidebar-overlay"></div>
+
+<!--Content Start-->
+<div class="content-start transition">
+	<div class="container-fluid dashboard">
+		<h2 class="text-primary">Thông tin Nhân Viên</h2>
+		<p><strong>Mã NV:</strong> @Model.NhanVien.MaNV</p>
+		<p><strong>Họ Tên:</strong> @Model.NhanVien.HoTen</p>
+
+		<h3 class="mt-4 text-success">Đơn Nhập Hàng</h3>
+		<table class="table table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th>Mã Đơn</th>
+					<th>Ngày Nhập</th>
+					<th>Nhà Cung Cấp</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var don in Model.DonNhapHangs)
+				{
+					<tr>
+						<td>@don.MaDonNhap</td>
+						<td>@don.NgayNhap.ToShortDateString()</td>
+						<td>@don.NhaCungCap.TenNCC</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+
+		<h3 class="mt-4 text-success">Đơn Xuất Hàng</h3>
+		<table class="table table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th>Mã Đơn</th>
+					<th>Ngày Xuất</th>
+					<th>Khách Hàng</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var don in Model.DonXuatHangs)
+				{
+					<tr>
+						<td>@don.MaDonXuat</td>
+						<td>@don.NgayXuat.ToShortDateString()</td>
+						<td>@don.KhachHang.TenKH</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+
+		<h3 class="mt-4 text-success">Phiếu Kiểm Kê</h3>
+		<table class="table table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th>Mã Phiếu</th>
+					<th>Ngày Kiểm Kê</th>
+					<th>Kho Hàng</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var phieu in Model.PhieuKiemKes)
+				{
+					<tr>
+						<td>@phieu.MaKiemKe</td>
+						<td>@phieu.NgayKiemKe.ToShortDateString()</td>
+						<td>@phieu.KhoHang.TenKho</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+
+		<div class="mt-4">
+			<a asp-action="Index" class="btn btn-secondary btn-lg">Quay lại danh sách</a>
+		</div>
+
+	</div>
+</div>
+

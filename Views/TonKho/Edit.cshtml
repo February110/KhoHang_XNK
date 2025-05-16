@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Edit TonKho";
 }
+<!--Sidebar-->
 <div class="sidebar transition overlay-scrollbars animate__animated  animate__slideInLeft">
 	<div class="sidebar-content">
 		<div id="sidebar">
@@ -30,7 +31,7 @@
 				</li>
 
 				<li>
-					<a asp-controller="LoaiHangHoa" asp-action="Index" >
+					<a asp-controller="LoaiHangHoa" asp-action="Index">
 						<i class='bx bxs-meh-blank icon'></i>
 						Loại Hàng Hóa
 					</a>
@@ -61,7 +62,7 @@
 				</li>
 
 				<li>
-					<a asp-controller="LoaiHangHoa" asp-action="Index">
+					<a asp-controller="LoaiKhachHang" asp-action="Index">
 						<i class='bx bxs-widget icon'></i>
 						Loại Khách Hàng
 					</a>
@@ -116,28 +117,36 @@
 	<div class="container-fluid dashboard">
 
 		<form asp-action="Edit" method="post">
+			@Html.AntiForgeryToken()
+
+			@* Ẩn giá trị để gửi về khi submit *@
+			<input type="hidden" asp-for="MaKho" />
+			<input type="hidden" asp-for="MaHangHoa" />
+
 			<div class="form-group">
-				<label for="MaKho">Kho Hang</label>
-				<select asp-for="MaKho" class="form-control" disabled>
-					<option value="@Model.MaKho">@Model.KhoHang.TenKho</option>
+				<label>Kho hàng</label>
+				<select class="form-control" disabled>
+					<option selected value="@Model.MaKho">@Model.KhoHang?.TenKho</option>
 				</select>
 			</div>
 
 			<div class="form-group">
-				<label for="MaHangHoa">Hang Hoa</label>
-				<select asp-for="MaHangHoa" class="form-control" disabled>
-					<option value="@Model.MaHangHoa">@Model.HangHoa.TenHangHoa</option>
+				<label>Hàng hóa</label>
+				<select class="form-control" disabled>
+					<option selected value="@Model.MaHangHoa">@Model.HangHoa?.TenHangHoa</option>
 				</select>
 			</div>
 
 			<div class="form-group">
-				<label for="SoLuong">So Luong</label>
+				<label asp-for="SoLuong" class="control-label">Số lượng</label>
 				<input asp-for="SoLuong" class="form-control" type="number" min="0" />
 				<span asp-validation-for="SoLuong" class="text-danger"></span>
 			</div>
 
-			<button type="submit" class="btn btn-primary">Save Changes</button>
-			<a href="@Url.Action("Index")" class="btn btn-secondary">Cancel</a>
+			<div class="form-group mt-3">
+				<button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+				<a asp-action="Index" class="btn btn-secondary">Hủy</a>
+			</div>
 		</form>
 	</div>
 </div>
@@ -145,7 +154,5 @@
 
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+	@await Html.PartialAsync("_ValidationScriptsPartial")
 }

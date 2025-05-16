@@ -75,10 +75,6 @@ namespace KhoHang_XNK.Controllers
             return View(tonKho);
         }
 
-
-
-
-
         public async Task<IActionResult> Edit(int maKho, int maHangHoa)
         {
             var tonKho = await _tonKhoRepository.GetTonKhoByIdsAsync(maKho, maHangHoa);
@@ -88,7 +84,6 @@ namespace KhoHang_XNK.Controllers
             }
             return View(tonKho);
         }
-
         // POST: TonKho/Edit/maKho/maHangHoa
         [HttpPost]
         public async Task<IActionResult> Edit(int maKho, int maHangHoa, [Bind("MaKho, MaHangHoa, SoLuong")] TonKho tonKho)
@@ -97,27 +92,20 @@ namespace KhoHang_XNK.Controllers
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
+            else
             {
-                try
-                {
-                    await _tonKhoRepository.UpdateTonKhoAsync(tonKho);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TonKhoExists(maKho, maHangHoa))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                await _tonKhoRepository.UpdateTonKhoAsync(tonKho);
                 return RedirectToAction(nameof(Index));
             }
-            return View(tonKho);
+        }
+     
+
+
+        // Helper method
+        private async Task<bool> TonKhoExistsAsync(int maKho, int maHangHoa)
+        {
+            var tonKho = await _tonKhoRepository.GetTonKhoByIdsAsync(maKho, maHangHoa);
+            return tonKho != null;
         }
 
         // GET: TonKho/Details/maKho/maHangHoa

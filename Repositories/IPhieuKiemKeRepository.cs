@@ -11,5 +11,8 @@ namespace KhoHang_XNK.Repositories
         Task UpdateAsync(PhieuKiemKe phieuKiemKe); // Cập nhật phiếu kiểm kê
         Task DeleteAsync(int maKiemKe); // Xóa phiếu kiểm kê
         Task<IEnumerable<PhieuKiemKe>>? GetByKhoAsync(int maKho);
+
+        Task<PhieuKiemKe?> GetPhieuKiemKeWithKhoAsync(int maKiemKe);
+
     }
 }

@@ -117,13 +117,64 @@
 	<div class="container-fluid dashboard">
 		<div class="card shadow-lg p-4">
 			<div class="card-body">
+				@* <form asp-action="Create" method="post"> *@
+				@* 	<div asp-validation-summary="ModelOnly" class="alert alert-danger d-none"></div> *@
+
+				@* 	<!-- Mã Kiểm Kê --> *@
+				@* 	<div class="mb-3"> *@
+				@* 		<label asp-for="MaKiemKe" class="form-label fw-bold">Mã Kiểm Kê</label> *@
+				@* 		<select asp-for="MaKiemKe" id="MaKiemKe" class="form-select" asp-items="ViewBag.MaKiemKe"> *@
+				@* 			<option value="">-- Chọn Mã Kiểm Kê --</option> *@
+				@* 		</select> *@
+				@* 		<span asp-validation-for="MaKiemKe" class="text-danger"></span> *@
+				@* 	</div> *@
+
+				@* 	<!-- Mã Hàng Hóa --> *@
+				@* 	<div class="mb-3"> *@
+				@* 		<label asp-for="MaHangHoa" class="form-label fw-bold">Mã Hàng Hóa</label> *@
+				@* 		<select asp-for="MaHangHoa" id="MaHangHoa" class="form-select" asp-items="ViewBag.MaHangHoa"> *@
+				@* 			<option value="">-- Chọn Hàng Hóa --</option> *@
+				@* 		</select> *@
+				@* 		<span asp-validation-for="MaHangHoa" class="text-danger"></span> *@
+				@* 	</div> *@
+
+				@* 	<!-- Số lượng tồn kho (hiển thị tự động) --> *@
+				@* 	<div class="mb-3"> *@
+				@* 		<label class="form-label fw-bold">Số Lượng Tồn Kho</label> *@
+				@* 		<input id="soLuongTonKho" class="form-control" type="number" readonly value="0" /> *@
+				@* 	</div> *@
+
+				@* 	<!-- Số Lượng Thực Tế --> *@
+				@* 	<div class="mb-3"> *@
+				@* 		<label asp-for="SoLuongThucTe" class="form-label fw-bold">Số Lượng Thực Tế</label> *@
+				@* 		<input asp-for="SoLuongThucTe" id="SoLuongThucTe" class="form-control" placeholder="Nhập số lượng thực tế" /> *@
+				@* 		<span asp-validation-for="SoLuongThucTe" class="text-danger"></span> *@
+				@* 	</div> *@
+
+				@* 	<!-- Số Lượng Chênh Lệch --> *@
+				@* 	<div class="mb-3"> *@
+				@* 		<label asp-for="SoLuongChenhLech" class="form-label fw-bold">Số Lượng Chênh Lệch</label> *@
+				@* 		<input asp-for="SoLuongChenhLech" id="SoLuongChenhLech" class="form-control" placeholder="Nhập số lượng chênh lệch" /> *@
+				@* 		<span asp-validation-for="SoLuongChenhLech" class="text-danger"></span> *@
+				@* 	</div> *@
+
+				@* 	<!-- Nút thao tác --> *@
+				@* 	<div class="d-flex justify-content-between"> *@
+				@* 		<a asp-action="Index" class="btn btn-secondary"> *@
+				@* 			<i class="fas fa-arrow-left"></i> Quay lại *@
+				@* 		</a> *@
+				@* 		<button type="submit" class="btn btn-primary"> *@
+				@* 			<i class="fas fa-save"></i> Lưu *@
+				@* 		</button> *@
+				@* 	</div> *@
+				@* </form> *@
 				<form asp-action="Create" method="post">
 					<div asp-validation-summary="ModelOnly" class="alert alert-danger d-none"></div>
 
 					<!-- Mã Kiểm Kê -->
 					<div class="mb-3">
 						<label asp-for="MaKiemKe" class="form-label fw-bold">Mã Kiểm Kê</label>
-						<select asp-for="MaKiemKe" class="form-select" asp-items="ViewBag.MaKiemKe">
+						<select asp-for="MaKiemKe" class="form-select" asp-items="ViewBag.MaKiemKe" id="maKiemKeSelect">
 							<option value="">-- Chọn Mã Kiểm Kê --</option>
 						</select>
 						<span asp-validation-for="MaKiemKe" class="text-danger"></span>
@@ -132,10 +183,16 @@
 					<!-- Mã Hàng Hóa -->
 					<div class="mb-3">
 						<label asp-for="MaHangHoa" class="form-label fw-bold">Mã Hàng Hóa</label>
-						<select asp-for="MaHangHoa" class="form-select" asp-items="ViewBag.MaHangHoa">
+						<select asp-for="MaHangHoa" class="form-select" asp-items="ViewBag.MaHangHoa" id="maHangHoaSelect">
 							<option value="">-- Chọn Hàng Hóa --</option>
 						</select>
 						<span asp-validation-for="MaHangHoa" class="text-danger"></span>
+					</div>
+
+					<!-- Số Lượng Tồn Kho (chỉ hiển thị) -->
+					<div class="mb-3">
+						<label class="form-label fw-bold">Số Lượng Tồn Kho</label>
+						<input type="text" class="form-control" id="soLuongTonKho" readonly placeholder="Số lượng tồn kho sẽ hiển thị ở đây" />
 					</div>
 
 					<!-- Số Lượng Thực Tế -->
@@ -169,7 +226,32 @@
 </div>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+	<script>
+		$(document).ready(function() {
+			$('#maHangHoaSelect').change(function() {
+				var maHangHoa = $(this).val();
+				var maKiemKe = $('#maKiemKeSelect').val();
+
+				if (maHangHoa && maKiemKe) {
+					// Gọi API để lấy số lượng tồn kho
+					$.get('/ChiTietPhieuKiemKe/GetTonKho', {
+						maHangHoa: maHangHoa,
+						maKiemKe: maKiemKe
+					}, function(data) {
+						$('#soLuongTonKho').val(data.soLuong);
+					}).fail(function() {
+						$('#soLuongTonKho').val('Không thể lấy số lượng tồn kho');
+					});
+				} else {
+					$('#soLuongTonKho').val('');
+				}
+			});
+
+			// Cũng cần theo dõi thay đổi của mã kiểm kê
+			$('#maKiemKeSelect').change(function() {
+				// Kích hoạt lại sự kiện change của mã hàng hóa
+				$('#maHangHoaSelect').trigger('change');
+			});
+		});
+	</script>
 }

@@ -69,5 +69,12 @@ namespace KhoHang_XNK.Repositories
                 .Include(p => p.KhoHang)
                 .ToListAsync();
         }
+
+        public async Task<PhieuKiemKe?> GetPhieuKiemKeWithKhoAsync(int maKiemKe)
+        {
+            return await _context.PhieuKiemKes
+                .Include(p => p.KhoHang)
+                .FirstOrDefaultAsync(p => p.MaKiemKe == maKiemKe);
+        }
     }
 }

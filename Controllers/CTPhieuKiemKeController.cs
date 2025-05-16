@@ -94,6 +94,23 @@ namespace KhoHang_XNK.Controllers
             return View(chiTietPhieuKiemKe);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetTonKho(int maHangHoa, int maKiemKe)
+        {
+            // Lấy phiếu kiểm kê, trong đó có MaKho
+            var phieuKiemKe = await _phieuKiemKeRepository.GetPhieuKiemKeWithKhoAsync(maKiemKe);
+
+            if (phieuKiemKe == null)
+            {
+                return NotFound();
+            }
+
+            // Lấy tồn kho theo MaKho và MaHangHoa
+            var tonKho = await _tonKhoRepository.GetTonKhoByMaKhoAndMaHangHoaAsync(maHangHoa, phieuKiemKe.MaKho);
+
+            return Json(new { soLuong = tonKho?.SoLuong ?? 0 });
+        }
+
 
 
         public async Task<IActionResult> Edit(int maKiemKe, int maHangHoa)

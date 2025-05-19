@@ -4324,8 +4324,6 @@ D:\KhoHang_XNK\KhoHang_XNK\bin\Debug\net9.0\RBush.dll
 D:\KhoHang_XNK\KhoHang_XNK\bin\Debug\net9.0\SixLabors.Fonts.dll
 D:\KhoHang_XNK\KhoHang_XNK\bin\Debug\net9.0\System.IO.Packaging.dll
 D:\KhoHang_XNK\KhoHang_XNK\obj\Debug\net9.0\compressed\i3sdy5xjtl-vajxnwku7u.gz
-D:\KhoHang_XNK\KhoHang_XNK\obj\Debug\net9.0\compressed\g4v6wh5iao-24qjknkt2n.gz
-D:\KhoHang_XNK\KhoHang_XNK\obj\Debug\net9.0\compressed\fydqhihh7y-jjf4ofn9nw.gz
 D:\KhoHang_XNK\KhoHang_XNK\obj\Debug\net9.0\compressed\4tr4bdzj28-umyulcdf5h.gz
 D:\KhoHang_XNK\KhoHang_XNK\obj\Debug\net9.0\compressed\yibncu86qn-finec5e9rw.gz
 D:\KhoHang_XNK\KhoHang_XNK\obj\Debug\net9.0\compressed\3xgwzgx9vg-pstnpzejiv.gz

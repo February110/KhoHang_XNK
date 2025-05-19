@@ -228,30 +228,67 @@
 @section Scripts {
 	<script>
 		$(document).ready(function() {
+			// Debug: Log khi trang được tải
+			console.log("Trang đã sẵn sàng");
+
+			// Xử lý khi chọn hàng hóa
 			$('#maHangHoaSelect').change(function() {
 				var maHangHoa = $(this).val();
 				var maKiemKe = $('#maKiemKeSelect').val();
 
+				// Debug: Log giá trị đã chọn
+				console.log("Mã hàng hóa:", maHangHoa, "Mã kiểm kê:", maKiemKe);
+
 				if (maHangHoa && maKiemKe) {
 					// Gọi API để lấy số lượng tồn kho
-					$.get('/ChiTietPhieuKiemKe/GetTonKho', {
+					$.get('/CTPhieuKiemKe/GetTonKho', {
 						maHangHoa: maHangHoa,
 						maKiemKe: maKiemKe
-					}, function(data) {
-						$('#soLuongTonKho').val(data.soLuong);
-					}).fail(function() {
-						$('#soLuongTonKho').val('Không thể lấy số lượng tồn kho');
+					})
+					.done(function(data) {
+						// Debug: Log kết quả từ server
+						console.log("Kết quả từ API:", data);
+
+						if (data.success) {
+							$('#soLuongTonKho').val(data.soLuong);
+
+							// Tự động tính chênh lệch nếu có số lượng thực tế
+							if ($('#SoLuongThucTe').val()) {
+								calculateChenhLech();
+							}
+						} else {
+							$('#soLuongTonKho').val("Lỗi: " + data.message);
+						}
+					})
+					.fail(function(error) {
+						// Debug: Log lỗi từ API
+						console.error("Lỗi khi gọi API:", error);
+						$('#soLuongTonKho').val("Không thể kết nối đến server");
 					});
 				} else {
 					$('#soLuongTonKho').val('');
 				}
 			});
 
-			// Cũng cần theo dõi thay đổi của mã kiểm kê
+			// Xử lý khi thay đổi mã kiểm kê
 			$('#maKiemKeSelect').change(function() {
 				// Kích hoạt lại sự kiện change của mã hàng hóa
 				$('#maHangHoaSelect').trigger('change');
 			});
+
+			// Tự động tính số lượng chênh lệch khi nhập số lượng thực tế
+			$('#SoLuongThucTe').on('input', function() {
+				calculateChenhLech();
+			});
+
+			// Hàm tính chênh lệch
+			function calculateChenhLech() {
+				var soLuongTonKho = parseInt($('#soLuongTonKho').val()) || 0;
+				var soLuongThucTe = parseInt($('#SoLuongThucTe').val()) || 0;
+				var chenhLech = soLuongThucTe - soLuongTonKho;
+
+				$('#SoLuongChenhLech').val(chenhLech);
+			}
 		});
 	</script>
 }

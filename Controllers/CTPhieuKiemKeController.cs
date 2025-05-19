@@ -93,23 +93,89 @@ namespace KhoHang_XNK.Controllers
 
             return View(chiTietPhieuKiemKe);
         }
-
         [HttpGet]
         public async Task<IActionResult> GetTonKho(int maHangHoa, int maKiemKe)
         {
-            // Lấy phiếu kiểm kê, trong đó có MaKho
-            var phieuKiemKe = await _phieuKiemKeRepository.GetPhieuKiemKeWithKhoAsync(maKiemKe);
-
-            if (phieuKiemKe == null)
+            try
             {
-                return NotFound();
+                Console.WriteLine($"=== Yêu cầu lấy tồn kho: MaHangHoa={maHangHoa}, MaKiemKe={maKiemKe} ===");
+
+                var phieuKiemKe = await _phieuKiemKeRepository.GetPhieuKiemKeWithKhoAsync(maKiemKe);
+
+                if (phieuKiemKe == null)
+                {
+                    Console.WriteLine("❌ Không tìm thấy phiếu kiểm kê!");
+                    return Json(new { success = false, message = "Phiếu kiểm kê không tồn tại" });
+                }
+
+                Console.WriteLine($"✅ Tìm thấy phiếu kiểm kê: MaKho={phieuKiemKe.MaKho}");
+
+                var tonKho = await _tonKhoRepository.GetTonKhoByMaKhoAndMaHangHoaAsync(maHangHoa, phieuKiemKe.MaKho);
+                //var tonKho = _context.TonKho
+                //    .FirstOrDefault(t => t.MaHangHoa == maHangHoa && t.MaKho == phieuKiemKe.MaKho);
+
+                if (tonKho == null)
+                {
+                    Console.WriteLine($"❌ Không có tồn kho cho MaHangHoa={maHangHoa} trong MaKho={phieuKiemKe.MaKho}");
+                    return Json(new { success = false, message = "Hàng hóa không tồn tại trong kho này" });
+                }
+
+                Console.WriteLine($"✅ Tìm thấy tồn kho: SoLuong={tonKho.SoLuong}");
+                return Json(new { success = true, soLuong = tonKho.SoLuong });
             }
-
-            // Lấy tồn kho theo MaKho và MaHangHoa
-            var tonKho = await _tonKhoRepository.GetTonKhoByMaKhoAndMaHangHoaAsync(maHangHoa, phieuKiemKe.MaKho);
-
-            return Json(new { soLuong = tonKho?.SoLuong ?? 0 });
+            catch (Exception ex)
+            {
+                Console.WriteLine($"🔥 Lỗi: {ex.Message}");
+                return Json(new { success = false, message = "Lỗi server" });
+            }
         }
+        //[HttpGet]
+
+        //public async Task<IActionResult> GetTonKho(int maHangHoa, int maKiemKe)
+        //{
+        //    try
+        //    {
+        //        // Debug: Log tham số đầu vào
+        //        Console.WriteLine($"Yêu cầu lấy tồn kho - Mã hàng hóa: {maHangHoa}, Mã kiểm kê: {maKiemKe}");
+
+        //        // Kiểm tra hợp lệ
+        //        if (maHangHoa <= 0 || maKiemKe <= 0)
+        //        {
+        //            return Json(new { success = false, message = "Mã hàng hóa hoặc mã kiểm kê không hợp lệ" });
+        //        }
+
+        //        var phieuKiemKe = await _phieuKiemKeRepository.GetPhieuKiemKeWithKhoAsync(maKiemKe);
+
+        //        if (phieuKiemKe == null)
+        //        {
+        //            return Json(new { success = false, message = "Không tìm thấy phiếu kiểm kê" });
+        //        }
+
+        //        // Lấy tồn kho
+        //        var tonKho = await _tonKhoRepository.GetTonKhoByMaKhoAndMaHangHoaAsync(maHangHoa, phieuKiemKe.MaKho);
+        //        // Trả kết quả
+        //        return Json(new
+        //        {
+        //            success = true,
+        //            soLuong = tonKho?.SoLuong ?? 0,
+        //            maKho = phieuKiemKe.MaKho,
+        //            message = tonKho == null ? "Hàng hóa chưa có tồn kho trong kho này" : "OK"
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Log lỗi
+        //        Console.WriteLine($"Lỗi khi lấy tồn kho: {ex.Message}");
+        //        return Json(new { success = false, message = "Lỗi server: " + ex.Message });
+        //    }
+        //    // Lấy phiếu kiểm kê, trong đó có MaKho
+
+
+        //    // Lấy tồn kho theo MaKho và MaHangHoa
+
+
+
+        //}
 
 
 

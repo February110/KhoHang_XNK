@@ -177,14 +177,6 @@
       "PackagePath": "staticwebassets\\assets\\modules\\animate\\animate.min.css"
     },
     {
-      "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\assets\\modules\\apexcharts\\apexcharts.css",
-      "PackagePath": "staticwebassets\\assets\\modules\\apexcharts\\apexcharts.css"
-    },
-    {
-      "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\assets\\modules\\apexcharts\\apexcharts.js",
-      "PackagePath": "staticwebassets\\assets\\modules\\apexcharts\\apexcharts.js"
-    },
-    {
       "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\assets\\modules\\bootstrap-5.1.3\\css\\bootstrap-grid.css",
       "PackagePath": "staticwebassets\\assets\\modules\\bootstrap-5.1.3\\css\\bootstrap-grid.css"
     },

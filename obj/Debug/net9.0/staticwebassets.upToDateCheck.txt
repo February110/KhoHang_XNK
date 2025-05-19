@@ -3225,7 +3225,6 @@ D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\bootstrap-icons\bucket.svg
 D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\bootstrap-icons\usb-micro-fill.svg
 D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\lineawesome\svg\hashtag-solid.svg
 D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\bootstrap-icons\chevron-double-right.svg
-D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\apexcharts\apexcharts.js
 D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\fontawesome6.1.1\svgs\solid\diagram-next.svg
 D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\fontawesome6.1.1\svgs\regular\thumbs-up.svg
 D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\boxicons\svg\solid\bxs-video-off.svg
@@ -3261,7 +3260,6 @@ D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\lineawesome\svg\tablet-solid.s
 D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\boxicons\svg\regular\bx-book-add.svg
 D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\lineawesome\svg\music-solid.svg
 D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\bootstrap-icons\file-earmark-zip.svg
-D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\apexcharts\apexcharts.css
 D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\lineawesome\svg\snowplow-solid.svg
 D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\boxicons\svg\solid\bxs-bell.svg
 D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\bootstrap-icons\skip-end-btn.svg
@@ -7232,8 +7230,6 @@ wwwroot\assets\js\sweetalerts.js
 wwwroot\assets\js\ui-apexcharts.js
 wwwroot\assets\js\ui-chartjs.js
 wwwroot\assets\modules\animate\animate.min.css
-wwwroot\assets\modules\apexcharts\apexcharts.css
-wwwroot\assets\modules\apexcharts\apexcharts.js
 wwwroot\assets\modules\bootstrap-5.1.3\css\bootstrap.css
 wwwroot\assets\modules\bootstrap-5.1.3\css\bootstrap.css.map
 wwwroot\assets\modules\bootstrap-5.1.3\css\bootstrap.min.css

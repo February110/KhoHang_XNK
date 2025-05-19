@@ -1,0 +1,744 @@
+﻿@model ThongKeDoanhThuViewModel
+@{
+    ViewData["Title"] = "Thống kê Doanh Thu";
+}
+<!--Sidebar-->
+<div class="sidebar transition overlay-scrollbars animate__animated  animate__slideInLeft">
+    <div class="sidebar-content">
+        <div id="sidebar">
+
+            <!-- Logo -->
+            <div class="logo">
+                <h2 class="mb-0"><img src="~/images/logo/logo_sidebar.png"> WareTrack</h2>
+            </div>
+
+            <ul class="side-menu">
+
+                <!-- Kho Hàng -->
+                <li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-controller="KhoHang" asp-action="Index">
+                            <i class='bx bxs-dashboard icon'></i> Kho Hàng
+                        </a>
+                    }
+                    else if (User.IsInRole("User"))
+                    {
+                        <a asp-controller="User" asp-action="Index">
+                            <i class='bx bxs-dashboard icon'></i> Kho Hàng
+                        </a>
+                    }
+                </li>
+
+                <!-- Divider-->
+                <li class="divider" data-text="STARTER">Quản lý Hàng hóa</li>
+
+                <!-- Hàng Hóa -->
+                <li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-controller="HangHoa" asp-action="Index">
+                            <i class='bx bx-columns icon'></i> Hàng Hóa
+                        </a>
+                    }
+                    else if (User.IsInRole("User"))
+                    {
+                        <a asp-controller="HangHoa" asp-action="IndexUser">
+                            <i class='bx bx-columns icon'></i> Hàng Hóa
+                        </a>
+                    }
+                </li>
+
+                <!-- Loại Hàng Hóa -->
+                <li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-controller="LoaiHangHoa" asp-action="Index">
+                            <i class='bx bxs-meh-blank icon'></i> Loại Hàng Hóa
+                        </a>
+                    }
+                    else if (User.IsInRole("User"))
+                    {
+                        <a asp-controller="LoaiHangHoa" asp-action="IndexUser">
+                            <i class='bx bxs-meh-blank icon'></i> Loại Hàng Hóa
+                        </a>
+                    }
+                </li>
+
+                <!-- Tồn Kho -->
+                <li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-controller="TonKho" asp-action="Index">
+                            <i class='fa fa-th icon'></i> Tồn Kho
+                        </a>
+                    }
+                    else if (User.IsInRole("User"))
+                    {
+                        <a asp-controller="TonKho" asp-action="IndexUser">
+                            <i class='fa fa-th icon'></i> Tồn Kho
+                        </a>
+                    }
+                </li>
+
+                <!-- Divider-->
+                <li class="divider" data-text="Atrana">Quản lý Nhân sự và Khách hàng</li>
+
+                <!-- Nhân Viên -->
+                <li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-controller="NhanVien" asp-action="Index">
+                            <i class='bx bxs-user icon'></i> Nhân Viên
+                        </a>
+                    }
+                    else if (User.IsInRole("User"))
+                    {
+                        <a asp-controller="NhanVien" asp-action="IndexUser">
+                            <i class='bx bxs-user icon'></i> Nhân Viên
+                        </a>
+                    }
+                </li>
+
+                <!-- Khách Hàng -->
+                <li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-controller="KhachHang" asp-action="Index">
+                            <i class='bx bxs-notepad icon'></i> Khách Hàng
+                        </a>
+                    }
+                    else if (User.IsInRole("User"))
+                    {
+                        <a asp-controller="KhachHang" asp-action="IndexUser">
+                            <i class='bx bxs-notepad icon'></i> Khách Hàng
+                        </a>
+                    }
+                </li>
+
+                <!-- Loại Khách Hàng -->
+                <li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-controller="LoaiKhachHang" asp-action="Index">
+                            <i class='bx bxs-widget icon'></i> Loại Khách Hàng
+                        </a>
+                    }
+                    else if (User.IsInRole("User"))
+                    {
+                        <a asp-controller="LoaiKhachHang" asp-action="IndexUser">
+                            <i class='bx bxs-widget icon'></i> Loại Khách Hàng
+                        </a>
+                    }
+                </li>
+
+                <!-- Divider-->
+                <li class="divider" data-text="Pages">Quản lý Nhà cung cấp</li>
+
+                <!-- Nhà Cung Cấp -->
+                <li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-controller="NhaCungCap" asp-action="Index">
+                            <i class='fa fa-pencil-ruler icon'></i> Nhà Cung Cấp
+                        </a>
+                    }
+                    else if (User.IsInRole("User"))
+                    {
+                        <a asp-controller="NhaCungCap" asp-action="IndexUser" >
+                            <i class='fa fa-pencil-ruler icon'></i> Nhà Cung Cấp
+                        </a>
+                    }
+                </li>
+
+                <!-- Divider-->
+                <li class="divider" data-text="Pages">Quản lý Nhà cung cấp</li>
+
+                <!-- Đơn Nhập Hàng -->
+                <li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-controller="DonNhapHang" asp-action="Index">
+                            <i class='bx bxs-notepad icon'></i> Đơn Nhập Hàng
+                        </a>
+                    }
+                    else if (User.IsInRole("User"))
+                    {
+                        <a asp-controller="DonNhapHang" asp-action="IndexUser">
+                            <i class='bx bxs-notepad icon'></i> Đơn Nhập Hàng
+                        </a>
+                    }
+                </li>
+
+                <!-- Đơn Xuất Hàng -->
+                <li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-controller="DonXuatHang" asp-action="Index">
+                            <i class='bx bxs-notepad icon'></i> Đơn Xuất Hàng
+                        </a>
+                    }
+                    else if (User.IsInRole("User"))
+                    {
+                        <a asp-controller="DonXuatHang" asp-action="IndexUser">
+                            <i class='bx bxs-notepad icon'></i> Đơn Xuất Hàng
+                        </a>
+                    }
+                </li>
+
+                <!-- Phiếu Kiểm Kê -->
+                <li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-controller="PhieuKiemKe" asp-action="Index">
+                            <i class='bx bxs-notepad icon'></i> Phiếu Kiểm Kê
+                        </a>
+                    }
+                    else if (User.IsInRole("User"))
+                    {
+                        <a asp-controller="PhieuKiemKe" asp-action="IndexUser">
+                            <i class='bx bxs-notepad icon'></i> Phiếu Kiểm Kê
+                        </a>
+                    }
+                </li>
+
+                <!-- Thống Kê -->
+                <li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-controller="ThongKe" asp-action="Index" class="active">
+                            <i class="bx bxs-bar-chart-alt-2 icon"></i> Thống Kê Doanh Thu
+                        </a>
+                    }
+                    else if (User.IsInRole("User"))
+                    {
+                        <a asp-controller="ThongKe" asp-action="IndexUser" class="active">
+                            <i class="bx bxs-bar-chart-alt-2 icon"></i> Thống Kê Doanh Thu
+                        </a>
+                    }
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- End Sidebar-->
+
+<div class="sidebar-overlay"></div>
+
+<div class="content-start transition">
+    <div class="container-fluid dashboard">
+        <div class="container mt-4">
+            <span class="h4">Thống kê Doanh Thu: @ViewBag.TenKho</span>
+
+
+            <div class="row">
+                <!-- Biểu đồ tổng doanh thu (nhập/xuất) -->
+                <div class="col-md-12 mb-4">
+                    <div class="card h-100">
+                        <div class="alert alert-info">
+                            <h5 class="card-title mb-0">Tổng doanh thu nhập/xuất theo năm</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container" style="height: 350px;">
+                                <canvas id="doanhThuChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Biểu đồ lãi suất -->
+                <div class="col-md-12 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header bg-warning text-dark">
+                            <h5 class="card-title mb-0">
+                                <i class="fas fa-chart-line"></i> Lãi suất theo năm
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container" style="height: 350px;">
+                                <canvas id="laiSuatChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <button id="printButton" class="btn btn-primary">
+                    <i class="fas fa-print"></i> In biểu đồ
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <script>
+        // Khai báo biến toàn cục để lưu trữ các chart
+        let doanhThuChart, laiSuatChart;
+
+        // Định nghĩa màu chủ đề - dễ dàng thay đổi bảng màu cho toàn bộ biểu đồ
+        const CHART_COLORS = {
+            nhapHang: 'rgba(75, 192, 192, 0.85)',  // Xanh lá nhạt
+            xuatHang: 'rgba(54, 162, 235, 0.85)',  // Xanh dương
+            laiSuat: 'rgba(255, 159, 64, 0.85)',   // Cam
+            gridLines: 'rgba(0, 0, 0, 0.05)',      // Màu cho lưới
+            labelColor: '#555555'                  // Màu cho chữ
+        };
+
+        // Định dạng tiền tệ VND
+        const formatVND = (value) => {
+            return new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND',
+                maximumFractionDigits: 0
+            }).format(value);
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Lấy dữ liệu từ Model
+            var nhapHangData = @Html.Raw(Json.Serialize(Model.DoanhThuNhapHang));
+            var xuatHangData = @Html.Raw(Json.Serialize(Model.DoanhThuXuatHang));
+
+            // Tổng hợp dữ liệu theo tháng
+            var doanhThuTheoThang = calculateDoanhThuTheoThang(nhapHangData, xuatHangData);
+
+            // Tính toán lãi suất từ dữ liệu tổng hợp theo tháng
+            var laiSuatData = calculateLaiSuatTheoThang(doanhThuTheoThang);
+
+            // Vẽ biểu đồ tổng doanh thu (hiển thị 2 cột cho mỗi tháng: nhập và xuất)
+            doanhThuChart = renderDoubleBarChart(
+                'doanhThuChart',
+                doanhThuTheoThang,
+                'Tổng doanh thu theo tháng',
+                CHART_COLORS.nhapHang,
+                CHART_COLORS.xuatHang
+            );
+
+            // Vẽ biểu đồ lãi suất (line chart)
+            laiSuatChart = renderLineChart(
+                'laiSuatChart',
+                laiSuatData,
+                'Lãi suất theo tháng',
+                CHART_COLORS.laiSuat
+            );
+
+            // Xử lý in biểu đồ
+            document.getElementById('printButton').addEventListener('click', function() {
+                window.print();
+            });
+
+            // Xử lý khi thay đổi kích thước cửa sổ
+            window.addEventListener('resize', function() {
+                if (doanhThuChart) doanhThuChart.resize();
+                if (laiSuatChart) laiSuatChart.resize();
+            });
+        });
+
+        // Hàm tổng hợp dữ liệu doanh thu theo tháng (giữ nguyên)
+        function calculateDoanhThuTheoThang(nhapHangData, xuatHangData) {
+            // Tạo dictionary cho dữ liệu nhập và xuất theo tháng/năm
+            const nhapHangTheoThang = {};
+            const xuatHangTheoThang = {};
+
+            // Tập hợp tất cả các tháng từ cả hai nguồn dữ liệu
+            const allMonths = new Set();
+
+            // Xử lý dữ liệu nhập hàng
+            nhapHangData.forEach(item => {
+                const key = `${item.nam}-${item.thang}`;
+                if (!nhapHangTheoThang[key]) nhapHangTheoThang[key] = 0;
+                nhapHangTheoThang[key] += item.tongTien;
+                allMonths.add(key);
+            });
+
+            // Xử lý dữ liệu xuất hàng
+            xuatHangData.forEach(item => {
+                const key = `${item.nam}-${item.thang}`;
+                if (!xuatHangTheoThang[key]) xuatHangTheoThang[key] = 0;
+                xuatHangTheoThang[key] += item.tongTien;
+                allMonths.add(key);
+            });
+
+            // Tạo mảng kết quả cho tất cả các tháng
+            const result = Array.from(allMonths).map(key => {
+                const [nam, thang] = key.split('-');
+                return {
+                    nam: parseInt(nam),
+                    thang: parseInt(thang),
+                    tongTienNhap: nhapHangTheoThang[key] || 0,
+                    tongTienXuat: xuatHangTheoThang[key] || 0,
+                    // Thêm label hiển thị (vd: "01/2023")
+                    label: `${thang.padStart(2, '0')}/${nam}`
+                };
+            });
+
+            // Sắp xếp kết quả theo năm và tháng
+            return result.sort((a, b) => {
+                if (a.nam !== b.nam) return a.nam - b.nam;
+                return a.thang - b.thang;
+            });
+        }
+
+        // Hàm tính toán lãi suất theo tháng (giữ nguyên)
+        function calculateLaiSuatTheoThang(doanhThuTheoThang) {
+            return doanhThuTheoThang.map(item => {
+                const chiPhiNhap = item.tongTienNhap;
+                const doanhThuXuat = item.tongTienXuat;
+                const laiGop = doanhThuXuat - chiPhiNhap;
+                let laiSuat = 0;
+                if (chiPhiNhap > 0) {
+                    laiSuat = (laiGop / chiPhiNhap) * 100;
+                } else if (doanhThuXuat > 0) {
+                    laiSuat = 100;
+                }
+                return {
+                    nam: item.nam,
+                    thang: item.thang,
+                    label: item.label,
+                    laiSuat: parseFloat(laiSuat.toFixed(2)),
+                    chiPhiNhap: chiPhiNhap,
+                    doanhThuXuat: doanhThuXuat,
+                    laiGop: laiGop
+                };
+            });
+        }
+
+        // Hàm vẽ biểu đồ cột kép (đã làm đẹp)
+        function renderDoubleBarChart(chartId, data, title, colorNhap, colorXuat) {
+            var ctx = document.getElementById(chartId);
+            var labels = data.map(item => item.label);
+            var valuesNhap = data.map(item => item.tongTienNhap);
+            var valuesXuat = data.map(item => item.tongTienXuat);
+
+            // Tính toán giá trị tối đa để đặt kích thước trục y
+            const maxValue = Math.max(...valuesNhap, ...valuesXuat);
+            const yAxisMax = Math.ceil(maxValue * 1.1 / Math.pow(10, Math.floor(Math.log10(maxValue)))) *
+                             Math.pow(10, Math.floor(Math.log10(maxValue)));
+
+            return new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Chi phí nhập hàng',
+                            data: valuesNhap,
+                            backgroundColor: colorNhap,
+                            borderColor: colorNhap,
+                            borderWidth: 1,
+                            borderRadius: 4,
+                            barPercentage: 0.7
+                        },
+                        {
+                            label: 'Doanh thu xuất hàng',
+                            data: valuesXuat,
+                            backgroundColor: colorXuat,
+                            borderColor: colorXuat,
+                            borderWidth: 1,
+                            borderRadius: 4,
+                            barPercentage: 0.7
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    layout: {
+                        padding: {
+                            top: 20,
+                            right: 25,
+                            bottom: 20,
+                            left: 25
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: title,
+                            font: {
+                                size: 18,
+                                weight: 'bold'
+                            },
+                            padding: {
+                                top: 10,
+                                bottom: 20
+                            }
+                        },
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                usePointStyle: true,
+                                padding: 20,
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                            titleColor: '#333',
+                            bodyColor: '#333',
+                            titleFont: {
+                                weight: 'bold'
+                            },
+                            bodyFont: {
+                                size: 13
+                            },
+                            borderColor: 'rgba(0, 0, 0, 0.1)',
+                            borderWidth: 1,
+                            padding: 12,
+                            cornerRadius: 6,
+                            displayColors: true,
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + formatVND(context.parsed.y);
+                                }
+                            }
+                        },
+                        datalabels: {
+                            display: function(context) {
+                                return context.dataset.data[context.dataIndex] > maxValue * 0.05;
+                            },
+                            color: '#333',
+                            font: {
+                                weight: 'bold',
+                                size: 10
+                            },
+                            formatter: function(value) {
+                                if (value > 1000000) {
+                                    return (value / 1000000).toFixed(1) + 'M';
+                                }
+                                return (value / 1000).toFixed(0) + 'K';
+                            },
+                            anchor: 'end',
+                            align: 'top'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: yAxisMax,
+                            grid: {
+                                color: CHART_COLORS.gridLines,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                padding: 10,
+                                color: CHART_COLORS.labelColor,
+                                font: {
+                                    size: 11
+                                },
+                                callback: function(value) {
+                                    if (value >= 1000000) {
+                                        return (value / 1000000).toLocaleString('vi-VN') + ' triệu';
+                                    }
+                                    return (value / 1000).toLocaleString('vi-VN') + ' nghìn';
+                                }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 45,
+                                minRotation: 45,
+                                padding: 10,
+                                color: CHART_COLORS.labelColor,
+                                font: {
+                                    size: 11
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 1000,
+                        easing: 'easeOutQuart'
+                    }
+                },
+                plugins: [ChartDataLabels]
+            });
+        }
+
+        // Hàm vẽ biểu đồ đường (đã làm đẹp)
+        function renderLineChart(chartId, data, title, color) {
+            var ctx = document.getElementById(chartId);
+            var labels = data.map(item => item.label);
+            var values = data.map(item => item.laiSuat);
+            var importCosts = data.map(item => item.chiPhiNhap || 0);
+            var exportRevenues = data.map(item => item.doanhThuXuat || 0);
+            var grossProfits = data.map(item => item.laiGop || 0);
+
+            // Tính toán giá trị trục y
+            const maxLaiSuat = Math.max(...values);
+            const minLaiSuat = Math.min(...values);
+            const yAxisMax = Math.ceil(maxLaiSuat * 1.1);
+            const yAxisMin = Math.min(0, Math.floor(minLaiSuat * 1.1));
+
+            return new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Lãi suất',
+                        data: values,
+                        borderColor: color,
+                        backgroundColor: color.replace('0.85', '0.15'),
+                        borderWidth: 3,
+                        tension: 0.3,
+                        fill: true,
+                        pointBackgroundColor: color,
+                        pointRadius: 5,
+                        pointHoverRadius: 7,
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    layout: {
+                        padding: {
+                            top: 20,
+                            right: 25,
+                            bottom: 20,
+                            left: 25
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: title,
+                            font: {
+                                size: 18,
+                                weight: 'bold'
+                            },
+                            padding: {
+                                top: 10,
+                                bottom: 20
+                            }
+                        },
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                usePointStyle: true,
+                                padding: 20,
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                            titleColor: '#333',
+                            bodyColor: '#333',
+                            titleFont: {
+                                weight: 'bold'
+                            },
+                            bodyFont: {
+                                size: 13
+                            },
+                            borderColor: 'rgba(0, 0, 0, 0.1)',
+                            borderWidth: 1,
+                            padding: 12,
+                            cornerRadius: 6,
+                            displayColors: true,
+                            callbacks: {
+                                label: function(context) {
+                                    const index = context.dataIndex;
+                                    const value = context.raw;
+                                    const chiPhiNhap = formatVND(importCosts[index]);
+                                    const doanhThuXuat = formatVND(exportRevenues[index]);
+                                    const laiGop = formatVND(grossProfits[index]);
+
+                                    return [
+                                        `Lãi suất: ${value.toFixed(2)}%`,
+                                        `Chi phí nhập: ${chiPhiNhap}`,
+                                        `Doanh thu xuất: ${doanhThuXuat}`,
+                                        `Lãi gộp: ${laiGop}`
+                                    ];
+                                }
+                            }
+                        },
+                        datalabels: {
+                            display: function(context) {
+                                const dataIndex = context.dataIndex;
+                                const datasetLength = context.dataset.data.length;
+                                return dataIndex === 0 ||
+                                       dataIndex === datasetLength - 1 ||
+                                       context.dataset.data[dataIndex] === maxLaiSuat ||
+                                       context.dataset.data[dataIndex] === minLaiSuat ||
+                                       dataIndex % Math.ceil(datasetLength / 5) === 0;
+                            },
+                            color: '#333',
+                            backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                            borderRadius: 4,
+                            borderWidth: 1,
+                            borderColor: 'rgba(0, 0, 0, 0.1)',
+                            padding: {
+                                top: 4,
+                                right: 6,
+                                bottom: 4,
+                                left: 6
+                            },
+                            font: {
+                                weight: 'bold',
+                                size: 10
+                            },
+                            formatter: function(value) {
+                                return value.toFixed(1) + '%';
+                            },
+                            anchor: 'center',
+                            align: 'top'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            min: yAxisMin,
+                            max: yAxisMax,
+                            grid: {
+                                color: CHART_COLORS.gridLines,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                padding: 10,
+                                color: CHART_COLORS.labelColor,
+                                font: {
+                                    size: 11
+                                },
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 45,
+                                minRotation: 45,
+                                padding: 10,
+                                color: CHART_COLORS.labelColor,
+                                font: {
+                                    size: 11
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 1500,
+                        easing: 'easeOutQuart'
+                    }
+                },
+                plugins: [ChartDataLabels]
+            });
+        }
+    </script>
+}

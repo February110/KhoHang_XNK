@@ -2,6 +2,7 @@
 using KhoHang_XNK.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Claims;
 
 namespace KhoHang_XNK.Controllers
 {
@@ -10,21 +11,25 @@ namespace KhoHang_XNK.Controllers
         private readonly IKhachHangRepository _khachHangRepository;
         private readonly ILoaiKhachHangRepository _loaiKhachHangRepository;
         private readonly IDonXuatHangRepository _donxuatHangRepository;
-        public KhachHangController(IKhachHangRepository khachHangRepository, ILoaiKhachHangRepository loaiKhachHangRepository, IDonXuatHangRepository donNhapHangRepository)
+        private readonly IKhoHangRepository _khoHangRepository;
+        public KhachHangController(IKhachHangRepository khachHangRepository, ILoaiKhachHangRepository loaiKhachHangRepository, IDonXuatHangRepository donNhapHangRepository, IKhoHangRepository khoHangRepository)
         {
             _donxuatHangRepository = donNhapHangRepository;
             _khachHangRepository = khachHangRepository;
             _loaiKhachHangRepository = loaiKhachHangRepository;
+            _khoHangRepository = khoHangRepository;
         }
         public async Task<IActionResult> Index()
         {
             var khachHangs = await _khachHangRepository.GetAllAsync();
             return View(khachHangs);
         }
-        public async Task<IActionResult> IndexUser(int id)
+        public async Task<IActionResult> IndexUser()
         {
-            var khachHangs =  await _donxuatHangRepository.GetByKhoAsync(id);
-            return View(khachHangs);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var kho = await _khoHangRepository.GetKhoHangByIdUser(userId);
+            var list = await _donxuatHangRepository.GetKhacHangByKhoAsync(kho.MaKho);
+            return View(list);
         }
         public async Task<IActionResult> Create()
         {

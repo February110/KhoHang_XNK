@@ -20,5 +20,7 @@ namespace KhoHang_XNK.Repositories
         Task UpdateKhoHangForUserAsync(KhoHang khoHang);  // Dành cho user, cập nhật kho của người dùng hiện tại
         Task DeleteKhoHangForUserAsync(int id);  // Dành ch
 
+        Task<KhoHang> GetKhoHangByIdUser(string id);
+
     }
 }

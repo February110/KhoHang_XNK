@@ -268,6 +268,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9haUhhbmdIb2FcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/KhoHang_XNK/KhoHang_XNK/Views/LoaiHangHoa/IndexUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9haUhhbmdIb2FcSW5kZXhVc2VyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/KhoHang_XNK/KhoHang_XNK/Views/LoaiKhachHang/AccessDenied.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9haUtoYWNoSGFuZ1xBY2Nlc3NEZW5pZWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -292,6 +296,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9haUtoYWNoSGFuZ1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/KhoHang_XNK/KhoHang_XNK/Views/LoaiKhachHang/IndexUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9haUtoYWNoSGFuZ1xJbmRleFVzZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/KhoHang_XNK/KhoHang_XNK/Views/NhaCungCap/AccessDenied.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmhhQ3VuZ0NhcFxBY2Nlc3NEZW5pZWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -314,6 +322,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/KhoHang_XNK/KhoHang_XNK/Views/NhaCungCap/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmhhQ3VuZ0NhcFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/KhoHang_XNK/KhoHang_XNK/Views/NhaCungCap/IndexUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmhhQ3VuZ0NhcFxJbmRleFVzZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/KhoHang_XNK/KhoHang_XNK/Views/NhanVien/Create.cshtml]
@@ -378,6 +390,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/KhoHang_XNK/KhoHang_XNK/Views/ThongKe/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGhvbmdLZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/KhoHang_XNK/KhoHang_XNK/Views/ThongKe/IndexUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGhvbmdLZVxJbmRleFVzZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/KhoHang_XNK/KhoHang_XNK/Views/TonKho/Delete.cshtml]

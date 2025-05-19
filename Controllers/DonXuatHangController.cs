@@ -3,6 +3,7 @@ using KhoHang_XNK.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace KhoHang_XNK.Controllers
 {
@@ -26,19 +27,11 @@ namespace KhoHang_XNK.Controllers
             var list = await _donXuatHangRepository.GetAllAsync();
             return View(list);
         }
-        public async Task<IActionResult> IndexUser(int id)
+        public async Task<IActionResult> IndexUser()
         {
-            var list = await _donXuatHangRepository.GetByKhoAsync(id);
-
-            // Kiểm tra nếu list là null
-            if (list == null)
-            {
-                // Nếu list là null, có thể trả về một thông báo lỗi hoặc một view khác
-                // Ở đây mình chọn trả về thông báo lỗi
-                TempData["ErrorMessage"] = "No data found for the selected warehouse.";
-                return View(new List<DonXuatHang>()); // Trả về một list rỗng hoặc view lỗi
-            }
-
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var kho = await _khoHangRepository.GetKhoHangByIdUser(userId);
+            var list = await _donXuatHangRepository.GetByKhoAsync(kho.MaKho);
             return View(list);
         }
 

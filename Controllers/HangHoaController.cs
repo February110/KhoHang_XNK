@@ -17,7 +17,7 @@ namespace KhoHang_XNK.Controllers
             _hangHoaRepository = hangHoaRepository;
             _loaiHangHoaRepository = loaiHangHoaRepository;
         }
-
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             //if (User.IsInRole("Admin"))
@@ -28,11 +28,10 @@ namespace KhoHang_XNK.Controllers
             //return RedirectToAction("AccessDenied", "Account");
             
         }
-        public async Task<IActionResult> IndexUser(int id)
+        public async Task<IActionResult> IndexUser()
         {
-
-            var tonKhos = await _tonKhoRepository.GetTonKhosByMaKhoAsync(id);
-            return View(tonKhos);
+            var hangHoas = await _hangHoaRepository.GetAllAsync();
+            return View(hangHoas);
 
         }
         public async Task<IActionResult> Create()

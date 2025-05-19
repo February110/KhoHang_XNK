@@ -25,6 +25,15 @@ namespace KhoHang_XNK.Controllers
             //}
             //return RedirectToAction("AccessDenied");
         }
+        public async Task<IActionResult> IndexUser()
+        {
+            //if (User.IsInRole("Admin"))
+            //{
+            var loaiHangHoas = await _loaiHangHoaRepository.GetAllAsync();
+            return View(loaiHangHoas);
+            //}
+            //return RedirectToAction("AccessDenied");
+        }
         [AllowAnonymous]
         public IActionResult AccessDenied()
         {

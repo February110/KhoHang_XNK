@@ -158,5 +158,11 @@ namespace KhoHang_XNK.Repositories
                 .ToListAsync();
         }
         #endregion
+
+        public async Task<KhoHang> GetKhoHangByIdUser(string id)
+        {
+            return await _context.KhoHangs
+            .FirstOrDefaultAsync(k => k.UserId == id);
+        }
     }
 }

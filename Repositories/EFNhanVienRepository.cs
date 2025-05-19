@@ -82,6 +82,13 @@ namespace KhoHang_XNK.Repositories
                                  .Include(nv => nv.KhoHang) // Load thông tin kho
                                  .ToListAsync();
         }
+        public async Task<IEnumerable<NhanVien>> GetNhanVienByKhoHang(int maKho)
+        {
+            return await _context.NhanViens
+                .Where(nv => nv.MaKho == maKho)
+                .Include(nv => nv.KhoHang) // Load thông tin kho
+                .ToListAsync();
+        }
 
 
     }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ClosedXML.Excel;
 using System.IO;
+using System.Security.Claims;
 
 namespace KhoHang_XNK.Controllers
 {
@@ -27,9 +28,11 @@ namespace KhoHang_XNK.Controllers
             var list = await _donNhapHangRepository.GetAllAsync();
             return View(list);
         }
-        public async Task<IActionResult> IndexUser(int id)
+        public async Task<IActionResult> IndexUser()
         {
-            var list = await _donNhapHangRepository.GetByKhoAsync(id);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var kho = await _khoHangRepository.GetKhoHangByIdUser(userId);
+            var list = await _donNhapHangRepository.GetByKhoAsync(kho.MaKho);
             return View(list);
         }
         public async Task<IActionResult> Details(int id)

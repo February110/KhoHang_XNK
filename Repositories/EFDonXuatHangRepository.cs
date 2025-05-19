@@ -129,5 +129,19 @@ namespace KhoHang_XNK.Repositories
                     .ToListAsync();
             }
         }
+
+        public async Task<IEnumerable<KhachHang>>? GetKhacHangByKhoAsync(int maKho)
+        {
+            return await _context.DonXuatHangs
+                .Include(d => d.KhachHang)
+                    .ThenInclude(kh => kh.LoaiKhachHang)
+                .Where(d => d.KhoHang.MaKho == maKho)
+                .Select(d => d.KhachHang)
+                .Distinct()
+                .ToListAsync();
+        }
+
+
+
     }
 }

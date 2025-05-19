@@ -1,8 +1,10 @@
-﻿using KhoHang_XNK.Models;
+﻿using DocumentFormat.OpenXml.InkML;
+using KhoHang_XNK.Models;
 using KhoHang_XNK.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace KhoHang_XNK.Controllers
 {
@@ -148,11 +150,23 @@ namespace KhoHang_XNK.Controllers
             return _tonKhoRepository.GetTonKhoByIdsAsync(maKho, maHangHoa) != null;
         }
 
-        public async Task<IActionResult> IndexUser(int id)
+        public async Task<IActionResult> IndexUser()
         {
-           
-            var tonKhos = await _tonKhoRepository.GetTonKhosByMaKhoAsync(id);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var khoList = await _khoHangRepository.GetAllKhoHangsForUserAsync(userId);
+
+            if (khoList == null || !khoList.Any())
+            {
+                return NotFound("Không tìm thấy kho hàng nào của bạn.");
+            }
+
+            // Gộp tất cả tồn kho từ các kho lại
+            var tonKhos = khoList.SelectMany(k => k.TonKhos).ToList();
+
             return View(tonKhos);
         }
+
+
     }
 }

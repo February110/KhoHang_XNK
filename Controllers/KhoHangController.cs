@@ -1,5 +1,6 @@
 ﻿using KhoHang_XNK.Models;
 using KhoHang_XNK.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -18,6 +19,7 @@ namespace KhoHang_XNK.Controllers
             _hangHoaRepository = hangHoaRepository;
             _nhaCungCapRepository = nhaCungCapRepository;
         }
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var khoHangs = await _khoHangRepository.GetAllKhoHangsAsync();

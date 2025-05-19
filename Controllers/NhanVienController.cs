@@ -3,6 +3,7 @@ using KhoHang_XNK.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
+using System.Security.Claims;
 
 namespace KhoHang_XNK.Controllers
 {
@@ -21,7 +22,17 @@ namespace KhoHang_XNK.Controllers
             var nhanViens = await _nhanVienRepository.GetAllAsync();
             return View(nhanViens);
         }
+        public async Task<IActionResult> IndexUser()
+        {
 
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+
+            var kho = await _khoHangRepository.GetKhoHangByIdUser(userId);
+
+            var nhanVienList = await _nhanVienRepository.GetNhanVienByKhoHang(kho.MaKho);
+            return View(nhanVienList);
+        }
         public async Task<IActionResult> Create()
         {
             var khoHangs = await _khoHangRepository.GetAllKhoHangsAsync();
@@ -170,12 +181,7 @@ namespace KhoHang_XNK.Controllers
             return View(viewModel);
         }
 
-        public async Task<IActionResult> IndexUser(int id)
-        {
-          
-            var nhanViens = await _nhanVienRepository.GetByKhoAsync(id);
-            return View(nhanViens);
-        }
+      
 
     }
 }

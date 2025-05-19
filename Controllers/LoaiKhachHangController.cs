@@ -21,6 +21,11 @@ namespace KhoHang_XNK.Controllers
             //}
             //return RedirectToAction("AccessDenied");
         }
+        public async Task<IActionResult> IndexUser()
+        {
+            var loaiKhachHangs = await loaiKhachHangRepository.GetAllLoaiKhachHangsAsync();
+            return View(loaiKhachHangs);
+        }
         [AllowAnonymous]
         public IActionResult AccessDenied()
         {

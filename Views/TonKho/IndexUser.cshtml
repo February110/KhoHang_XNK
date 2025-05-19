@@ -1,44 +1,285 @@
 ﻿@model IEnumerable<KhoHang_XNK.Models.TonKho>
 
 @{
-    ViewData["Title"] = "Danh sách tồn kho";
+	ViewData["Title"] = "Danh sách tồn kho";
 }
+<!--Sidebar-->
+<div class="sidebar transition overlay-scrollbars animate__animated  animate__slideInLeft">
+	<div class="sidebar-content">
+		<div id="sidebar">
 
-<h1 class="mb-4 text-primary">@ViewData["Title"]</h1>
+			<!-- Logo -->
+			<div class="logo">
+				<h2 class="mb-0"><img src="~/images/logo/logo_sidebar.png"> WareTrack</h2>
+			</div>
 
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <input type="text" id="searchInput" class="form-control w-25 rounded-pill shadow-sm border-primary" placeholder="🔍 Tìm kiếm...">
+			<ul class="side-menu">
+
+				<!-- Kho Hàng -->
+				<li>
+					@if (User.IsInRole("Admin"))
+					{
+						<a asp-controller="KhoHang" asp-action="Index">
+							<i class='bx bxs-dashboard icon'></i> Kho Hàng
+						</a>
+					}
+					else if (User.IsInRole("User"))
+					{
+						<a asp-controller="User" asp-action="Index">
+							<i class='bx bxs-dashboard icon'></i> Kho Hàng
+						</a>
+					}
+				</li>
+
+				<!-- Divider-->
+				<li class="divider" data-text="STARTER">Quản lý Hàng hóa</li>
+
+				<!-- Hàng Hóa -->
+				<li>
+					@if (User.IsInRole("Admin"))
+					{
+						<a asp-controller="HangHoa" asp-action="Index">
+							<i class='bx bx-columns icon'></i> Hàng Hóa
+						</a>
+					}
+					else if (User.IsInRole("User"))
+					{
+						<a asp-controller="HangHoa" asp-action="IndexUser">
+							<i class='bx bx-columns icon'></i> Hàng Hóa
+						</a>
+					}
+				</li>
+
+				<!-- Loại Hàng Hóa -->
+				<li>
+					@if (User.IsInRole("Admin"))
+					{
+						<a asp-controller="LoaiHangHoa" asp-action="Index">
+							<i class='bx bxs-meh-blank icon'></i> Loại Hàng Hóa
+						</a>
+					}
+					else if (User.IsInRole("User"))
+					{
+						<a asp-controller="LoaiHangHoa" asp-action="IndexUser">
+							<i class='bx bxs-meh-blank icon'></i> Loại Hàng Hóa
+						</a>
+					}
+				</li>
+
+				<!-- Tồn Kho -->
+				<li>
+					@if (User.IsInRole("Admin"))
+					{
+						<a asp-controller="TonKho" asp-action="Index" class="active">
+							<i class='fa fa-th icon'></i> Tồn Kho
+						</a>
+					}
+					else if (User.IsInRole("User"))
+					{
+						<a asp-controller="TonKho" asp-action="IndexUser" class="active">
+							<i class='fa fa-th icon'></i> Tồn Kho
+						</a>
+					}
+				</li>
+
+				<!-- Divider-->
+				<li class="divider" data-text="Atrana">Quản lý Nhân sự và Khách hàng</li>
+
+				<!-- Nhân Viên -->
+				<li>
+					@if (User.IsInRole("Admin"))
+					{
+						<a asp-controller="NhanVien" asp-action="Index">
+							<i class='bx bxs-user icon'></i> Nhân Viên
+						</a>
+					}
+					else if (User.IsInRole("User"))
+					{
+						<a asp-controller="NhanVien" asp-action="IndexUser">
+							<i class='bx bxs-user icon'></i> Nhân Viên
+						</a>
+					}
+				</li>
+
+				<!-- Khách Hàng -->
+				<li>
+					@if (User.IsInRole("Admin"))
+					{
+						<a asp-controller="KhachHang" asp-action="Index">
+							<i class='bx bxs-notepad icon'></i> Khách Hàng
+						</a>
+					}
+					else if (User.IsInRole("User"))
+					{
+						<a asp-controller="KhachHang" asp-action="IndexUser">
+							<i class='bx bxs-notepad icon'></i> Khách Hàng
+						</a>
+					}
+				</li>
+
+				<!-- Loại Khách Hàng -->
+				<li>
+					@if (User.IsInRole("Admin"))
+					{
+						<a asp-controller="LoaiKhachHang" asp-action="Index">
+							<i class='bx bxs-widget icon'></i> Loại Khách Hàng
+						</a>
+					}
+					else if (User.IsInRole("User"))
+					{
+						<a asp-controller="LoaiKhachHang" asp-action="IndexUser">
+							<i class='bx bxs-widget icon'></i> Loại Khách Hàng
+						</a>
+					}
+				</li>
+
+				<!-- Divider-->
+				<li class="divider" data-text="Pages">Quản lý Nhà cung cấp</li>
+
+				<!-- Nhà Cung Cấp -->
+				<li>
+					@if (User.IsInRole("Admin"))
+					{
+						<a asp-controller="NhaCungCap" asp-action="Index">
+							<i class='fa fa-pencil-ruler icon'></i> Nhà Cung Cấp
+						</a>
+					}
+					else if (User.IsInRole("User"))
+					{
+						<a asp-controller="NhaCungCap" asp-action="IndexUser">
+							<i class='fa fa-pencil-ruler icon'></i> Nhà Cung Cấp
+						</a>
+					}
+				</li>
+
+				<!-- Divider-->
+				<li class="divider" data-text="Pages">Quản lý Nhà cung cấp</li>
+
+				<!-- Đơn Nhập Hàng -->
+				<li>
+					@if (User.IsInRole("Admin"))
+					{
+						<a asp-controller="DonNhapHang" asp-action="Index">
+							<i class='bx bxs-notepad icon'></i> Đơn Nhập Hàng
+						</a>
+					}
+					else if (User.IsInRole("User"))
+					{
+						<a asp-controller="DonNhapHang" asp-action="IndexUser">
+							<i class='bx bxs-notepad icon'></i> Đơn Nhập Hàng
+						</a>
+					}
+				</li>
+
+				<!-- Đơn Xuất Hàng -->
+				<li>
+					@if (User.IsInRole("Admin"))
+					{
+						<a asp-controller="DonXuatHang" asp-action="Index">
+							<i class='bx bxs-notepad icon'></i> Đơn Xuất Hàng
+						</a>
+					}
+					else if (User.IsInRole("User"))
+					{
+						<a asp-controller="DonXuatHang" asp-action="IndexUser">
+							<i class='bx bxs-notepad icon'></i> Đơn Xuất Hàng
+						</a>
+					}
+				</li>
+
+				<!-- Phiếu Kiểm Kê -->
+				<li>
+					@if (User.IsInRole("Admin"))
+					{
+						<a asp-controller="PhieuKiemKe" asp-action="Index">
+							<i class='bx bxs-notepad icon'></i> Phiếu Kiểm Kê
+						</a>
+					}
+					else if (User.IsInRole("User"))
+					{
+						<a asp-controller="PhieuKiemKe" asp-action="IndexUser">
+							<i class='bx bxs-notepad icon'></i> Phiếu Kiểm Kê
+						</a>
+					}
+				</li>
+
+				<!-- Thống Kê -->
+				<li>
+					@if (User.IsInRole("Admin"))
+					{
+						<a asp-controller="ThongKe" asp-action="Index">
+							<i class="bx bxs-bar-chart-alt-2 icon"></i> Thống Kê Doanh Thu
+						</a>
+					}
+					else if (User.IsInRole("User"))
+					{
+						<a asp-controller="ThongKe" asp-action="IndexUser">
+							<i class="bx bxs-bar-chart-alt-2 icon"></i> Thống Kê Doanh Thu
+						</a>
+					}
+				</li>
+
+			</ul>
+		</div>
+	</div>
 </div>
+<!-- End Sidebar-->
 
-<table class="table table-hover table-bordered text-center shadow-sm">
-    <thead class="table-primary">
-        <tr>
-            <th>@Html.DisplayNameFor(model => model.KhoHang)</th>
-            <th>@Html.DisplayNameFor(model => model.HangHoa)</th>
-            <th>@Html.DisplayNameFor(model => model.SoLuong)</th>
-            <th>Hanh dong</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@Html.DisplayFor(modelItem => item.KhoHang.TenKho)</td>
-                <td>@Html.DisplayFor(modelItem => item.HangHoa.TenHangHoa)</td>
-                <td>@Html.DisplayFor(modelItem => item.SoLuong)</td>
-                <td>
-                    <a asp-action="Edit" asp-route-maKho="@item.MaKho" asp-route-maHangHoa="@item.MaHangHoa" class="btn btn-warning btn-sm">
-                        <i class="bi bi-pencil-square"></i> Sửa
-                    </a>
-                    <a asp-action="Details" asp-route-maKho="@item.MaKho" asp-route-maHangHoa="@item.MaHangHoa" class="btn btn-info btn-sm">
-                        <i class="bi bi-eye"></i> Chi tiết
-                    </a>
-                    <a asp-action="Delete" asp-route-maKho="@item.MaKho" asp-route-maHangHoa="@item.MaHangHoa" class="btn btn-danger btn-sm">
-                        <i class="bi bi-trash"></i> Xóa
-                    </a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
 
+<div class="sidebar-overlay"></div>
+
+<!--Content Start-->
+<div class="content-start transition">
+	<div class="container-fluid dashboard">
+
+
+		<div class="row">
+
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header">
+						<div class="d-flex justify-content-between align-items-center mb-3">
+							<input type="text" id="searchInput" class="form-control w-25" placeholder="Tìm kiếm...">
+						</div>
+					</div>
+
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th scope="col">Mã kho hàng</th>
+										<th scope="col">Mã hàng hóa</th>
+										<th scope="col">Số lượng</th>
+										<th scope="col" style="text-align: center;">Hành động</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									@foreach (var item in Model)
+									{
+										<tr>
+											<td>@Html.DisplayFor(modelItem => item.KhoHang.TenKho)</td>
+											<td>@Html.DisplayFor(modelItem => item.HangHoa.TenHangHoa)</td>
+											<td>@Html.DisplayFor(modelItem => item.SoLuong)</td>
+
+											<td style="text-align: center;">
+												<a asp-action="Edit" asp-route-maKho="@item.MaKho" asp-route-maHangHoa="@item.MaHangHoa" class="btn btn-warning rounded-pill"><i class="fas fa-edit"></i> Sửa</a>
+												<a asp-action="Details" asp-route-maKho="@item.MaKho" asp-route-maHangHoa="@item.MaHangHoa" class="btn btn-info rounded-pill">
+													<i class="fas fa-eye"></i> Chi tiết
+												</a>
+												<a asp-action="Delete" asp-route-maKho="@item.MaKho" asp-route-maHangHoa="@item.MaHangHoa" class="btn btn-danger rounded-pill" onclick="return confirm('Bạn có chắc chắn muốn xóa KhoHang này không?');"><i class="fas fa-trash"></i> Xóa</a>
+
+											</td>
+										</tr>
+									}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>

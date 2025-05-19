@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "Thêm Chi tiết đơn nhập";
 }
-
 <!--Sidebar-->
 <div class="sidebar transition overlay-scrollbars animate__animated  animate__slideInLeft">
 	<div class="sidebar-content">
@@ -15,95 +14,211 @@
 			</div>
 
 			<ul class="side-menu">
+
+				<!-- Kho Hàng -->
 				<li>
-					<a asp-controller="KhoHang" asp-action="Index">
-						<i class='bx bxs-dashboard icon'></i> Kho Hàng
-					</a>
+					@if (User.IsInRole("Admin"))
+					{
+						<a asp-controller="KhoHang" asp-action="Index">
+							<i class='bx bxs-dashboard icon'></i> Kho Hàng
+						</a>
+					}
+					else if (User.IsInRole("User"))
+					{
+						<a asp-controller="User" asp-action="Index">
+							<i class='bx bxs-dashboard icon'></i> Kho Hàng
+						</a>
+					}
 				</li>
 
 				<!-- Divider-->
 				<li class="divider" data-text="STARTER">Quản lý Hàng hóa</li>
 
+				<!-- Hàng Hóa -->
 				<li>
-					<a asp-controller="HangHoa" asp-action="Index">
-						<i class='bx bx-columns icon'></i>
-						Hàng Hóa
-					</a>
+					@if (User.IsInRole("Admin"))
+					{
+						<a asp-controller="HangHoa" asp-action="Index" >
+							<i class='bx bx-columns icon'></i> Hàng Hóa
+						</a>
+					}
+					else if (User.IsInRole("User"))
+					{
+						<a asp-controller="HangHoa" asp-action="IndexUser" >
+							<i class='bx bx-columns icon'></i> Hàng Hóa
+						</a>
+					}
 				</li>
 
+				<!-- Loại Hàng Hóa -->
 				<li>
-					<a asp-controller="LoaiHangHoa" asp-action="Index">
-						<i class='bx bxs-meh-blank icon'></i>
-						Loại Hàng Hóa
-					</a>
+					@if (User.IsInRole("Admin"))
+					{
+						<a asp-controller="LoaiHangHoa" asp-action="Index">
+							<i class='bx bxs-meh-blank icon'></i> Loại Hàng Hóa
+						</a>
+					}
+					else if (User.IsInRole("User"))
+					{
+						<a asp-controller="LoaiHangHoa" asp-action="IndexUser">
+							<i class='bx bxs-meh-blank icon'></i> Loại Hàng Hóa
+						</a>
+					}
 				</li>
 
+				<!-- Tồn Kho -->
 				<li>
-					<a asp-controller="TonKho" asp-action="Index">
-						<i class='fa fa-th icon'></i>
-						Tồn Kho
-					</a>
+					@if (User.IsInRole("Admin"))
+					{
+						<a asp-controller="TonKho" asp-action="Index">
+							<i class='fa fa-th icon'></i> Tồn Kho
+						</a>
+					}
+					else if (User.IsInRole("User"))
+					{
+						<a asp-controller="TonKho" asp-action="IndexUser">
+							<i class='fa fa-th icon'></i> Tồn Kho
+						</a>
+					}
 				</li>
 
 				<!-- Divider-->
 				<li class="divider" data-text="Atrana">Quản lý Nhân sự và Khách hàng</li>
 
+				<!-- Nhân Viên -->
 				<li>
-					<a asp-controller="NhanVien" asp-action="Index">
-						<i class='bx bxs-user icon'></i>
-						Nhân Viên
-					</a>
+					@if (User.IsInRole("Admin"))
+					{
+						<a asp-controller="NhanVien" asp-action="Index">
+							<i class='bx bxs-user icon'></i> Nhân Viên
+						</a>
+					}
+					else if (User.IsInRole("User"))
+					{
+						<a asp-controller="NhanVien" asp-action="IndexUser">
+							<i class='bx bxs-user icon'></i> Nhân Viên
+						</a>
+					}
 				</li>
 
+				<!-- Khách Hàng -->
 				<li>
-					<a asp-controller="KhachHang" asp-action="Index">
-						<i class='bx bxs-notepad icon'></i>
-						Khách Hàng
-					</a>
+					@if (User.IsInRole("Admin"))
+					{
+						<a asp-controller="KhachHang" asp-action="Index">
+							<i class='bx bxs-notepad icon'></i> Khách Hàng
+						</a>
+					}
+					else if (User.IsInRole("User"))
+					{
+						<a asp-controller="KhachHang" asp-action="IndexUser">
+							<i class='bx bxs-notepad icon'></i> Khách Hàng
+						</a>
+					}
 				</li>
 
+				<!-- Loại Khách Hàng -->
 				<li>
-					<a asp-controller="LoaiKhachHang" asp-action="Index">
-						<i class='bx bxs-widget icon'></i>
-						Loại Khách Hàng
-					</a>
+					@if (User.IsInRole("Admin"))
+					{
+						<a asp-controller="LoaiKhachHang" asp-action="Index">
+							<i class='bx bxs-widget icon'></i> Loại Khách Hàng
+						</a>
+					}
+					else if (User.IsInRole("User"))
+					{
+						<a asp-controller="LoaiKhachHang" asp-action="IndexUser">
+							<i class='bx bxs-widget icon'></i> Loại Khách Hàng
+						</a>
+					}
 				</li>
 
 				<!-- Divider-->
 				<li class="divider" data-text="Pages">Quản lý Nhà cung cấp</li>
+
+				<!-- Nhà Cung Cấp -->
 				<li>
-					<a asp-controller="NhaCungCap" asp-action="Index">
-						<i class='fa fa-pencil-ruler icon'></i>
-						Nhà Cung Cấp
-					</a>
+					@if (User.IsInRole("Admin"))
+					{
+						<a asp-controller="NhaCungCap" asp-action="Index">
+							<i class='fa fa-pencil-ruler icon'></i> Nhà Cung Cấp
+						</a>
+					}
+					else if (User.IsInRole("User"))
+					{
+						<a asp-controller="NhaCungCap" asp-action="IndexUser">
+							<i class='fa fa-pencil-ruler icon'></i> Nhà Cung Cấp
+						</a>
+					}
 				</li>
 
 				<!-- Divider-->
 				<li class="divider" data-text="Pages">Quản lý Nhà cung cấp</li>
+
+				<!-- Đơn Nhập Hàng -->
 				<li>
-					<a asp-controller="DonNhapHang" asp-action="Index" class="active">
-						<i class='bx bxs-notepad icon'></i>
-						Đơn Nhập Hàng
-					</a>
+					@if (User.IsInRole("Admin"))
+					{
+						<a asp-controller="DonNhapHang" asp-action="Index" class="active">
+							<i class='bx bxs-notepad icon'></i> Đơn Nhập Hàng
+						</a>
+					}
+					else if (User.IsInRole("User"))
+					{
+						<a asp-controller="DonNhapHang" asp-action="IndexUser" class="active">
+							<i class='bx bxs-notepad icon'></i> Đơn Nhập Hàng
+						</a>
+					}
 				</li>
+
+				<!-- Đơn Xuất Hàng -->
 				<li>
-					<a asp-controller="DonXuatHang" asp-action="Index" >
-						<i class='bx bxs-notepad icon'></i>
-						Đơn Xuất Hàng
-					</a>
+					@if (User.IsInRole("Admin"))
+					{
+						<a asp-controller="DonXuatHang" asp-action="Index">
+							<i class='bx bxs-notepad icon'></i> Đơn Xuất Hàng
+						</a>
+					}
+					else if (User.IsInRole("User"))
+					{
+						<a asp-controller="DonXuatHang" asp-action="IndexUser">
+							<i class='bx bxs-notepad icon'></i> Đơn Xuất Hàng
+						</a>
+					}
 				</li>
+
+				<!-- Phiếu Kiểm Kê -->
 				<li>
-					<a asp-controller="PhieuKiemKe" asp-action="Index">
-						<i class='bx bxs-notepad icon'></i>
-						Phiếu Kiểm Kê
-					</a>
+					@if (User.IsInRole("Admin"))
+					{
+						<a asp-controller="PhieuKiemKe" asp-action="Index">
+							<i class='bx bxs-notepad icon'></i> Phiếu Kiểm Kê
+						</a>
+					}
+					else if (User.IsInRole("User"))
+					{
+						<a asp-controller="PhieuKiemKe" asp-action="IndexUser">
+							<i class='bx bxs-notepad icon'></i> Phiếu Kiểm Kê
+						</a>
+					}
 				</li>
+
+				<!-- Thống Kê -->
 				<li>
-					<a asp-controller="ThongKe" asp-action="Index">
-						<i class="bx bxs-bar-chart-alt-2 icon"></i>
-						Thông Kê Doanh Thu
-					</a>
+					@if (User.IsInRole("Admin"))
+					{
+						<a asp-controller="ThongKe" asp-action="Index">
+							<i class="bx bxs-bar-chart-alt-2 icon"></i> Thống Kê Doanh Thu
+						</a>
+					}
+					else if (User.IsInRole("User"))
+					{
+						<a asp-controller="ThongKe" asp-action="IndexUser">
+							<i class="bx bxs-bar-chart-alt-2 icon"></i> Thống Kê Doanh Thu
+						</a>
+					}
 				</li>
+
 			</ul>
 		</div>
 	</div>

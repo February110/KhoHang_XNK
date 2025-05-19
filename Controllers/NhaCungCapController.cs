@@ -18,11 +18,18 @@ namespace KhoHang_XNK.Controllers
 
             //if (User.IsInRole("Admin"))
             //{
-                var nhaCungCaps = await _nhaCungCapRepository.GetAllNhaCungCapsAsync();
-                return View(nhaCungCaps);
+            var nhaCungCaps = await _nhaCungCapRepository.GetAllNhaCungCapsAsync();
+            return View(nhaCungCaps);
             //}
             //return RedirectToAction("AccessDenied");
-            
+
+        }
+        public async Task<IActionResult> IndexUser()
+        {
+
+            var nhaCungCaps = await _nhaCungCapRepository.GetAllNhaCungCapsAsync();
+            return View(nhaCungCaps);
+
         }
         public async Task<IActionResult> Details(int id)
         {

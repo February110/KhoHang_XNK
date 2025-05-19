@@ -15,6 +15,8 @@ namespace KhoHang_XNK.Repositories
         Task<IEnumerable<DonXuatHang>> GetDonXuatByNhanVienAsync(int maNV);
         Task<IEnumerable<PhieuKiemKe>> GetPhieuKiemKeByNhanVienAsync(int maNV);
 
+        Task<IEnumerable<NhanVien>> GetNhanVienByKhoHang(int maKho);
+
 
     }
 }

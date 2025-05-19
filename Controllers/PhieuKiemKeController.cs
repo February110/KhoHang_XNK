@@ -2,6 +2,7 @@
 using KhoHang_XNK.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Claims;
 
 namespace KhoHang_XNK.Controllers
 {
@@ -26,9 +27,11 @@ namespace KhoHang_XNK.Controllers
             var phieuKiemKes = await _phieuKiemKeRepository.GetAllAsync();
             return View(phieuKiemKes);
         }
-        public async Task<IActionResult> IndexUser(int id)
+        public async Task<IActionResult> IndexUser()
         {
-            var list = await _phieuKiemKeRepository.GetByKhoAsync(id);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var kho = await _khoHangRepository.GetKhoHangByIdUser(userId);
+            var list = await _phieuKiemKeRepository.GetByKhoAsync(kho.MaKho);
             return View(list);
         }
         // GET: Tạo mới phiếu kiểm kê

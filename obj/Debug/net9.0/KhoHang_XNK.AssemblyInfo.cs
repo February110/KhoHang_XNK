@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("KhoHang_XNK")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+948748f737a41793a5d765229110dde3c33d0fa7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4b35dbbb4e4a723f36358c3d61b315f77ca882ec")]
 [assembly: System.Reflection.AssemblyProductAttribute("KhoHang_XNK")]
 [assembly: System.Reflection.AssemblyTitleAttribute("KhoHang_XNK")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

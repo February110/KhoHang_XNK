@@ -1,2 +1,0 @@
-D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\apexcharts\apexcharts.js
-D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\apexcharts\apexcharts.css

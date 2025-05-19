@@ -21,7 +21,7 @@ namespace KhoHang_XNK.Models
 
         // Thuộc tính điều hướng (navigation property) tới bảng AspNetUsers
         public ApplicationUser User { get; set; }
-        public List<NhanVien>? NhanViens { get; set; }
+        public List<NhanVien>? NhanViens { get; set; } 
         public List<TonKho>? TonKhos { get; set; }
     }
 }

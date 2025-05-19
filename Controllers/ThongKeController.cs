@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System.Security.Claims;
 
 namespace KhoHang_XNK.Controllers
 {
@@ -35,26 +36,7 @@ namespace KhoHang_XNK.Controllers
             _chiTietDonXuatRepository = chiTietDonXuatRepository;
         }
 
-        //public async Task<IActionResult> Index()
-        //{
-
-        //    var doanhThuNhapHang = await _donNhapHangRepository.GetTongTienNhapTheoThangAsync();
-
-        //    // Lấy tổng tiền xuất hàng
-        //    var doanhThuXuatHang = await _donXuatHangRepository.GetTongTienXuatTheoThangAsync();
-
-        //    // Tạo model chứa cả 2 thông tin
-        //    var viewModel = new ThongKeDoanhThuViewModel
-        //    {
-        //        DoanhThuNhapHang = doanhThuNhapHang,
-        //        DoanhThuXuatHang = doanhThuXuatHang
-        //    };
-        //    ViewBag.DoanhThuNhapHangJson = JsonConvert.SerializeObject(doanhThuNhapHang);
-        //    ViewBag.DoanhThuXuatHangJson = JsonConvert.SerializeObject(doanhThuXuatHang);
-
-        //    return View(viewModel);
-
-        //}
+     
         public async Task<IActionResult> Index(int? khoId)
         {
             var viewModel = new ThongKeDoanhThuViewModel
@@ -67,7 +49,24 @@ namespace KhoHang_XNK.Controllers
 
             return View(viewModel);
         }
+        public async Task<IActionResult> IndexUser()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var kho = await _khoHangRepository.GetKhoHangByIdUser(userId);
+            var khoId = kho.MaKho;
+            var viewModel = new ThongKeDoanhThuViewModel
+            {
+                SelectedKhoId = khoId,
+                DanhSachKho = (await _khoHangRepository.GetAllKhoHangsAsync()).ToList(),
+                DoanhThuNhapHang = await _donNhapHangRepository.GetTongTienNhapTheoThangAsync(khoId),
+                DoanhThuXuatHang = await _donXuatHangRepository.GetTongTienXuatTheoThangAsync(khoId)
+            };
 
+            ViewBag.TenKho = kho.TenKho; // Gửi tên kho sang ViewBag để hiển thị trong view
+            ViewData["Title"] = $"Thống kê doanh thu - {kho.TenKho}";
+
+            return View(viewModel);
+        }
 
 
     }

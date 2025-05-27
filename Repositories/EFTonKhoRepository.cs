@@ -1,4 +1,5 @@
 ﻿using KhoHang_XNK.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -106,6 +107,29 @@ namespace KhoHang_XNK.Repositories
         {
             return await _context.TonKhos
                 .FirstOrDefaultAsync(t => t.MaHangHoa == maHangHoa && t.MaKho == maKho);
+        }
+
+        public async Task<IEnumerable<SelectListItem>> GetHangHoaByKhoAsync(int maKho)
+        {
+            return await _context.TonKhos
+                .Where(t => t.MaKho == maKho && t.SoLuong > 0)
+                .Join(_context.HangHoas,
+                    tonKho => tonKho.MaHangHoa,
+                    hangHoa => hangHoa.MaHangHoa,
+                    (tonKho, hangHoa) => new SelectListItem
+                    {
+                        Value = hangHoa.MaHangHoa.ToString(),
+                        Text = hangHoa.TenHangHoa
+                    })
+                .ToListAsync();
+        }
+
+        public async Task<int?> GetSoLuongTonKhoAsync(int maKho, int maHangHoa)
+        {
+            return await _context.TonKhos
+                .Where(t => t.MaKho == maKho && t.MaHangHoa == maHangHoa)
+                .Select(t => t.SoLuong)
+                .FirstOrDefaultAsync();
         }
 
     }

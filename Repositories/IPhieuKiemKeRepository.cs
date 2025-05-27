@@ -14,6 +14,6 @@ namespace KhoHang_XNK.Repositories
 
         Task<PhieuKiemKe?> GetPhieuKiemKeWithKhoAsync(int maKiemKe);
 
-
+        Task<int?> GetMaKhoByKiemKeAsync(int maKiemKe);
     }
 }

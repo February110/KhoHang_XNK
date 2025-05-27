@@ -1,5 +1,6 @@
 ﻿using KhoHang_XNK.Models;
 using KhoHang_XNK.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -36,7 +37,7 @@ namespace KhoHang_XNK.Controllers
             _chiTietDonXuatRepository = chiTietDonXuatRepository;
         }
 
-     
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index(int? khoId)
         {
             var viewModel = new ThongKeDoanhThuViewModel

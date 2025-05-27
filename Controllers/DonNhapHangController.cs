@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using ClosedXML.Excel;
 using System.IO;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace KhoHang_XNK.Controllers
 {
@@ -23,6 +24,7 @@ namespace KhoHang_XNK.Controllers
             _nhanVienRepository = nhanVienRepository;
             _khoHangRepository = khoHangRepository;
         }
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> Index()
         {
             var list = await _donNhapHangRepository.GetAllAsync();

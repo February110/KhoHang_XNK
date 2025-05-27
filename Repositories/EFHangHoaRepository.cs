@@ -1,4 +1,5 @@
 ﻿using KhoHang_XNK.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -92,6 +93,21 @@ namespace KhoHang_XNK.Repositories
                 .SumAsync(t => t.SoLuong);  // Sum the quantity from all TonKho records
 
             return tonKho > 0 ? tonKho : (int?)null;  // Return null if no stock or zero
+        }
+
+        public async Task<IEnumerable<SelectListItem>> GetHangHoaByKhoAsync(int maKho)
+        {
+        return await _context.TonKhos
+            .Where(t => t.MaKho == maKho && t.SoLuong > 0)
+            .Join(_context.HangHoas,
+                tonKho => tonKho.MaHangHoa,
+                hangHoa => hangHoa.MaHangHoa,
+                (tonKho, hangHoa) => new SelectListItem
+                {
+                    Value = hangHoa.MaHangHoa.ToString(),
+                    Text = hangHoa.TenHangHoa
+                })
+            .ToListAsync();
         }
     }
 }

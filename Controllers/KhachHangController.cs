@@ -1,5 +1,6 @@
 ﻿using KhoHang_XNK.Models;
 using KhoHang_XNK.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Claims;
@@ -19,6 +20,7 @@ namespace KhoHang_XNK.Controllers
             _loaiKhachHangRepository = loaiKhachHangRepository;
             _khoHangRepository = khoHangRepository;
         }
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var khachHangs = await _khachHangRepository.GetAllAsync();

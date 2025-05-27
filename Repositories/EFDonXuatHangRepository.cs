@@ -140,7 +140,22 @@ namespace KhoHang_XNK.Repositories
                 .Distinct()
                 .ToListAsync();
         }
+        
+        public async Task<IEnumerable<DonXuatHang>> GetAllKhachHangAsync()
+        {
+            return await _context.DonXuatHangs
+                .Include(d => d.KhachHang)
+                .Include(d => d.NhanVien)
+                .ToListAsync();
+        }
 
+        public async Task<int?> GetMaKhoByDonXuatAsync(int maDonXuat)
+        {
+            return await _context.DonXuatHangs
+                .Where(d => d.MaDonXuat == maDonXuat)
+                .Select(d => d.MaKho)
+                .FirstOrDefaultAsync();
+        }
 
 
     }

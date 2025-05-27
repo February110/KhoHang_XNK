@@ -13,6 +13,7 @@ namespace KhoHang_XNK.Controllers
         {
             _nhaCungCapRepository = nhaCungCapRepository;
         }
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
 

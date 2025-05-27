@@ -27,11 +27,11 @@ namespace KhoHang_XNK.Controllers
 
             if (User.IsInRole("Admin"))
             {
-                return RedirectToAction("Index", "KhoHang");
+                return RedirectToAction("Index", "TongQuan");
             }
             else
             {
-                return RedirectToAction("Index", "User");
+                return RedirectToAction("IndexUser", "TongQuan");
             }
         }
 

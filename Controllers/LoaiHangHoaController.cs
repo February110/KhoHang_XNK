@@ -16,6 +16,7 @@ namespace KhoHang_XNK.Controllers
             _hangHoaRepository = hangHoaRepository;
             _loaiHangHoaRepository = loaiHangHoaRepository;
         }
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             //if (User.IsInRole("Admin"))

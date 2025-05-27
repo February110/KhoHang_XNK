@@ -29201,6 +29201,14 @@
       "PackagePath": "staticwebassets\\js\\bootstrap-5.0.0-beta1.min.js"
     },
     {
+      "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\js\\common-excel.js",
+      "PackagePath": "staticwebassets\\js\\common-excel.js"
+    },
+    {
+      "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\js\\common.js",
+      "PackagePath": "staticwebassets\\js\\common.js"
+    },
+    {
       "Id": "D:\\KhoHang_XNK\\KhoHang_XNK\\wwwroot\\js\\count-up.min.js",
       "PackagePath": "staticwebassets\\js\\count-up.min.js"
     },

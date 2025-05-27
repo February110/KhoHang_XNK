@@ -11,5 +11,7 @@ namespace KhoHang_XNK.Repositories
         Task DeleteAsync(ChiTietDonXuat chiTietDonXuat);
         Task<IEnumerable<ChiTietDonXuat>> GetAllAsync();
         Task<ChiTietDonXuat> GetByIdAsync(int maDonXuat, int maHangHoa);
+
+        Task<IEnumerable<ChiTietDonXuat>> GetByHangHoaAsync();
     }
 }

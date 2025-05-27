@@ -5311,6 +5311,7 @@ D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\lineawesome\svg\cc-visa.svg
 D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\lineawesome\svg\journal-whills-solid.svg
 D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\lineawesome\svg\java.svg
 D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\bootstrap-icons\hdd.svg
+D:\KhoHang_XNK\KhoHang_XNK\wwwroot\js\common-excel.js
 D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\fontawesome6.1.1\svgs\solid\house-flood-water.svg
 D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\bootstrap-icons\clipboard2-x-fill.svg
 D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\bootstrap-icons\calculator.svg
@@ -6133,6 +6134,7 @@ D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\bootstrap-5.1.3\css\bootstrap-
 D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\bootstrap-icons\easel2-fill.svg
 D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\boxicons\svg\solid\bxs-exit.svg
 D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\fontawesome6.1.1\svgs\solid\hourglass-end.svg
+D:\KhoHang_XNK\KhoHang_XNK\wwwroot\js\common.js
 D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\lineawesome\svg\gifts-solid.svg
 D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\lineawesome\svg\truck-solid.svg
 D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\bootstrap-icons\emoji-angry.svg
@@ -14486,6 +14488,8 @@ wwwroot\images\warehouses\ebf760a4-36a8-4d89-b5e3-358cce855c5a.jpg
 wwwroot\images\warehouses\feee6dcb-ee70-47d1-b100-52ee4e92dec8.jpg
 wwwroot\js\app.js
 wwwroot\js\bootstrap-5.0.0-beta1.min.js
+wwwroot\js\common.js
+wwwroot\js\common-excel.js
 wwwroot\js\count-up.min.js
 wwwroot\js\glightbox.min.js
 wwwroot\js\imagesloaded.min.js

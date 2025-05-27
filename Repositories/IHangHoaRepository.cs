@@ -1,4 +1,5 @@
 ﻿using KhoHang_XNK.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,6 +17,7 @@ namespace KhoHang_XNK.Repositories
         Task<IEnumerable<ChiTietDonXuat>> GetDonXuatAsync(int hangHoaId);  // Renamed for consistency
         Task<IEnumerable<ChiTietPhieuKiemKe>> GetPhieuKiemKeAsync(int hangHoaId);  // Renamed for consistency
         Task<int?> GetTonKhoAsync(int hangHoaId);  // Changed return type to 'int?' for optional values
-       
+
+        Task<IEnumerable<SelectListItem>> GetHangHoaByKhoAsync(int maKho);
     }
 }

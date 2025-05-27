@@ -1,0 +1,320 @@
+﻿
+<!--Sidebar-->
+<div class="sidebar transition overlay-scrollbars animate__animated  animate__slideInLeft">
+	<div class="sidebar-content">
+		<div id="sidebar">
+
+			<!-- Logo -->
+			<div class="logo">
+				<a asp-controller="TongQuan" asp-action="Index" style="text-decoration: none; color: inherit;">
+					<h2 class="mb-0"><img src="~/images/logo/logo_sidebar.png"> WareTrack</h2>
+				</a>
+			</div>
+
+			<ul class="side-menu">
+				<li>
+					<a asp-controller="TongQuan" asp-action="Index" class="active">
+						<i class="bx bxs-dashboard icon"></i> Tổng Quan
+					</a>
+				</li>
+				<li class="divider" data-text="STARTER">Quản lý Kho Hàng</li>
+
+				<li>
+					<a asp-controller="KhoHang" asp-action="Index" >
+						<i class='bx bxs-package icon'></i> Kho Hàng
+					</a>
+				</li>
+
+				<!-- Divider-->
+				<li class="divider" data-text="STARTER">Quản lý Hàng hóa</li>
+
+				<li>
+					<a asp-controller="HangHoa" asp-action="Index">
+						<i class='bx bx-columns icon'></i>
+						Hàng Hóa
+					</a>
+				</li>
+
+				<li>
+					<a asp-controller="LoaiHangHoa" asp-action="Index">
+						<i class='bx bxs-meh-blank icon'></i>
+						Loại Hàng Hóa
+					</a>
+				</li>
+
+				<li>
+					<a asp-controller="TonKho" asp-action="Index">
+						<i class='fa fa-th icon'></i>
+						Tồn Kho
+					</a>
+				</li>
+
+				<!-- Divider-->
+				<li class="divider" data-text="Atrana">Quản lý Nhân sự và Khách hàng</li>
+
+				<li>
+					<a asp-controller="NhanVien" asp-action="Index">
+						<i class='bx bxs-user icon'></i>
+						Nhân Viên
+					</a>
+				</li>
+
+				<li>
+					<a asp-controller="KhachHang" asp-action="Index">
+						<i class='bx bxs-notepad icon'></i>
+						Khách Hàng
+					</a>
+				</li>
+
+				<li>
+					<a asp-controller="LoaiKhachHang" asp-action="Index">
+						<i class='bx bxs-widget icon'></i>
+						Loại Khách Hàng
+					</a>
+				</li>
+
+				<!-- Divider-->
+				<li class="divider" data-text="Pages">Quản lý Nhà cung cấp</li>
+				<li>
+					<a asp-controller="NhaCungCap" asp-action="Index">
+						<i class='fa fa-pencil-ruler icon'></i>
+						Nhà Cung Cấp
+					</a>
+				</li>
+
+				<!-- Divider-->
+				<li class="divider" data-text="Pages">Quản lý Nhà cung cấp</li>
+				<li>
+					<a asp-controller="DonNhapHang" asp-action="Index">
+						<i class='bx bxs-notepad icon'></i>
+						Đơn Nhập Hàng
+					</a>
+				</li>
+				<li>
+					<a asp-controller="DonXuatHang" asp-action="Index">
+						<i class='bx bxs-notepad icon'></i>
+						Đơn Xuất Hàng
+					</a>
+				</li>
+				<li>
+					<a asp-controller="PhieuKiemKe" asp-action="Index">
+						<i class='bx bxs-notepad icon'></i>
+						Phiếu Kiểm Kê
+					</a>
+				</li>
+				<li>
+					<a asp-controller="ThongKe" asp-action="Index">
+						<i class="bx bxs-bar-chart-alt-2 icon"></i>
+						Thông Kê Doanh Thu
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<!-- End Sidebar-->
+
+
+
+
+<div class="sidebar-overlay"></div>
+
+<!--Content Start-->
+<div class="content-start transition">
+	<div class="container-fluid dashboard">
+		<div class="content-header">
+			<h1>Quản Lý Kho Hàng Xuất Nhập Khẩu</h1>
+			<p></p>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6 col-lg-3" asp-controller="KhoHang" asp-action="Index">
+				<a asp-controller="KhoHang" asp-action="Index" class="text-decoration-none">
+					<div class="card">
+						<div class="card-body">
+
+							<div class="row">
+
+								<div class="col-4 d-flex align-items-center">
+									<i class="fas fa-store-alt icon-home bg-primary text-light"></i>
+								</div>
+								<div class="col-8">
+									<p>Kho Hàng</p>
+									<h5>@ViewBag.SoLuongKhoHang</h5>
+								</div>
+
+							</div>
+
+						</div>
+					</div>
+				</a>
+
+			</div>
+
+			<div class="col-md-6 col-lg-3" asp-controller="HangHoa" asp-action="Index">
+				<a asp-controller="HangHoa" asp-action="Index" class="text-decoration-none">
+					<div class="card">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-4 d-flex align-items-center">
+									<i class="fa-solid fa-box-open icon-home bg-success text-light"></i>
+								</div>
+								<div class="col-8">
+									<p>Hàng Hóa</p>
+									<h5>@ViewBag.SoLuongHangHoa</h5>
+								</div>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+
+			<div class="col-md-6 col-lg-3">
+				<a asp-controller="NhaCungCap" asp-action="Index" class="text-decoration-none">
+					<div class="card">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-4 d-flex align-items-center">
+									<i class="fas fa-truck icon-home bg-info text-light"></i>
+								</div>
+								<div class="col-8">
+									<p>Nhà Cung Cấp</p>
+									<h5>@ViewBag.SoLuongNhaCungCap</h5>
+								</div>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+
+			<div class="col-md-6 col-lg-3">
+				<a asp-controller="NhanVien" asp-action="Index" class="text-decoration-none">
+					<div class="card">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-4 d-flex align-items-center">
+									<i class="fas fa-id-card  icon-home bg-warning text-light"></i>
+								</div>
+								<div class="col-8">
+									<p>Nhân Viên</p>
+									<h5>@ViewBag.SoLuongNhanVien</h5>
+								</div>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title mb-4">Top 10 khách hàng lượt mua nhiều nhất</h5>
+						<div style="position: relative; height: 450px; width: 100%;">
+							<canvas id="top10KhachHangChart"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title mb-4">Top 10 hàng hóa có lượt bán nhiều nhất</h5>
+						<div style="position: relative; height: 450px; width: 100%;">
+							<canvas id="top10HangHoaChart"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+	<script>
+		function renderHorizontalBarChart(chartId, data, color) {
+			const ctx = document.getElementById(chartId).getContext('2d');
+			const labels = data.map(item => item.label);
+			const values = data.map(item => item.tongTienXuat);
+
+			// Tính toán max và stepSize hợp lý
+			const maxValue = Math.max(...values);
+			const chartMax = maxValue + 1;
+
+			// Tính stepSize hợp lý
+			let stepSize;
+			if (maxValue <= 10) {
+				stepSize = 1;
+			} else if (maxValue <= 50) {
+				stepSize = 5;
+			} else if (maxValue <= 100) {
+				stepSize = 10;
+			} else if (maxValue <= 500) {
+				stepSize = 25;
+			} else if (maxValue <= 1000) {
+				stepSize = 50;
+			} else {
+				stepSize = 100;
+			}
+			new Chart(ctx, {
+				type: 'bar',
+				data: {
+					labels: labels,
+					datasets: [{
+						label: 'Số lượng bán',
+						data: values,
+						backgroundColor: color,
+						borderRadius: 4,
+						barThickness: 30
+					}]
+				},
+				options: {
+					indexAxis: 'y',
+					responsive: true,
+					maintainAspectRatio: false,
+					plugins: {
+						legend: { display: false },
+						tooltip: {
+							callbacks: {
+								label: ctx => ctx.parsed.x + ' sản phẩm'
+							}
+						},
+						datalabels: {
+							anchor: 'end',
+							align: 'right',
+							font: { size: 12, weight: 'bold' },
+							color: '#333',
+							formatter: value => value
+						}
+					},
+					scales: {
+						x: {
+							beginAtZero: true,
+							max: chartMax,
+							ticks: {
+								stepSize: stepSize,
+								precision: 0,
+								callback: function(value) {
+									return Number.isInteger(value) ? value : '';
+								}
+							},
+							grid: { drawBorder: false }
+						},
+						y: { grid: { display: false } }
+					}
+				},
+				plugins: [ChartDataLabels]
+			});
+		}
+
+		// Vẽ biểu đồ khách hàng
+		const chartDataKhachHang = @Html.Raw(ViewBag.ChartData);
+		renderHorizontalBarChart('top10KhachHangChart', chartDataKhachHang, '#42A5F5');
+
+		// Vẽ biểu đồ hàng hóa
+		const chartDataHangHoa = @Html.Raw(ViewBag.ChartDataHangHoa);
+		renderHorizontalBarChart('top10HangHoaChart', chartDataHangHoa, '#FF7043');
+	</script>
+}

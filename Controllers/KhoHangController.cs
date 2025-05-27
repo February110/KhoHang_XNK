@@ -3,6 +3,7 @@ using KhoHang_XNK.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Claims;
 
 namespace KhoHang_XNK.Controllers
 {
@@ -31,6 +32,14 @@ namespace KhoHang_XNK.Controllers
             ViewBag.SoLuongHangHoa = hangHoas.Count();
             ViewBag.SoLuongNhaCungCap = nhaCungCaps.Count();
             ViewBag.SoLuongNhanVien = nhanViens.Count();
+
+
+            return View(khoHangs);  // Truyền danh sách vào view
+        }
+        public async Task<IActionResult> IndexUser()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var khoHangs = await _khoHangRepository.GetAllKhoHangsForUserAsync(userId);
 
 
             return View(khoHangs);  // Truyền danh sách vào view

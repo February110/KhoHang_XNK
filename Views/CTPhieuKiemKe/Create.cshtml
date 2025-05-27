@@ -11,27 +11,55 @@
 
 			<!-- Logo -->
 			<div class="logo">
-				<h2 class="mb-0"><img src="~/images/logo/logo_sidebar.png"> WareTrack</h2>
+				@if (User.IsInRole("Admin"))
+				{
+					<a asp-controller="TongQuan" asp-action="Index" style="text-decoration: none; color: inherit;">
+						<h2 class="mb-0"><img src="~/images/logo/logo_sidebar.png"> WareTrack</h2>
+					</a>
+				}
+				else if (User.IsInRole("User"))
+				{
+					<a asp-controller="TongQuan" asp-action="IndexUser" style="text-decoration: none; color: inherit;">
+						<h2 class="mb-0"><img src="~/images/logo/logo_sidebar.png"> WareTrack</h2>
+					</a>
+				}
 			</div>
 
 			<ul class="side-menu">
+
+				<!-- Tổng Quan -->
+				<li>
+					@if (User.IsInRole("Admin"))
+					{
+						<a asp-controller="TongQuan" asp-action="Index">
+							<i class="bx bxs-dashboard icon"></i> Tổng Quan
+						</a>
+					}
+					else if (User.IsInRole("User"))
+					{
+						<a asp-controller="TongQuan" asp-action="IndexUser">
+							<i class="bx bxs-dashboard icon"></i> Tổng Quan
+						</a>
+					}
+				</li>
+				<!-- Divider-->
+				<li class="divider" data-text="STARTER">Quản lý Kho Hàng</li>
 
 				<!-- Kho Hàng -->
 				<li>
 					@if (User.IsInRole("Admin"))
 					{
-						<a asp-controller="KhoHang" asp-action="Index">
-							<i class='bx bxs-dashboard icon'></i> Kho Hàng
+						<a asp-controller="KhoHang" asp-action="Index" >
+							<i class='bx bxs-package icon'></i> Kho Hàng
 						</a>
 					}
 					else if (User.IsInRole("User"))
 					{
-						<a asp-controller="User" asp-action="Index">
-							<i class='bx bxs-dashboard icon'></i> Kho Hàng
+						<a asp-controller="KhoHang" asp-action="IndexUser" >
+							<i class='bx bxs-package icon'></i> Kho Hàng
 						</a>
 					}
 				</li>
-
 				<!-- Divider-->
 				<li class="divider" data-text="STARTER">Quản lý Hàng hóa</li>
 
@@ -96,7 +124,7 @@
 					}
 					else if (User.IsInRole("User"))
 					{
-						<a asp-controller="NhanVien" asp-action="IndexUser">
+						<a asp-controller="NhanVien" asp-action="IndexUser" >
 							<i class='bx bxs-user icon'></i> Nhân Viên
 						</a>
 					}
@@ -122,13 +150,13 @@
 				<li>
 					@if (User.IsInRole("Admin"))
 					{
-						<a asp-controller="LoaiKhachHang" asp-action="Index">
+						<a asp-controller="LoaiKhachHang" asp-action="Index" >
 							<i class='bx bxs-widget icon'></i> Loại Khách Hàng
 						</a>
 					}
 					else if (User.IsInRole("User"))
 					{
-						<a asp-controller="LoaiKhachHang" asp-action="IndexUser">
+						<a asp-controller="LoaiKhachHang" asp-action="IndexUser" >
 							<i class='bx bxs-widget icon'></i> Loại Khách Hàng
 						</a>
 					}
@@ -141,13 +169,13 @@
 				<li>
 					@if (User.IsInRole("Admin"))
 					{
-						<a asp-controller="NhaCungCap" asp-action="Index">
+						<a asp-controller="NhaCungCap" asp-action="Index" >
 							<i class='fa fa-pencil-ruler icon'></i> Nhà Cung Cấp
 						</a>
 					}
 					else if (User.IsInRole("User"))
 					{
-						<a asp-controller="NhaCungCap" asp-action="IndexUser">
+						<a asp-controller="NhaCungCap" asp-action="IndexUser" >
 							<i class='fa fa-pencil-ruler icon'></i> Nhà Cung Cấp
 						</a>
 					}
@@ -160,13 +188,13 @@
 				<li>
 					@if (User.IsInRole("Admin"))
 					{
-						<a asp-controller="DonNhapHang" asp-action="Index" >
+						<a asp-controller="DonNhapHang" asp-action="Index">
 							<i class='bx bxs-notepad icon'></i> Đơn Nhập Hàng
 						</a>
 					}
 					else if (User.IsInRole("User"))
 					{
-						<a asp-controller="DonNhapHang" asp-action="IndexUser" >
+						<a asp-controller="DonNhapHang" asp-action="IndexUser">
 							<i class='bx bxs-notepad icon'></i> Đơn Nhập Hàng
 						</a>
 					}
@@ -176,13 +204,13 @@
 				<li>
 					@if (User.IsInRole("Admin"))
 					{
-						<a asp-controller="DonXuatHang" asp-action="Index" >
+						<a asp-controller="DonXuatHang" asp-action="Index">
 							<i class='bx bxs-notepad icon'></i> Đơn Xuất Hàng
 						</a>
 					}
 					else if (User.IsInRole("User"))
 					{
-						<a asp-controller="DonXuatHang" asp-action="IndexUser" >
+						<a asp-controller="DonXuatHang" asp-action="IndexUser">
 							<i class='bx bxs-notepad icon'></i> Đơn Xuất Hàng
 						</a>
 					}
@@ -233,57 +261,6 @@
 	<div class="container-fluid dashboard">
 		<div class="card shadow-lg p-4">
 			<div class="card-body">
-				@* <form asp-action="Create" method="post"> *@
-				@* 	<div asp-validation-summary="ModelOnly" class="alert alert-danger d-none"></div> *@
-
-				@* 	<!-- Mã Kiểm Kê --> *@
-				@* 	<div class="mb-3"> *@
-				@* 		<label asp-for="MaKiemKe" class="form-label fw-bold">Mã Kiểm Kê</label> *@
-				@* 		<select asp-for="MaKiemKe" id="MaKiemKe" class="form-select" asp-items="ViewBag.MaKiemKe"> *@
-				@* 			<option value="">-- Chọn Mã Kiểm Kê --</option> *@
-				@* 		</select> *@
-				@* 		<span asp-validation-for="MaKiemKe" class="text-danger"></span> *@
-				@* 	</div> *@
-
-				@* 	<!-- Mã Hàng Hóa --> *@
-				@* 	<div class="mb-3"> *@
-				@* 		<label asp-for="MaHangHoa" class="form-label fw-bold">Mã Hàng Hóa</label> *@
-				@* 		<select asp-for="MaHangHoa" id="MaHangHoa" class="form-select" asp-items="ViewBag.MaHangHoa"> *@
-				@* 			<option value="">-- Chọn Hàng Hóa --</option> *@
-				@* 		</select> *@
-				@* 		<span asp-validation-for="MaHangHoa" class="text-danger"></span> *@
-				@* 	</div> *@
-
-				@* 	<!-- Số lượng tồn kho (hiển thị tự động) --> *@
-				@* 	<div class="mb-3"> *@
-				@* 		<label class="form-label fw-bold">Số Lượng Tồn Kho</label> *@
-				@* 		<input id="soLuongTonKho" class="form-control" type="number" readonly value="0" /> *@
-				@* 	</div> *@
-
-				@* 	<!-- Số Lượng Thực Tế --> *@
-				@* 	<div class="mb-3"> *@
-				@* 		<label asp-for="SoLuongThucTe" class="form-label fw-bold">Số Lượng Thực Tế</label> *@
-				@* 		<input asp-for="SoLuongThucTe" id="SoLuongThucTe" class="form-control" placeholder="Nhập số lượng thực tế" /> *@
-				@* 		<span asp-validation-for="SoLuongThucTe" class="text-danger"></span> *@
-				@* 	</div> *@
-
-				@* 	<!-- Số Lượng Chênh Lệch --> *@
-				@* 	<div class="mb-3"> *@
-				@* 		<label asp-for="SoLuongChenhLech" class="form-label fw-bold">Số Lượng Chênh Lệch</label> *@
-				@* 		<input asp-for="SoLuongChenhLech" id="SoLuongChenhLech" class="form-control" placeholder="Nhập số lượng chênh lệch" /> *@
-				@* 		<span asp-validation-for="SoLuongChenhLech" class="text-danger"></span> *@
-				@* 	</div> *@
-
-				@* 	<!-- Nút thao tác --> *@
-				@* 	<div class="d-flex justify-content-between"> *@
-				@* 		<a asp-action="Index" class="btn btn-secondary"> *@
-				@* 			<i class="fas fa-arrow-left"></i> Quay lại *@
-				@* 		</a> *@
-				@* 		<button type="submit" class="btn btn-primary"> *@
-				@* 			<i class="fas fa-save"></i> Lưu *@
-				@* 		</button> *@
-				@* 	</div> *@
-				@* </form> *@
 				<form asp-action="Create" method="post">
 					<div asp-validation-summary="ModelOnly" class="alert alert-danger d-none"></div>
 
@@ -299,7 +276,7 @@
 					<!-- Mã Hàng Hóa -->
 					<div class="mb-3">
 						<label asp-for="MaHangHoa" class="form-label fw-bold">Mã Hàng Hóa</label>
-						<select asp-for="MaHangHoa" class="form-select" asp-items="ViewBag.MaHangHoa" id="maHangHoaSelect">
+						<select asp-for="MaHangHoa" class="form-select" id="maHangHoaSelect">
 							<option value="">-- Chọn Hàng Hóa --</option>
 						</select>
 						<span asp-validation-for="MaHangHoa" class="text-danger"></span>
@@ -314,14 +291,14 @@
 					<!-- Số Lượng Thực Tế -->
 					<div class="mb-3">
 						<label asp-for="SoLuongThucTe" class="form-label fw-bold">Số Lượng Thực Tế</label>
-						<input asp-for="SoLuongThucTe" class="form-control" placeholder="Nhập số lượng thực tế" />
+						<input asp-for="SoLuongThucTe" id="SoLuongThucTe" class="form-control" placeholder="Nhập số lượng thực tế" />
 						<span asp-validation-for="SoLuongThucTe" class="text-danger"></span>
 					</div>
 
 					<!-- Số Lượng Chênh Lệch -->
 					<div class="mb-3">
 						<label asp-for="SoLuongChenhLech" class="form-label fw-bold">Số Lượng Chênh Lệch</label>
-						<input asp-for="SoLuongChenhLech" class="form-control" placeholder="Nhập số lượng chênh lệch" />
+						<input asp-for="SoLuongChenhLech" id="SoLuongChenhLech" class="form-control" readonly />
 						<span asp-validation-for="SoLuongChenhLech" class="text-danger"></span>
 					</div>
 
@@ -340,71 +317,122 @@
 
 	</div>
 </div>
-
 @section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+
 	<script>
 		$(document).ready(function() {
-			// Debug: Log khi trang được tải
-			console.log("Trang đã sẵn sàng");
+			// Khi chọn Mã Kiểm Kê
+			$('#maKiemKeSelect').change(function() {
+				var maKiemKe = $(this).val();
+				$('#maHangHoaSelect').html('<option value="">-- Chọn Hàng Hóa --</option>');
+				$('#soLuongTonKho').val('');
+				$('#SoLuongThucTe').val('');
+				$('#SoLuongChenhLech').val('');
 
-			// Xử lý khi chọn hàng hóa
+				if (maKiemKe) {
+					// Lấy Mã Kho từ Mã Kiểm Kê
+					$.getJSON('/YourController/GetMaKhoByKiemKe', { maKiemKe: parseInt(maKiemKe) }, function(data) {
+						if (data.maKho) {
+							// Lấy danh sách Hàng Hóa trong kho đó
+							$.getJSON('/YourController/GetHangHoaByKho', { maKho: data.maKho }, function(hangHoas) {
+								var options = '<option value="">-- Chọn Hàng Hóa --</option>';
+								$.each(hangHoas, function(i, item) {
+									options += '<option value="' + item.value + '">' + item.text + '</option>';
+								});
+								$('#maHangHoaSelect').html(options);
+							});
+						}
+					});
+				}
+			});
+
+			// Khi chọn Hàng Hóa
 			$('#maHangHoaSelect').change(function() {
 				var maHangHoa = $(this).val();
 				var maKiemKe = $('#maKiemKeSelect').val();
-
-				// Debug: Log giá trị đã chọn
-				console.log("Mã hàng hóa:", maHangHoa, "Mã kiểm kê:", maKiemKe);
+				$('#SoLuongThucTe').val('');
+				$('#SoLuongChenhLech').val('');
 
 				if (maHangHoa && maKiemKe) {
-					// Gọi API để lấy số lượng tồn kho
-					$.get('/CTPhieuKiemKe/GetTonKho', {
-						maHangHoa: maHangHoa,
-						maKiemKe: maKiemKe
-					})
-					.done(function(data) {
-						// Debug: Log kết quả từ server
-						console.log("Kết quả từ API:", data);
-
-						if (data.success) {
-							$('#soLuongTonKho').val(data.soLuong);
-
-							// Tự động tính chênh lệch nếu có số lượng thực tế
-							if ($('#SoLuongThucTe').val()) {
-								calculateChenhLech();
-							}
-						} else {
-							$('#soLuongTonKho').val("Lỗi: " + data.message);
+					// Lấy Mã Kho từ Mã Kiểm Kê
+					$.getJSON('/YourController/GetMaKhoByKiemKe', { maKiemKe: parseInt(maKiemKe) }, function(data) {
+						if (data.maKho) {
+							// Lấy số lượng tồn kho
+							$.getJSON('/YourController/GetSoLuongTonKho', {
+								maKho: data.maKho,
+								maHangHoa: parseInt(maHangHoa)
+							}, function(result) {
+								$('#soLuongTonKho').val(result.soLuong || 0);
+							});
 						}
-					})
-					.fail(function(error) {
-						// Debug: Log lỗi từ API
-						console.error("Lỗi khi gọi API:", error);
-						$('#soLuongTonKho').val("Không thể kết nối đến server");
 					});
 				} else {
 					$('#soLuongTonKho').val('');
 				}
 			});
 
-			// Xử lý khi thay đổi mã kiểm kê
-			$('#maKiemKeSelect').change(function() {
-				// Kích hoạt lại sự kiện change của mã hàng hóa
-				$('#maHangHoaSelect').trigger('change');
-			});
-
-			// Tự động tính số lượng chênh lệch khi nhập số lượng thực tế
+			// Tính toán chênh lệch khi số lượng thực tế thay đổi
 			$('#SoLuongThucTe').on('input', function() {
-				calculateChenhLech();
-			});
-
-			// Hàm tính chênh lệch
-			function calculateChenhLech() {
-				var soLuongTonKho = parseInt($('#soLuongTonKho').val()) || 0;
-				var soLuongThucTe = parseInt($('#SoLuongThucTe').val()) || 0;
+				var soLuongTonKho = parseFloat($('#soLuongTonKho').val()) || 0;
+				var soLuongThucTe = parseFloat($(this).val()) || 0;
 				var chenhLech = soLuongThucTe - soLuongTonKho;
 
 				$('#SoLuongChenhLech').val(chenhLech);
-			}
+			});
 		});
 	</script>
 }
+@* @section Scripts { *@
+@* 	<script> *@
+@* 		$(document).ready(function() { *@
+@* 			// Khi chọn Mã Kiểm Kê *@
+@* 			$('#maKiemKeSelect').change(function() { *@
+@* 				var maKiemKe = $(this).val(); *@
+@* 				$('#maHangHoaSelect').html('<option value="">-- Chọn Hàng Hóa --</option>'); *@
+@* 				$('#soLuongTonKho').val(''); *@
+
+@* 				if (maKiemKe) { *@
+@* 					// Lấy Mã Kho từ Mã Kiểm Kê *@
+@* 					$.getJSON('/PhieuKiemKe/GetMaKhoByKiemKe', { maKiemKe: parseInt(maKiemKe) }, function(data) { *@
+@* 						if (data.maKho) { *@
+@* 							// Lấy danh sách Hàng Hóa trong kho đó *@
+@* 								$.getJSON('/PhieuKiemKe/GetHangHoaByKho', { maKho: data.maKho }, function(hangHoas) { *@
+@* 								var options = '<option value="">-- Chọn Hàng Hóa --</option>'; *@
+@* 								$.each(hangHoas, function(i, item) { *@
+@* 									options += '<option value="' + item.value + '">' + item.text + '</option>'; *@
+@* 								}); *@
+@* 								$('#maHangHoaSelect').html(options); *@
+@* 							}); *@
+@* 						} *@
+@* 					}); *@
+@* 				} *@
+@* 			}); *@
+
+@* 			// Khi chọn Hàng Hóa *@
+@* 			$('#maHangHoaSelect').change(function() { *@
+@* 				var maHangHoa = $(this).val(); *@
+@* 				var maKiemKe = $('#maKiemKeSelect').val(); *@
+
+@* 				if (maHangHoa && maKiemKe) { *@
+@* 					// Lấy Mã Kho từ Mã Kiểm Kê *@
+@* 					$.getJSON('/PhieuKiemKe/GetMaKhoByKiemKe', { maKiemKe: parseInt(maKiemKe) }, function(data) { *@
+@* 						if (data.maKho) { *@
+@* 							// Lấy số lượng tồn kho *@
+@* 							$.getJSON('/PhieuKiemKe/GetSoLuongTonKho', { *@
+@* 								maKho: data.maKho, *@
+@* 								maHangHoa: parseInt(maHangHoa) *@
+@* 							}, function(result) { *@
+@* 								$('#soLuongTonKho').val(result.soLuong || 0); *@
+@* 							}); *@
+@* 						} *@
+@* 					}); *@
+@* 				} else { *@
+@* 					$('#soLuongTonKho').val(''); *@
+@* 				} *@
+@* 			}); *@
+@* 		}); *@
+@* 	</script> *@
+@* } *@

@@ -241,5 +241,19 @@ namespace KhoHang_XNK.Controllers
             await _chiTietDonXuatRepository.DeleteAsync(chiTietDonXuat);
             return RedirectToAction(nameof(Index));
         }
+        [HttpGet]
+        public async Task<IActionResult> GetMaKhoByDonXuat(int maDonXuat)
+        {
+            var maKho = await _donXuatHangRepository.GetMaKhoByDonXuatAsync(maDonXuat);
+            return Json(new { maKho });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetHangHoaByKho(int maKho)
+        {
+            var hangHoas = await _hangHoaRepository.GetHangHoaByKhoAsync(maKho);
+            return Json(hangHoas);
+        }
+
     }
 }

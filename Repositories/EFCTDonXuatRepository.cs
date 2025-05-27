@@ -48,6 +48,12 @@ namespace KhoHang_XNK.Repositories
                 .Include(ct => ct.HangHoa)
                 .ToListAsync();
         }
+        public async Task<IEnumerable<ChiTietDonXuat>> GetByHangHoaAsync()
+        {
+            return await _context.ChiTietDonXuats
+                .Include(ct => ct.HangHoa)
+                .ToListAsync();
+        }
         public async Task<ChiTietDonXuat> GetByIdAsync(int maDonXuat, int maHangHoa)
         {
             return await _context.ChiTietDonXuats

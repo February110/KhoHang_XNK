@@ -14,5 +14,9 @@ namespace KhoHang_XNK.Repositories
         Task<IEnumerable<DonXuatHang>>? GetByKhoAsync(int maKho);
         Task<IEnumerable<KhachHang>>? GetKhacHangByKhoAsync(int maKho);
         Task<IEnumerable<DoanhThuThangDto>>  GetTongTienXuatTheoThangAsync(int? khoId = null);
+        Task<IEnumerable<DonXuatHang>> GetAllKhachHangAsync();
+        Task<int?> GetMaKhoByDonXuatAsync(int maDonXuat);
+
+
     }
 }

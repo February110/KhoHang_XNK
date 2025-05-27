@@ -8,10 +8,14 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Packaging;
+
 using System.Globalization;
 using System.Security.Claims;
+using OfficeOpenXml;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -42,7 +46,7 @@ builder.Services.AddScoped<ICTDonNhapRepository, EFCTDonNhapRepository>();
 builder.Services.AddScoped<ICTDonXuatRepository, EFCTDonXuatRepository>();
 builder.Services.AddScoped<IPhieuKiemKeRepository, EFPhieuKiemKeRepository>();
 builder.Services.AddScoped<ICTPhieuKiemKeRepository, EFCTPhieuKiemKeRepository>();
-
+builder.Services.AddScoped<IExcelExportService, ExcelExportService>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

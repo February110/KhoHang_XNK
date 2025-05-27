@@ -175,36 +175,8 @@
 	<!-- Template JS File -->
 	<script src="~/assets/js/script.js"></script>
 	<script src="~/assets/js/custom.js"></script>
+	<script src="~/js/common.js" defer></script>  <!-- Dòng này là file chung -->
+	<script src="~/js/common-excel.js"></script>
 	@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
-
-@* @if (User.IsInRole("Admin")) *@
-@* { *@
-@*     <li><a asp-controller="KhoHang" asp-action="Index"><span>🏠</span> Kho Hàng</a></li> *@
-@*     <li><a asp-controller="HangHoa" asp-action="Index"><span>📦</span> Hàng hóa</a></li> *@
-@*     <li><a asp-controller="LoaiHangHoa" asp-action="Index"><span>📁</span> Loại Hàng hóa</a></li> *@
-@*     <li><a asp-controller="TonKho" asp-action="Index"><span>📊</span> Tồn kho</a></li> *@
-@*     <li><a asp-controller="NhanVien" asp-action="Index"><span>👨‍💼</span> Nhân Viên</a></li> *@
-@*     <li><a asp-controller="KhachHang" asp-action="Index"><span>🧑‍🤝‍🧑</span> Khách Hàng</a></li> *@
-@*     <li><a asp-controller="LoaiKhachHang" asp-action="Index"><span>🔖</span> Loại Khách Hàng</a></li> *@
-@*     <li><a asp-controller="NhaCungCap" asp-action="Index"><span>🏭</span> Nhà Cung Cấp</a></li> *@
-@*     <li><a asp-controller="DonNhapHang" asp-action="Index"><span>📥</span> Đơn Nhập Hàng</a></li> *@
-@*     <li><a asp-controller="DonXuatHang" asp-action="Index"><span>📤</span> Đơn Xuất Hàng</a></li> *@
-@*     <li><a asp-controller="PhieuKiemKe" asp-action="Index"><span>📜</span> Phiếu Kiểm Kê</a></li> *@
-@* } *@
-@* else *@
-@* { *@
-@*     <li><a asp-controller="User" asp-action="Index"><span>🏠</span> Kho Hàng</a></li> *@
-@*     <li><a asp-controller="User" asp-action="Index"><span>📦</span> Hàng hóa</a></li> *@
-@*     <li><a asp-controller="User" asp-action="Index"><span>📁</span> Loại Hàng hóa</a></li> *@
-@*     <li><a asp-controller="User" asp-action="Index"><span>📊</span> Tồn kho</a></li> *@
-@*     <li><a asp-controller="User" asp-action="Index"><span>👨‍💼</span> Nhân Viên</a></li> *@
-@*     <li><a asp-controller="User" asp-action="Index"><span>🧑‍🤝‍🧑</span> Khách Hàng</a></li> *@
-@*     <li><a asp-controller="User" asp-action="Index"><span>🔖</span> Loại Khách Hàng</a></li> *@
-@*     <li><a asp-controller="User" asp-action="Index"><span>🏭</span> Nhà Cung Cấp</a></li> *@
-@*     <li><a asp-controller="User" asp-action="Index"><span>📥</span> Đơn Nhập Hàng</a></li> *@
-@*     <li><a asp-controller="User" asp-action="Index"><span>📤</span> Đơn Xuất Hàng</a></li> *@
-@*     <li><a asp-controller="User" asp-action="Index"><span>📜</span> Phiếu Kiểm Kê</a></li> *@
-@* } *@
-

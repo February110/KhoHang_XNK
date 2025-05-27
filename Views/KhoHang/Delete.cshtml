@@ -15,22 +15,39 @@
 
 			<ul class="side-menu">
 
+				<!-- Tổng Quan -->
+				<li>
+					@if (User.IsInRole("Admin"))
+					{
+						<a asp-controller="TongQuan" asp-action="Index">
+							<i class="bx bxs-dashboard icon"></i> Tổng Quan
+						</a>
+					}
+					else if (User.IsInRole("User"))
+					{
+						<a asp-controller="TongQuan" asp-action="IndexUser">
+							<i class="bx bxs-dashboard icon"></i> Tổng Quan
+						</a>
+					}
+				</li>
+				<!-- Divider-->
+				<li class="divider" data-text="STARTER">Quản lý Kho Hàng</li>
+
 				<!-- Kho Hàng -->
 				<li>
 					@if (User.IsInRole("Admin"))
 					{
 						<a asp-controller="KhoHang" asp-action="Index" class="active">
-							<i class='bx bxs-dashboard icon'></i> Kho Hàng
+							<i class='bx bxs-package icon'></i> Kho Hàng
 						</a>
 					}
 					else if (User.IsInRole("User"))
 					{
-						<a asp-controller="User" asp-action="Index" class="active">
-							<i class='bx bxs-dashboard icon'></i> Kho Hàng
+						<a asp-controller="KhoHang" asp-action="IndexUser" class="active">
+							<i class='bx bxs-package icon'></i> Kho Hàng
 						</a>
 					}
 				</li>
-
 				<!-- Divider-->
 				<li class="divider" data-text="STARTER">Quản lý Hàng hóa</li>
 
@@ -38,13 +55,13 @@
 				<li>
 					@if (User.IsInRole("Admin"))
 					{
-						<a asp-controller="HangHoa" asp-action="Index" >
+						<a asp-controller="HangHoa" asp-action="Index">
 							<i class='bx bx-columns icon'></i> Hàng Hóa
 						</a>
 					}
 					else if (User.IsInRole("User"))
 					{
-						<a asp-controller="HangHoa" asp-action="IndexUser" >
+						<a asp-controller="HangHoa" asp-action="IndexUser">
 							<i class='bx bx-columns icon'></i> Hàng Hóa
 						</a>
 					}
@@ -111,7 +128,7 @@
 					}
 					else if (User.IsInRole("User"))
 					{
-						<a asp-controller="KhachHang" asp-action="IndexUser" >
+						<a asp-controller="KhachHang" asp-action="IndexUser">
 							<i class='bx bxs-notepad icon'></i> Khách Hàng
 						</a>
 					}
@@ -159,13 +176,13 @@
 				<li>
 					@if (User.IsInRole("Admin"))
 					{
-						<a asp-controller="DonNhapHang" asp-action="Index" >
+						<a asp-controller="DonNhapHang" asp-action="Index">
 							<i class='bx bxs-notepad icon'></i> Đơn Nhập Hàng
 						</a>
 					}
 					else if (User.IsInRole("User"))
 					{
-						<a asp-controller="DonNhapHang" asp-action="IndexUser" >
+						<a asp-controller="DonNhapHang" asp-action="IndexUser">
 							<i class='bx bxs-notepad icon'></i> Đơn Nhập Hàng
 						</a>
 					}
@@ -175,7 +192,7 @@
 				<li>
 					@if (User.IsInRole("Admin"))
 					{
-						<a asp-controller="DonXuatHang" asp-action="Index" >
+						<a asp-controller="DonXuatHang" asp-action="Index">
 							<i class='bx bxs-notepad icon'></i> Đơn Xuất Hàng
 						</a>
 					}
@@ -224,6 +241,7 @@
 	</div>
 </div>
 <!-- End Sidebar-->
+
 
 
 <div class="sidebar-overlay"></div>

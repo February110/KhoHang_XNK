@@ -12,6 +12,7 @@ namespace KhoHang_XNK.Controllers
         {
             this.loaiKhachHangRepository = loaiKhachHangRepository;
         }
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             //if (User.IsInRole("Admin"))

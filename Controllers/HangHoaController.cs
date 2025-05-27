@@ -3,6 +3,10 @@ using KhoHang_XNK.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.IdentityModel.Tokens;
+using OfficeOpenXml.Style;
+using OfficeOpenXml;
+using System.Drawing;
 
 namespace KhoHang_XNK.Controllers
 {
@@ -11,8 +15,14 @@ namespace KhoHang_XNK.Controllers
         private readonly IHangHoaRepository _hangHoaRepository;
         private readonly ILoaiHangHoaRepository _loaiHangHoaRepository;
         private readonly ITonKhoRepository _tonKhoRepository;
-        public HangHoaController(IHangHoaRepository hangHoaRepository, ILoaiHangHoaRepository loaiHangHoaRepository, ITonKhoRepository tonKhoRepository)
+        private readonly IExcelExportService _excelExportService;
+        public HangHoaController(
+            IHangHoaRepository hangHoaRepository,
+            ILoaiHangHoaRepository loaiHangHoaRepository,
+            ITonKhoRepository tonKhoRepository,
+            IExcelExportService excelService)
         {
+            _excelExportService = excelService;
             _tonKhoRepository = tonKhoRepository;
             _hangHoaRepository = hangHoaRepository;
             _loaiHangHoaRepository = loaiHangHoaRepository;
@@ -145,7 +155,6 @@ namespace KhoHang_XNK.Controllers
 
 
 
-
         public async Task<IActionResult> Delete(int id)
         {
             var hangHoa = await _hangHoaRepository.GetByIdAsync(id);
@@ -161,12 +170,92 @@ namespace KhoHang_XNK.Controllers
             await _hangHoaRepository.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
         }
+        [HttpPost]
+        public async Task<IActionResult> ExportExcel(string searchTerm = "")
+        {
+            try
+            {
+                // Log để debug
+                System.Diagnostics.Debug.WriteLine($"ExportExcel called with searchTerm: '{searchTerm}'");
 
+                var allItems = (await _hangHoaRepository.GetAllAsync()).ToList();
 
+                // Kiểm tra nếu không có dữ liệu
+                if (!allItems.Any())
+                {
+                    return BadRequest("Không có dữ liệu để xuất");
+                }
 
+                var filteredItems = string.IsNullOrWhiteSpace(searchTerm)
+                    ? allItems
+                    : allItems.Where(h =>
+                        (h.TenHangHoa?.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                        h.MaHangHoa.ToString().Contains(searchTerm) ||
+                        (h.LoaiHangHoa?.TenLoaiHang?.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                        (h.MoTa?.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ?? false))
+                    .ToList();
 
+                var columnMappings = new Dictionary<string, string>
+                {
+                    { "MaHangHoa", "Mã hàng hóa" },
+                    { "TenHangHoa", "Tên hàng hóa" },
+                    { "MoTa", "Mô tả" },
+                    { "DonViTinh", "Đơn vị tính" },
+                    { "HanSuDung", "Hạn sử dụng" },
+                    { "LoaiHangHoa.TenLoaiHang", "Loại hàng hóa" }
+                };
 
+                // Tạo DTO để tránh vấn đề với navigation properties
+                var exportData = filteredItems.Select(h => new
+                {
+                    MaHangHoa = h.MaHangHoa,
+                    TenHangHoa = h.TenHangHoa ?? "",
+                    MoTa = h.MoTa ?? "",
+                    DonViTinh = h.DonViTinh ?? "",
+                    HanSuDung = h.HanSuDung,
+                    LoaiHangHoa_TenLoaiHang = h.LoaiHangHoa?.TenLoaiHang ?? ""
+                }).ToList();
 
+                // Cập nhật column mappings cho DTO
+                var dtoColumnMappings = new Dictionary<string, string>
+                {
+                    { "MaHangHoa", "Mã hàng hóa" },
+                    { "TenHangHoa", "Tên hàng hóa" },
+                    { "MoTa", "Mô tả" },
+                    { "DonViTinh", "Đơn vị tính" },
+                    { "HanSuDung", "Hạn sử dụng" },
+                    { "LoaiHangHoa_TenLoaiHang", "Loại hàng hóa" }
+                };
 
+                var options = new ExcelExportOptions
+                {
+                    SheetName = "HangHoa",
+                    Title = "DANH SÁCH HÀNG HÓA",
+                    ColumnMappings = dtoColumnMappings,
+                    CustomFormatters = new Dictionary<string, Func<object, string>>
+                    {
+                        { "HanSuDung", value => value is DateTime dt ? dt.ToString("dd/MM/yyyy") : value?.ToString() ?? "" }
+                    },
+                    HeaderBackgroundColor = System.Drawing.Color.LightBlue,
+                    AutoFitColumns = true,
+                    AddBorders = true
+                };
+
+                var stream = _excelExportService.ExportToExcel(exportData, options);
+
+                var fileName = $"DanhSachHangHoa_{DateTime.Now:yyyyMMddHHmmss}.xlsx";
+                var contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+
+                return File(stream, contentType, fileName);
+            }
+            catch (Exception ex)
+            {
+                // Log chi tiết lỗi
+                System.Diagnostics.Debug.WriteLine($"Export Excel Error: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Stack Trace: {ex.StackTrace}");
+
+                return BadRequest($"Lỗi xuất Excel: {ex.Message}");
+            }
+        }
     }
 }

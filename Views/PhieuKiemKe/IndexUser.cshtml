@@ -11,27 +11,55 @@
 
 			<!-- Logo -->
 			<div class="logo">
-				<h2 class="mb-0"><img src="~/images/logo/logo_sidebar.png"> WareTrack</h2>
+				@if (User.IsInRole("Admin"))
+				{
+					<a asp-controller="TongQuan" asp-action="Index" style="text-decoration: none; color: inherit;">
+						<h2 class="mb-0"><img src="~/images/logo/logo_sidebar.png"> WareTrack</h2>
+					</a>
+				}
+				else if (User.IsInRole("User"))
+				{
+					<a asp-controller="TongQuan" asp-action="IndexUser" style="text-decoration: none; color: inherit;">
+						<h2 class="mb-0"><img src="~/images/logo/logo_sidebar.png"> WareTrack</h2>
+					</a>
+				}
 			</div>
 
 			<ul class="side-menu">
+
+				<!-- Tổng Quan -->
+				<li>
+					@if (User.IsInRole("Admin"))
+					{
+						<a asp-controller="TongQuan" asp-action="Index">
+							<i class="bx bxs-dashboard icon"></i> Tổng Quan
+						</a>
+					}
+					else if (User.IsInRole("User"))
+					{
+						<a asp-controller="TongQuan" asp-action="IndexUser">
+							<i class="bx bxs-dashboard icon"></i> Tổng Quan
+						</a>
+					}
+				</li>
+				<!-- Divider-->
+				<li class="divider" data-text="STARTER">Quản lý Kho Hàng</li>
 
 				<!-- Kho Hàng -->
 				<li>
 					@if (User.IsInRole("Admin"))
 					{
-						<a asp-controller="KhoHang" asp-action="Index">
-							<i class='bx bxs-dashboard icon'></i> Kho Hàng
+						<a asp-controller="KhoHang" asp-action="Index" >
+							<i class='bx bxs-package icon'></i> Kho Hàng
 						</a>
 					}
 					else if (User.IsInRole("User"))
 					{
-						<a asp-controller="User" asp-action="Index">
-							<i class='bx bxs-dashboard icon'></i> Kho Hàng
+						<a asp-controller="KhoHang" asp-action="IndexUser" >
+							<i class='bx bxs-package icon'></i> Kho Hàng
 						</a>
 					}
 				</li>
-
 				<!-- Divider-->
 				<li class="divider" data-text="STARTER">Quản lý Hàng hóa</li>
 
@@ -39,13 +67,13 @@
 				<li>
 					@if (User.IsInRole("Admin"))
 					{
-						<a asp-controller="HangHoa" asp-action="Index">
+						<a asp-controller="HangHoa" asp-action="Index" >
 							<i class='bx bx-columns icon'></i> Hàng Hóa
 						</a>
 					}
 					else if (User.IsInRole("User"))
 					{
-						<a asp-controller="HangHoa" asp-action="IndexUser">
+						<a asp-controller="HangHoa" asp-action="IndexUser" >
 							<i class='bx bx-columns icon'></i> Hàng Hóa
 						</a>
 					}
@@ -96,7 +124,7 @@
 					}
 					else if (User.IsInRole("User"))
 					{
-						<a asp-controller="NhanVien" asp-action="IndexUser">
+						<a asp-controller="NhanVien" asp-action="IndexUser" >
 							<i class='bx bxs-user icon'></i> Nhân Viên
 						</a>
 					}
@@ -122,13 +150,13 @@
 				<li>
 					@if (User.IsInRole("Admin"))
 					{
-						<a asp-controller="LoaiKhachHang" asp-action="Index">
+						<a asp-controller="LoaiKhachHang" asp-action="Index" >
 							<i class='bx bxs-widget icon'></i> Loại Khách Hàng
 						</a>
 					}
 					else if (User.IsInRole("User"))
 					{
-						<a asp-controller="LoaiKhachHang" asp-action="IndexUser">
+						<a asp-controller="LoaiKhachHang" asp-action="IndexUser" >
 							<i class='bx bxs-widget icon'></i> Loại Khách Hàng
 						</a>
 					}
@@ -141,13 +169,13 @@
 				<li>
 					@if (User.IsInRole("Admin"))
 					{
-						<a asp-controller="NhaCungCap" asp-action="Index">
+						<a asp-controller="NhaCungCap" asp-action="Index" >
 							<i class='fa fa-pencil-ruler icon'></i> Nhà Cung Cấp
 						</a>
 					}
 					else if (User.IsInRole("User"))
 					{
-						<a asp-controller="NhaCungCap" asp-action="IndexUser">
+						<a asp-controller="NhaCungCap" asp-action="IndexUser" >
 							<i class='fa fa-pencil-ruler icon'></i> Nhà Cung Cấp
 						</a>
 					}
@@ -276,9 +304,9 @@
 
 
 											<td style="text-align: center;">
-												<a asp-action="Edit" asp-route-id="@item.MaKiemKe" class="btn btn-warning rounded-pill"><i class="fas fa-edit"></i> Sửa</a>
-												<a asp-action="Details" asp-route-id="@item.MaKiemKe" class="btn btn-info rounded-pill"><i class="fas fa-eye"></i> Chi tiết</a>
-												<a asp-action="Delete" asp-route-id="@item.MaKiemKe" class="btn btn-danger rounded-pill" onclick="return confirm('Bạn có chắc chắn muốn xóa KhoHang này không?');"><i class="fas fa-trash"></i> Xóa</a>
+												<a asp-action="Edit" asp-route-id="@item.MaKiemKe" class="btn btn-light rounded-pill"><i class="fas fa-edit"></i></a>
+												<a asp-action="Details" asp-route-id="@item.MaKiemKe" class="btn btn-light rounded-pill"><i class="fas fa-eye"></i></a>
+												<a asp-action="Delete" asp-route-id="@item.MaKiemKe" class="btn btn-light rounded-pill" onclick="return confirm('Bạn có chắc chắn muốn xóa phiếu kiểm kê này không?');"><i class="fas fa-trash"></i></a>
 
 											</td>
 										</tr>

@@ -1,4 +1,5 @@
 ﻿using KhoHang_XNK.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace KhoHang_XNK.Repositories
 {
@@ -17,6 +18,7 @@ namespace KhoHang_XNK.Repositories
         Task<TonKho> GetByMaHangHoa(int maHangHoa);
 
         Task<TonKho?> GetTonKhoByMaKhoAndMaHangHoaAsync(int maKho, int maHangHoa);
-
+        Task<IEnumerable<SelectListItem>> GetHangHoaByKhoAsync(int maKho);
+        Task<int?> GetSoLuongTonKhoAsync(int maKho, int maHangHoa);
     }
 }

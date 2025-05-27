@@ -1,6 +1,7 @@
 ﻿using DocumentFormat.OpenXml.InkML;
 using KhoHang_XNK.Models;
 using KhoHang_XNK.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,7 @@ namespace KhoHang_XNK.Controllers
             _hangHoaRepository = hangHoaRepository;
             _khoHangRepository = khoHangRepository;
         }
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var tonKhos = await _tonKhoRepository.GetAllTonKhosAsync();

@@ -318,10 +318,6 @@
 	</div>
 </div>
 @section Scripts {
-	@{
-		await Html.RenderPartialAsync("_ValidationScriptsPartial");
-	}
-
 	<script>
 		$(document).ready(function() {
 			// Khi chọn Mã Kiểm Kê
@@ -334,10 +330,10 @@
 
 				if (maKiemKe) {
 					// Lấy Mã Kho từ Mã Kiểm Kê
-					$.getJSON('/YourController/GetMaKhoByKiemKe', { maKiemKe: parseInt(maKiemKe) }, function(data) {
+					$.getJSON('/PhieuKiemKe/GetMaKhoByKiemKe', { maKiemKe: parseInt(maKiemKe) }, function(data) {
 						if (data.maKho) {
 							// Lấy danh sách Hàng Hóa trong kho đó
-							$.getJSON('/YourController/GetHangHoaByKho', { maKho: data.maKho }, function(hangHoas) {
+							$.getJSON('/PhieuKiemKe/GetHangHoaByKho', { maKho: data.maKho }, function(hangHoas) {
 								var options = '<option value="">-- Chọn Hàng Hóa --</option>';
 								$.each(hangHoas, function(i, item) {
 									options += '<option value="' + item.value + '">' + item.text + '</option>';
@@ -358,10 +354,10 @@
 
 				if (maHangHoa && maKiemKe) {
 					// Lấy Mã Kho từ Mã Kiểm Kê
-					$.getJSON('/YourController/GetMaKhoByKiemKe', { maKiemKe: parseInt(maKiemKe) }, function(data) {
+					$.getJSON('/PhieuKiemKe/GetMaKhoByKiemKe', { maKiemKe: parseInt(maKiemKe) }, function(data) {
 						if (data.maKho) {
 							// Lấy số lượng tồn kho
-							$.getJSON('/YourController/GetSoLuongTonKho', {
+							$.getJSON('/PhieuKiemKe/GetSoLuongTonKho', {
 								maKho: data.maKho,
 								maHangHoa: parseInt(maHangHoa)
 							}, function(result) {
@@ -376,12 +372,20 @@
 
 			// Tính toán chênh lệch khi số lượng thực tế thay đổi
 			$('#SoLuongThucTe').on('input', function() {
+				calculateChenhLech();
+			});
+
+			// Hàm tính toán chênh lệch
+			function calculateChenhLech() {
 				var soLuongTonKho = parseFloat($('#soLuongTonKho').val()) || 0;
-				var soLuongThucTe = parseFloat($(this).val()) || 0;
+				var soLuongThucTe = parseFloat($('#SoLuongThucTe').val()) || 0;
 				var chenhLech = soLuongThucTe - soLuongTonKho;
 
+				// Làm tròn 2 chữ số thập phân nếu cần
+				chenhLech = Math.round(chenhLech * 100) / 100;
+
 				$('#SoLuongChenhLech').val(chenhLech);
-			});
+			}
 		});
 	</script>
 }

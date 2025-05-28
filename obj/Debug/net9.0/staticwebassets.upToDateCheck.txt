@@ -3195,6 +3195,7 @@ D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\boxicons\svg\regular\bx-wifi.s
 D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\bootstrap-icons\arrow-right-square.svg
 D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\fontawesome6.1.1\svgs\brands\shopify.svg
 D:\KhoHang_XNK\KhoHang_XNK\wwwroot\favicon.ico
+D:\KhoHang_XNK\KhoHang_XNK\wwwroot\js\common-excel2.js
 D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\lineawesome\svg\amazon-pay.svg
 D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\fontawesome6.1.1\svgs\brands\fedex.svg
 D:\KhoHang_XNK\KhoHang_XNK\wwwroot\assets\modules\boxicons\svg\regular\bx-paragraph.svg
@@ -14490,6 +14491,7 @@ wwwroot\js\app.js
 wwwroot\js\bootstrap-5.0.0-beta1.min.js
 wwwroot\js\common.js
 wwwroot\js\common-excel.js
+wwwroot\js\common-excel2.js
 wwwroot\js\count-up.min.js
 wwwroot\js\glightbox.min.js
 wwwroot\js\imagesloaded.min.js

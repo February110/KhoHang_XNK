@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 using System.Security.Claims;
 
 namespace KhoHang_XNK.Controllers
@@ -15,13 +16,15 @@ namespace KhoHang_XNK.Controllers
         private readonly INhanVienRepository _nhanVienRepository;
         private readonly IKhoHangRepository _khoHangRepository;
         private readonly ITonKhoRepository _tonKhoRepository;
-        public DonXuatHangController(IDonXuatHangRepository donXuatHangRepository, IKhachHangRepository khachHangRepository, INhanVienRepository nhanVienRepository, IKhoHangRepository khoHangRepository, ITonKhoRepository tonKhoRepository)
+        private readonly IExcelExportService _excelExportService;
+        public DonXuatHangController(IDonXuatHangRepository donXuatHangRepository, IKhachHangRepository khachHangRepository, INhanVienRepository nhanVienRepository, IKhoHangRepository khoHangRepository, ITonKhoRepository tonKhoRepository, IExcelExportService excelExportService)
         {
             _tonKhoRepository = tonKhoRepository;
             _donXuatHangRepository = donXuatHangRepository;
             _khachHangRepository = khachHangRepository;
             _nhanVienRepository = nhanVienRepository;
             _khoHangRepository = khoHangRepository;
+            _excelExportService = excelExportService;
         }
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
@@ -178,5 +181,83 @@ namespace KhoHang_XNK.Controllers
             return RedirectToAction("Details", new { id = donXuatHang.MaDonXuat });
         }
 
+      
+        public async Task<IActionResult> ExportExcel(string searchTerm = "", string fromDate = "", string toDate = "")
+        {
+            try
+            {
+                System.Diagnostics.Debug.WriteLine($"ExportExcel called with searchTerm: '{searchTerm}', fromDate: '{fromDate}', toDate: '{toDate}'");
+
+                // Lấy dữ liệu với các quan hệ cần thiết
+                var allItems = await _donXuatHangRepository.GetAllAsync();
+
+                if (!allItems.Any()) return BadRequest("Không có dữ liệu để xuất");
+
+                // Chuyển đổi fromDate và toDate sang DateTime
+                DateTime? fromDateTime = string.IsNullOrWhiteSpace(fromDate) ? null : DateTime.ParseExact(fromDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                DateTime? toDateTime = string.IsNullOrWhiteSpace(toDate) ? null : DateTime.ParseExact(toDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+
+                // Lọc dữ liệu theo searchTerm, fromDate, và toDate
+                var filteredItems = allItems
+                    .Where(d => string.IsNullOrWhiteSpace(searchTerm) ||
+                        (int.TryParse(searchTerm, out int maDonXuat) && d.MaDonXuat == maDonXuat) ||
+                        (d.KhachHang?.TenKH?.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                        (d.KhoHang?.TenKho?.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                        (d.NhanVien?.HoTen?.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ?? false))
+                    .Where(d => (!fromDateTime.HasValue || d.NgayXuat >= fromDateTime.Value) &&
+                               (!toDateTime.HasValue || d.NgayXuat <= toDateTime.Value))
+                    .ToList();
+
+                if (!filteredItems.Any()) return BadRequest("Không có dữ liệu phù hợp với bộ lọc để xuất");
+
+                // Định nghĩa ánh xạ cột
+                var columnMappings = new Dictionary<string, string>
+        {
+            { "MaDonXuat", "Mã đơn xuất" },
+            { "KhachHang_TenKH", "Tên khách hàng" },
+            { "KhoHang_TenKho", "Tên kho hàng" },
+            { "NhanVien_HoTen", "Tên nhân viên" },
+            { "NgayXuat", "Ngày xuất đơn" }
+        };
+
+                // Chuẩn bị dữ liệu xuất Excel
+                var exportData = filteredItems.Select(d => new
+                {
+                    MaDonXuat = d.MaDonXuat,
+                    KhachHang_TenKH = d.KhachHang?.TenKH ?? "Không có thông tin",
+                    KhoHang_TenKho = d.KhoHang?.TenKho ?? "Không có thông tin",
+                    NhanVien_HoTen = d.NhanVien?.HoTen ?? "Không có thông tin",
+                    NgayXuat = d.NgayXuat
+                }).ToList();
+
+                // Cấu hình tùy chọn xuất Excel
+                var options = new ExcelExportOptions
+                {
+                    SheetName = "DonXuat",
+                    Title = "DANH SÁCH ĐƠN XUẤT HÀNG",
+                    ColumnMappings = columnMappings,
+                    CustomFormatters = new Dictionary<string, Func<object, string>>
+            {
+                { "NgayXuat", value => value is DateTime dt ? dt.ToString("dd/MM/yyyy") : value?.ToString() ?? "" }
+            },
+                    HeaderBackgroundColor = System.Drawing.Color.LightBlue,
+                    AutoFitColumns = true,
+                    AddBorders = true
+                };
+
+                // Xuất file Excel
+                var stream = _excelExportService.ExportToExcel(exportData, options);
+                var fileName = $"DanhSachDonXuat_{DateTime.Now:yyyyMMddHHmmss}.xlsx";
+                var contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+
+                return File(stream, contentType, fileName);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Export Excel Error: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Stack Trace: {ex.StackTrace}");
+                return BadRequest($"Lỗi xuất Excel: {ex.Message}");
+            }
+        }
     }
 }

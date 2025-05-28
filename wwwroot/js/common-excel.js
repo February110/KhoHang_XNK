@@ -83,6 +83,7 @@
                 exportToExcel();
             });
 
+            // Trong initializeList
             async function exportToExcel() {
                 try {
                     exportBtn.disabled = true;
@@ -92,25 +93,27 @@
 
                     const form = new FormData();
                     form.append('searchTerm', currentSearchTerm || '');
-                    if (token) {
-                        form.append('__RequestVerificationToken', token);
-                    }
+                    form.append('fromDate', fromDate ? fromDate.value : ''); // Đảm bảo gửi giá trị từ input
+                    form.append('toDate', toDate ? toDate.value : '');       // Đảm bảo gửi giá trị từ input
+                    if (token) form.append('__RequestVerificationToken', token);
+
+                    console.log('Sending POST request to:', exportUrl);
+                    console.log('Form data:', [...form.entries()]);
+                    console.log('Anti-Forgery Token:', token);
 
                     const response = await fetch(exportUrl, {
                         method: 'POST',
                         body: form
                     });
 
+                    console.log('Response status:', response.status);
+                    console.log('Response headers:', [...response.headers.entries()]);
+
                     if (!response.ok) {
                         let errorMessage = `HTTP error! status: ${response.status}`;
-                        try {
-                            const errorText = await response.text();
-                            if (errorText) {
-                                errorMessage += ` - ${errorText}`;
-                            }
-                        } catch (e) {
-                            console.log('Could not parse error response');
-                        }
+                        const errorText = await response.text();
+                        console.log('Error response:', errorText);
+                        if (errorText) errorMessage += ` - ${errorText}`;
                         throw new Error(errorMessage);
                     }
 
@@ -118,9 +121,7 @@
                     let filename = `Export_${new Date().toISOString().slice(0, 19).replace(/[-:]/g, '')}.xlsx`;
                     if (contentDisposition) {
                         const filenameMatch = contentDisposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/);
-                        if (filenameMatch && filenameMatch[1]) {
-                            filename = filenameMatch[1].replace(/['"]/g, '');
-                        }
+                        if (filenameMatch && filenameMatch[1]) filename = filenameMatch[1].replace(/['"]/g, '');
                     }
 
                     const blob = await response.blob();
@@ -132,7 +133,6 @@
                     a.click();
                     document.body.removeChild(a);
                     window.URL.revokeObjectURL(url);
-
                 } catch (error) {
                     console.error('Export error:', error);
                     alert(`Lỗi xuất Excel: ${error.message}`);

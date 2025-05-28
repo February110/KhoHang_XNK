@@ -122,67 +122,255 @@
 <div class="sidebar-overlay"></div>
 
 <!--Content Start-->
+<!--Content Start-->
 <div class="content-start transition">
+    <div class="container-fluid dashboard">
+        <div class="content-header">
+            <h1>Danh Sách Đơn Nhập Hàng</h1>
+            <p></p>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <a asp-action="Create" class="btn btn-primary"><i class="fas fa-plus"></i> Thêm đơn nhập hàng mới</a>
+                            <input type="text" id="searchInput" class="form-control w-25" placeholder="Tìm kiếm...">
+                            <div class="d-flex gap-2">
+                                <button onclick="location.href='/CTDonNhap/Index'"
+                                        class="btn btn-secondary rounded-pill btn-match">
+                                    <i class="fas fa-list"></i> CT Đơn Nhập
+                                </button>
 
-	<div class="container-fluid dashboard">
-		<div class="content-header">
-			<h1>Danh Sách Đơn Nhập Hàng</h1>
-			<p></p>
-		</div>
+                                <button id="exportExcelBtn"
+                                        class="btn btn-success rounded-pill btn-match">
+                                    <i class="fas fa-file-export"></i> Xuất Excel
+                                </button>
+                            </div>
+                        </div>
 
-		<div class="row">
+                        <!-- Bộ lọc thời gian -->
+                        <div class="filter-section bg-light rounded p-3 mb-3">
+                            <h5 class="mb-3"><i class="fas fa-filter"></i> Lọc theo thời gian</h5>
+                            <!-- Lọc theo khoảng thời gian -->
+                            <div class="row align-items-end g-3">
+                                <div class="col-md-2">
+                                    <label for="quickFilter" class="form-label">Lọc nhanh:</label>
+                                    <select id="quickFilter" class="form-select">
+                                        <option value="all" selected>Tất cả</option>
+                                        <option value="today">Hôm nay</option>
+                                        <option value="yesterday">Hôm qua</option>
+                                        <option value="this-week">Tuần này</option>
+                                        <option value="last-week">Tuần trước</option>
+                                        <option value="this-month">Tháng này</option>
+                                        <option value="last-month">Tháng trước</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="fromDate" class="form-label">Từ ngày:</label>
+                                    <input type="date" id="fromDate" class="form-control">
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="toDate" class="form-label">Đến ngày:</label>
+                                    <input type="date" id="toDate" class="form-control">
+                                </div>
+                                <div class="col-md-4 d-flex justify-content-start align-items-end gap-2">
+                                    <button type="button" id="applyCustomFilter" class="btn btn-success">
+                                        <i class="fas fa-search"></i> Lọc
+                                    </button>
+                                    <button type="button" id="clearFilter" class="btn btn-secondary">
+                                        <i class="fas fa-times"></i> Xóa lọc
+                                    </button>
+                                </div>
 
-			<div class="col-md-12">
-				<div class="card">
-					<div class="card-header">
-						<div class="d-flex justify-content-between align-items-center mb-3">
-							<a asp-action="Create" class="btn btn-primary"><i class="fas fa-plus"></i> Thêm đơn nhập hàng mới</a>
-							<input type="text" id="searchInput" class="form-control w-25" placeholder="Tìm kiếm...">
-							<a asp-controller="CTDonNhap" asp-action="Index" class="btn btn-secondary rounded-pill">CT Đơn Nhập</a>
-						</div>
-					</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                       
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Mã đơn nhập</th>
+                                        <th scope="col">Tên nhà cung cấp</th>
+                                        <th scope="col">Tên kho hàng</th>
+                                        <th scope="col">Tên nhân viên</th>
+                                        <th scope="col">Ngày nhập đơn</th>
+                                        <th scope="col" style="text-align: center;">Hành động</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="orderTableBody">
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr class="data-row"
+                                            data-madonnhap="@item.MaDonNhap"
+                                            data-tenncc="@(item.NhaCungCap?.TenNCC ?? "")"
+                                            data-tenkho="@(item.KhoHang?.TenKho ?? "")"
+                                            data-tennv="@(item.NhanVien?.HoTen ?? "")"
+                                            data-ngaynhap="@item.NgayNhap.ToString("dd/MM/yyyy")"
+                                            data-date="@item.NgayNhap.ToString("yyyy-MM-dd")">
+                                            <th scope="row">@Html.DisplayFor(modelItem => item.MaDonNhap)</th>
+                                            <td>@Html.DisplayFor(modelItem => item.NhaCungCap.TenNCC)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.KhoHang.TenKho)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.NhanVien.HoTen)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.NgayNhap)</td>
+                                            <td style="text-align: center;">
+                                                <a asp-action="Edit" asp-route-id="@item.MaDonNhap" class="btn btn-light rounded-pill"><i class="fas fa-edit"></i></a>
+                                                <a asp-action="Details" asp-route-id="@item.MaDonNhap" class="btn btn-light rounded-pill"><i class="fas fa-eye"></i></a>
+                                                <a asp-action="Delete" asp-route-id="@item.MaDonNhap" class="btn btn-light rounded-pill" onclick="return confirm('Bạn có chắc chắn muốn xóa đơn nhập hàng này không?');"><i class="fas fa-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
 
-					<div class="card-body">
-						<div class="table-responsive">
-							<table class="table table-striped">
-								<thead>
-									<tr>
-										<th scope="col">Mã đơn nhập</th>
-										<th scope="col">Tên nhà cung cấp</th>
-										<th scope="col">Tên kho hàng</th>
-										<th scope="col">Tên nhân viên</th>
-										<th scope="col">Ngày nhập đơn</th>
-
-										<th scope="col" style="text-align: center;">Hành động</th>
-
-									</tr>
-								</thead>
-								<tbody>
-									@foreach (var item in Model)
-									{
-										<tr>
-											<th scope="row">@Html.DisplayFor(modelItem => item.MaDonNhap)</th>
-
-											<td>@Html.DisplayFor(modelItem => item.NhaCungCap.TenNCC)</td>
-											<td>@Html.DisplayFor(modelItem => item.KhoHang.TenKho)</td>
-											<td>@Html.DisplayFor(modelItem => item.NhanVien.HoTen)</td>
-											<td>@Html.DisplayFor(modelItem => item.NgayNhap)</td>
-
-											<td style="text-align: center;">
-												<a asp-action="Edit" asp-route-id="@item.MaDonNhap" class="btn btn-light rounded-pill"><i class="fas fa-edit"></i></a>
-												<a asp-action="Details" asp-route-id="@item.MaDonNhap" class="btn btn-light rounded-pill"><i class="fas fa-eye"></i></a>
-												<a asp-action="Delete" asp-route-id="@item.MaDonNhap" class="btn btn-light rounded-pill" onclick="return confirm('Bạn có chắc chắn muốn xóa đơn nhập hàng này không?');"><i class="fas fa-trash"></i></a>
-
-											</td>
-										</tr>
-									}
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
-	</div>
+                            <div id="noResults" class="text-center py-5 d-none">
+                                <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                                <h5 class="text-muted">Không tìm thấy đơn nhập hàng nào</h5>
+                                <p class="text-muted">Hãy thử với từ khóa khác</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<!-- Anti-Forgery Token -->
+<form id="antiForgeryForm" style="display:none;">
+    @Html.AntiForgeryToken()
+</form>
+<style>
+    .btn-match {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.5rem 1.25rem;
+        font-size: 1rem;
+        line-height: 1.25;
+        border: none;
+        text-decoration: none;
+    }
+
+        .btn-match i {
+            font-size: 1rem;
+            margin-right: 0.5rem;
+        }
+</style>
+<!-- JavaScript -->
+@section Scripts {
+    <script src="~/js/common-excel.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            initializeList({
+                searchInputId: 'searchInput',
+                exportBtnId: 'exportExcelBtn',
+                clearSearchBtnId: 'clearFilter',
+                noResultsId: 'noResults',
+                tableBodyId: 'orderTableBody',
+                rowSelector: '.data-row',
+                searchFields: ['madonnhap', 'tenncc', 'tenkho', 'tennv', 'ngaynhap'],
+                exportUrl: '@Url.Action("ExportExcel", "DonNhapHang")',
+                fromDateId: 'fromDate',
+                toDateId: 'toDate'
+            });
+
+            const quickFilter = document.getElementById('quickFilter');
+            const fromDateInput = document.getElementById('fromDate');
+            const toDateInput = document.getElementById('toDate');
+            const applyCustomFilterBtn = document.getElementById('applyCustomFilter');
+            const clearFilterBtn = document.getElementById('clearFilter');
+            const tableBody = document.getElementById('orderTableBody');
+            const allRows = document.querySelectorAll('.data-row');
+
+            function filterByDate(fromDate, toDate) {
+                let visibleCount = 0;
+                allRows.forEach(row => {
+                    const rowDate = new Date(row.dataset.date);
+                    const from = fromDate ? new Date(fromDate) : null;
+                    const to = toDate ? new Date(toDate) : null;
+
+                    const shouldShow = (!from || rowDate >= from) && (!to || rowDate <= to);
+                    if (shouldShow) {
+                        row.style.display = '';
+                        visibleCount++;
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+
+                const noResults = document.getElementById('noResults');
+                if (visibleCount === 0) {
+                    noResults.classList.remove('d-none');
+                    tableBody.style.display = 'none';
+                } else {
+                    noResults.classList.add('d-none');
+                    tableBody.style.display = '';
+                }
+            }
+
+            quickFilter.addEventListener('change', function () {
+                const value = this.value;
+                const today = new Date();
+                let fromDate, toDate;
+
+                switch (value) {
+                    case 'all':
+                        fromDate = toDate = null;
+                        break;
+                    case 'today':
+                        fromDate = toDate = today.toISOString().split('T')[0];
+                        break;
+                    case 'yesterday':
+                        today.setDate(today.getDate() - 1);
+                        fromDate = toDate = today.toISOString().split('T')[0];
+                        break;
+                    case 'this-week':
+                        const firstDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay()));
+                        fromDate = firstDayOfWeek.toISOString().split('T')[0];
+                        toDate = new Date().toISOString().split('T')[0];
+                        break;
+                    case 'last-week':
+                        const lastWeekStart = new Date(today.setDate(today.getDate() - today.getDay() - 7));
+                        const lastWeekEnd = new Date(today.setDate(today.getDate() + 6));
+                        fromDate = lastWeekStart.toISOString().split('T')[0];
+                        toDate = lastWeekEnd.toISOString().split('T')[0];
+                        break;
+                    case 'this-month':
+                        fromDate = new Date(today.getFullYear(), today.getMonth(), 1).toISOString().split('T')[0];
+                        toDate = new Date(today.getFullYear(), today.getMonth() + 1, 0).toISOString().split('T')[0];
+                        break;
+                    case 'last-month':
+                        fromDate = new Date(today.getFullYear(), today.getMonth() - 1, 1).toISOString().split('T')[0];
+                        toDate = new Date(today.getFullYear(), today.getMonth(), 0).toISOString().split('T')[0];
+                        break;
+                }
+
+                // Cập nhật giá trị input
+                fromDateInput.value = fromDate || '';
+                toDateInput.value = toDate || '';
+                filterByDate(fromDate, toDate);
+            });
+
+            applyCustomFilterBtn.addEventListener('click', function () {
+                const fromDate = fromDateInput.value;
+                const toDate = toDateInput.value;
+                if (!fromDate && !toDate) {
+                    alert('Vui lòng chọn ít nhất một ngày để lọc!');
+                    return;
+                }
+                quickFilter.value = 'all'; // Reset quick filter
+                filterByDate(fromDate, toDate);
+            });
+
+            clearFilterBtn.addEventListener('click', function () {
+                fromDateInput.value = '';
+                toDateInput.value = '';
+                quickFilter.value = 'all';
+                filterByDate(null, null);
+            });
+        });
+    </script>
+}

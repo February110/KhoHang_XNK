@@ -7568,5 +7568,6 @@ D:\KhoHang_XNK\KhoHang_XNK\obj\Debug\net9.0\refint\KhoHang_XNK.dll
 D:\KhoHang_XNK\KhoHang_XNK\obj\Debug\net9.0\KhoHang_XNK.pdb
 D:\KhoHang_XNK\KhoHang_XNK\obj\Debug\net9.0\KhoHang_XNK.genruntimeconfig.cache
 D:\KhoHang_XNK\KhoHang_XNK\obj\Debug\net9.0\ref\KhoHang_XNK.dll
-D:\KhoHang_XNK\KhoHang_XNK\obj\Debug\net9.0\compressed\qj30kn8vor-esnb0fp97x.gz
 D:\KhoHang_XNK\KhoHang_XNK\obj\Debug\net9.0\compressed\urqp93hahy-x5hrfsvkhz.gz
+D:\KhoHang_XNK\KhoHang_XNK\obj\Debug\net9.0\compressed\qj30kn8vor-3mswwxot2k.gz
+D:\KhoHang_XNK\KhoHang_XNK\obj\Debug\net9.0\compressed\ftv5jvpdww-esnb0fp97x.gz

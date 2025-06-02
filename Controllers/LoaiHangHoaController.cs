@@ -78,7 +78,7 @@ namespace KhoHang_XNK.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(LoaiHangHoa loaiHangHoa)
         {
-            if (ModelState.IsValid)
+            if (loaiHangHoa != null)
             {
                 await _loaiHangHoaRepository.UpdateAsync(loaiHangHoa);
                 return RedirectToAction(nameof(Index));

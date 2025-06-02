@@ -29,10 +29,7 @@ namespace KhoHang_XNK.Controllers
         {
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-
             var kho = await _khoHangRepository.GetKhoHangByIdUser(userId);
-
             var nhanVienList = await _nhanVienRepository.GetNhanVienByKhoHang(kho.MaKho);
             return View(nhanVienList);
         }
@@ -157,7 +154,8 @@ namespace KhoHang_XNK.Controllers
 
             return View(viewModel);
         }
-        
+
+        [HttpPost]
         public async Task<IActionResult> ExportExcel(string searchTerm = "")
         {
             try
@@ -165,7 +163,20 @@ namespace KhoHang_XNK.Controllers
                 // Log để debug
                 System.Diagnostics.Debug.WriteLine($"ExportExcel called with searchTerm: '{searchTerm}'");
 
-                var allItems = (await _nhanVienRepository.GetAllAsync()).ToList();
+                // Khai báo biến allItems ở phạm vi toàn cục
+                List<NhanVien> allItems;
+
+                // Lấy dữ liệu dựa trên quyền của người dùng
+                if (User.IsInRole("Admin"))
+                {
+                    allItems = (await _nhanVienRepository.GetAllAsync()).ToList();
+                }
+                else
+                {
+                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    var kho = await _khoHangRepository.GetKhoHangByIdUser(userId);
+                    allItems = (await _nhanVienRepository.GetNhanVienByKhoHang(kho.MaKho)).ToList();
+                }
 
                 // Kiểm tra nếu không có dữ liệu
                 if (!allItems.Any())
@@ -175,16 +186,15 @@ namespace KhoHang_XNK.Controllers
 
                 // Lọc dữ liệu dựa trên searchTerm
                 var filteredItems = string.IsNullOrWhiteSpace(searchTerm)
-                  ? allItems
-                  : allItems.Where(n =>
-                      n.MaNV.ToString().Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
-                      (n.HoTen?.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ?? false) ||
-                      (n.ChucVu?.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ?? false) ||
-                      (n.SoDienThoai?.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ?? false) ||
-                      (n.Email?.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ?? false) ||
-                      (n.KhoHang.TenKho?.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ?? false))
-                  .ToList();
-
+                    ? allItems
+                    : allItems.Where(n =>
+                        n.MaNV.ToString().Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                        (n.HoTen?.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                        (n.ChucVu?.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                        (n.SoDienThoai?.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                        (n.Email?.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                        (n.KhoHang.TenKho?.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ?? false))
+                    .ToList();
 
                 // Định nghĩa ánh xạ cột (tên cột trong Excel)
                 var columnMappings = new Dictionary<string, string>
@@ -217,9 +227,9 @@ namespace KhoHang_XNK.Controllers
                     Title = "DANH SÁCH NHÂN VIÊN",
                     ColumnMappings = columnMappings,
                     CustomFormatters = new Dictionary<string, Func<object, string>>
-            {
-                { "NgaySinh", value => value is DateTime dt ? dt.ToString("dd/MM/yyyy") : value?.ToString() ?? "" }
-            },
+                    {
+                        { "NgaySinh", value => value is DateTime dt ? dt.ToString("dd/MM/yyyy") : value?.ToString() ?? "" }
+                    },
                     HeaderBackgroundColor = System.Drawing.Color.LightBlue,
                     AutoFitColumns = true,
                     AddBorders = true

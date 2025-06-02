@@ -173,8 +173,19 @@ namespace KhoHang_XNK.Controllers
                 System.Diagnostics.Debug.WriteLine($"ExportExcel called with searchTerm: '{searchTerm}', fromDate: '{fromDate}', toDate: '{toDate}'");
 
                 // Lấy dữ liệu với các quan hệ cần thiết
-                var allItems = await _phieuKiemKeRepository.GetAllAsync();
+               
+                IEnumerable<PhieuKiemKe> allItems;
 
+                if (User.IsInRole("Admin"))
+                {
+                    allItems = await _phieuKiemKeRepository.GetAllAsync();
+                }
+                else
+                {
+                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    var kho = await _khoHangRepository.GetKhoHangByIdUser(userId);
+                    allItems = await _phieuKiemKeRepository.GetByKhoAsync(kho.MaKho);
+                }
                 if (!allItems.Any()) return BadRequest("Không có dữ liệu để xuất");
 
                 // Chuyển đổi fromDate và toDate sang DateTime

@@ -67,7 +67,7 @@ namespace KhoHang_XNK.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(LoaiKhachHang loaiKhachHang)
         {
-            if (ModelState.IsValid)
+            if (loaiKhachHang != null)
             {
                 await loaiKhachHangRepository.UpdateLoaiKhachHangAsync(loaiKhachHang);
                 return RedirectToAction(nameof(Index));

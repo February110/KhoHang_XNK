@@ -98,9 +98,10 @@ namespace KhoHang_XNK.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var khoHangs = await _khoHangRepository.GetAllKhoHangsForUserAsync(userId);
 
+            var kho = await _khoHangRepository.GetKhoHangByIdUser(userId);
+            var nhanViens = await _nhanVienRepository.GetNhanVienByKhoHang(kho.MaKho);
             var hangHoas = await _hangHoaRepository.GetAllAsync();
             var nhaCungCaps = await _nhaCungCapRepository.GetAllNhaCungCapsAsync();
-            var nhanViens = await _nhanVienRepository.GetAllAsync();
 
             ViewBag.SoLuongKhoHang = khoHangs.Count();
             ViewBag.SoLuongHangHoa = hangHoas.Count();

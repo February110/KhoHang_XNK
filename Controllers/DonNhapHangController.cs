@@ -123,7 +123,7 @@ namespace KhoHang_XNK.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(DonNhapHang donNhapHang)
         {
-            if (ModelState.IsValid)
+            if (donNhapHang != null)
             {
                 await _donNhapHangRepository.UpdateAsync(donNhapHang);
                 return RedirectToAction("Index");
@@ -191,7 +191,18 @@ namespace KhoHang_XNK.Controllers
                 System.Diagnostics.Debug.WriteLine($"ExportExcel called with searchTerm: '{searchTerm}', fromDate: '{fromDate}', toDate: '{toDate}'");
 
                 // Lấy dữ liệu với các quan hệ cần thiết
-                var allItems = await _donNhapHangRepository.GetAllAsync();
+                IEnumerable<DonNhapHang> allItems;
+
+                if (User.IsInRole("Admin"))
+                {
+                    allItems = await _donNhapHangRepository.GetAllAsync(); // <-- tạo biến mới, KHÁC biến bên ngoài
+                }
+                else
+                {
+                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    var kho = await _khoHangRepository.GetKhoHangByIdUser(userId);
+                    allItems= await _donNhapHangRepository.GetByKhoAsync(kho.MaKho);
+                }
 
                 if (!allItems.Any()) return BadRequest("Không có dữ liệu để xuất");
 

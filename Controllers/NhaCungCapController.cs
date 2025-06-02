@@ -78,7 +78,7 @@ namespace KhoHang_XNK.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (nhaCungCap != null)
             {
                 try
                 {

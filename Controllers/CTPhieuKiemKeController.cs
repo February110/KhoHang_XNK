@@ -210,7 +210,7 @@ namespace KhoHang_XNK.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (chiTietPhieuKiemKe != null)
             {
                 // Update the ChiTietPhieuKiemKe record
                 await _ctPhieuKiemKeRepository.AddOrUpdateAsync(chiTietPhieuKiemKe);

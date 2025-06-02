@@ -122,7 +122,7 @@ namespace KhoHang_XNK.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(DonXuatHang donXuatHang)
         {
-            if (ModelState.IsValid)
+            if (donXuatHang != null)
             {
                 await _donXuatHangRepository.UpdateAsync(donXuatHang);
                 return RedirectToAction("Index");
@@ -187,10 +187,19 @@ namespace KhoHang_XNK.Controllers
             try
             {
                 System.Diagnostics.Debug.WriteLine($"ExportExcel called with searchTerm: '{searchTerm}', fromDate: '{fromDate}', toDate: '{toDate}'");
+                // Khai báo biến allItems ở phạm vi toàn cục
+                IEnumerable<DonXuatHang> allItems;
 
-                // Lấy dữ liệu với các quan hệ cần thiết
-                var allItems = await _donXuatHangRepository.GetAllAsync();
-
+                if (User.IsInRole("Admin"))
+                {
+                    allItems = await _donXuatHangRepository.GetAllAsync(); // <-- tạo biến mới, KHÁC biến bên ngoài
+                }
+                else
+                {
+                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    var kho = await _khoHangRepository.GetKhoHangByIdUser(userId);
+                    allItems = await _donXuatHangRepository.GetByKhoAsync(kho.MaKho); // <-- cũng tạo biến mới
+                }
                 if (!allItems.Any()) return BadRequest("Không có dữ liệu để xuất");
 
                 // Chuyển đổi fromDate và toDate sang DateTime
@@ -212,13 +221,13 @@ namespace KhoHang_XNK.Controllers
 
                 // Định nghĩa ánh xạ cột
                 var columnMappings = new Dictionary<string, string>
-        {
-            { "MaDonXuat", "Mã đơn xuất" },
-            { "KhachHang_TenKH", "Tên khách hàng" },
-            { "KhoHang_TenKho", "Tên kho hàng" },
-            { "NhanVien_HoTen", "Tên nhân viên" },
-            { "NgayXuat", "Ngày xuất đơn" }
-        };
+                {
+                    { "MaDonXuat", "Mã đơn xuất" },
+                    { "KhachHang_TenKH", "Tên khách hàng" },
+                    { "KhoHang_TenKho", "Tên kho hàng" },
+                    { "NhanVien_HoTen", "Tên nhân viên" },
+                    { "NgayXuat", "Ngày xuất đơn" }
+                };
 
                 // Chuẩn bị dữ liệu xuất Excel
                 var exportData = filteredItems.Select(d => new

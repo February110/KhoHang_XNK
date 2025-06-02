@@ -14,8 +14,10 @@ namespace KhoHang_XNK.Controllers
         private readonly ITonKhoRepository _tonKhoRepository;
         private readonly IHangHoaRepository _hangHoaRepository;
         private readonly IKhoHangRepository _khoHangRepository;
-        public TonKhoController(ITonKhoRepository tonKhoRepository, IHangHoaRepository hangHoaRepository, IKhoHangRepository khoHangRepository)
+        private readonly IExcelExportService _excelExportService;
+        public TonKhoController(ITonKhoRepository tonKhoRepository, IHangHoaRepository hangHoaRepository, IKhoHangRepository khoHangRepository, IExcelExportService excelExportService)
         {
+            _excelExportService = excelExportService;
             _tonKhoRepository = tonKhoRepository;
             _hangHoaRepository = hangHoaRepository;
             _khoHangRepository = khoHangRepository;
@@ -167,6 +169,84 @@ namespace KhoHang_XNK.Controllers
             var tonKhos = khoList.SelectMany(k => k.TonKhos).ToList();
 
             return View(tonKhos);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ExportExcel(string searchTerm = "")
+        {
+            try
+            {
+                // Log để debug
+                System.Diagnostics.Debug.WriteLine($"ExportExcel called with searchTerm: '{searchTerm}'");
+
+                // Lấy tất cả dữ liệu tồn kho
+                var allItems = (await _tonKhoRepository.GetAllTonKhosAsync()).ToList();
+
+                // Kiểm tra nếu không có dữ liệu
+                if (!allItems.Any())
+                {
+                    return BadRequest("Không có dữ liệu tồn kho để xuất");
+                }
+
+                // Lọc dữ liệu theo searchTerm
+                var filteredItems = string.IsNullOrWhiteSpace(searchTerm)
+                    ? allItems
+                    : allItems.Where(tk =>
+                        (tk.KhoHang?.TenKho?.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                        (tk.HangHoa?.TenHangHoa?.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                        (tk.SoLuong.ToString()?.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ?? false))
+                    .ToList();
+
+                // Định nghĩa ánh xạ cột
+                var columnMappings = new Dictionary<string, string>
+            {
+                { "KhoHang.TenKho", "Mã kho hàng" },
+                { "HangHoa.TenHangHoa", "Mã hàng hóa" },
+                { "SoLuong", "Số lượng" }
+            };
+
+                // Tạo DTO để tránh vấn đề với navigation properties
+                var exportData = filteredItems.Select(tk => new
+                {
+                    KhoHang_TenKho = tk.KhoHang?.TenKho ?? "",
+                    HangHoa_TenHangHoa = tk.HangHoa?.TenHangHoa ?? "",
+                    SoLuong = tk.SoLuong
+                }).ToList();
+
+                // Cập nhật column mappings cho DTO
+                var dtoColumnMappings = new Dictionary<string, string>
+            {
+                { "KhoHang_TenKho", "Mã kho hàng" },
+                { "HangHoa_TenHangHoa", "Mã hàng hóa" },
+                { "SoLuong", "Số lượng" }
+            };
+
+                var options = new ExcelExportOptions
+                {
+                    SheetName = "TonKho",
+                    Title = "DANH SÁCH TỒN KHO",
+                    ColumnMappings = dtoColumnMappings,
+                    HeaderBackgroundColor = System.Drawing.Color.LightBlue,
+                    AutoFitColumns = true,
+                    AddBorders = true
+                };
+
+                var stream = _excelExportService.ExportToExcel(exportData, options);
+
+                var fileName = $"DanhSachTonKho_{DateTime.Now:yyyyMMddHHmmss}.xlsx";
+                var contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+
+                return File(stream, contentType, fileName);
+            }
+            catch (Exception ex)
+            {
+                // Log chi tiết lỗi
+                System.Diagnostics.Debug.WriteLine($"Export Excel Error: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Stack Trace: {ex.StackTrace}");
+
+                return BadRequest($"Lỗi xuất Excel: {ex.Message}");
+            }
         }
 
 

@@ -41,17 +41,7 @@ namespace KhoHang_XNK.Controllers
             var list = await _donNhapHangRepository.GetByKhoAsync(kho.MaKho);
             return View(list);
         }
-        public async Task<IActionResult> Details(int id)
-        {
-            var donNhapHang = await _donNhapHangRepository.GetByIdAsync(id);
-            if (donNhapHang == null) return NotFound();
 
-            var chiTietList = await _donNhapHangRepository.GetChiTietByDonNhapIdAsync(id);
-
-            ViewBag.ChiTietList = chiTietList; // Gửi danh sách chi tiết đơn nhập sang View
-
-            return View(donNhapHang);
-        }
         [HttpGet]
         public async Task<JsonResult> GetNhanViensByKho(int maKho)
         {
@@ -81,9 +71,9 @@ namespace KhoHang_XNK.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Index","User"); 
+                    return RedirectToAction("Index", "User");
                 }
-                
+
             }
 
             ViewBag.NhaCungCaps = new SelectList(await _nhaCungCapRepository.GetAllNhaCungCapsAsync(), "MaNCC", "TenNCC", donNhapHang.MaNCC);
@@ -94,6 +84,19 @@ namespace KhoHang_XNK.Controllers
 
             return View(donNhapHang);
         }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var donNhapHang = await _donNhapHangRepository.GetByIdAsync(id);
+            if (donNhapHang == null) return NotFound();
+
+            var chiTietList = await _donNhapHangRepository.GetChiTietByDonNhapIdAsync(id);
+
+            ViewBag.ChiTietList = chiTietList;
+
+            return View(donNhapHang);
+        }
+       
         public async Task<IActionResult> Delete(int id)
         {
             var donNhapHang = await _donNhapHangRepository.GetByIdAsync(id);
@@ -110,8 +113,6 @@ namespace KhoHang_XNK.Controllers
         {
             var donNhapHang = await _donNhapHangRepository.GetByIdAsync(id);
             if (donNhapHang == null) return NotFound();
-
-            // Lấy danh sách các Nhà Cung Cấp, Nhân Viên và Kho Hàng và truyền vào ViewBag
             ViewBag.NhaCungCaps = new SelectList(await _nhaCungCapRepository.GetAllNhaCungCapsAsync(), "MaNCC", "TenNCC", donNhapHang.MaNCC);
             
             ViewBag.Khos = new SelectList(await _khoHangRepository.GetAllKhoHangsAsync(), "MaKho", "TenKho", donNhapHang.MaKho);
@@ -128,8 +129,6 @@ namespace KhoHang_XNK.Controllers
                 await _donNhapHangRepository.UpdateAsync(donNhapHang);
                 return RedirectToAction("Index");
             }
-
-            // Lấy lại danh sách và trả về nếu có lỗi
             ViewBag.NhaCungCaps = new SelectList(await _nhaCungCapRepository.GetAllNhaCungCapsAsync(), "MaNCC", "TenNCC", donNhapHang.MaNCC);
 
             ViewBag.Khos = new SelectList(await _khoHangRepository.GetAllKhoHangsAsync(), "MaKho", "TenKho", donNhapHang.MaKho);
@@ -140,30 +139,22 @@ namespace KhoHang_XNK.Controllers
         [HttpPost]
         public async Task<IActionResult> ConfirmPayment(int id)
         {
-            // Lấy đơn nhập hàng theo id
             var donNhapHang = await _donNhapHangRepository.GetByIdAsync(id);
             if (donNhapHang == null) return NotFound();
-
-            // Kiểm tra nếu đơn nhập đã thanh toán rồi
             if (donNhapHang.trangthaithanhtoan != 0)
             {
                 TempData["Message"] = "Đơn nhập hàng này đã được thanh toán.";
                 return RedirectToAction("Details", new { id = donNhapHang.MaDonNhap });
             }
-
-            // Cập nhật trạng thái thanh toán thành đã thanh toán
-            donNhapHang.trangthaithanhtoan = 1; // Đã thanh toán
+            donNhapHang.trangthaithanhtoan = 1; 
             await _donNhapHangRepository.UpdateAsync(donNhapHang);
-
-            // Cập nhật tồn kho
             var chiTietList = await _donNhapHangRepository.GetChiTietByDonNhapIdAsync(id);
             foreach (var item in chiTietList)
             {
-                // Cập nhật tồn kho tương ứng với từng mặt hàng
                 var tonKho = await _tonKhoRepository.GetTonKhoByIdsAsync(donNhapHang.MaKho, item.MaHangHoa);
                 if (tonKho != null)
                 {
-                    tonKho.SoLuong += item.SoLuong; // Thêm số lượng vào tồn kho
+                    tonKho.SoLuong += item.SoLuong;
                     await _tonKhoRepository.UpdateTonKhoAsync(tonKho);
                 }
                 else
@@ -174,7 +165,7 @@ namespace KhoHang_XNK.Controllers
                         MaHangHoa = item.MaHangHoa,
                         SoLuong = item.SoLuong
                     };
-                    await _tonKhoRepository.AddTonKhoAsync(newTonKho); // Thêm mới tồn kho nếu chưa có
+                    await _tonKhoRepository.AddTonKhoAsync(newTonKho); 
                 }
             }
 
@@ -189,8 +180,6 @@ namespace KhoHang_XNK.Controllers
             try
             {
                 System.Diagnostics.Debug.WriteLine($"ExportExcel called with searchTerm: '{searchTerm}', fromDate: '{fromDate}', toDate: '{toDate}'");
-
-                // Lấy dữ liệu với các quan hệ cần thiết
                 IEnumerable<DonNhapHang> allItems;
 
                 if (User.IsInRole("Admin"))

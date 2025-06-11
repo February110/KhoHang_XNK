@@ -249,7 +249,6 @@
 
 <!--Content Start-->
 <div class="content-start transition">
-
 	<div class="container-fluid dashboard">
 		<div class="content-header">
 			<h1>Tạo Kho Hàng Mới</h1>
@@ -299,17 +298,23 @@
 										</div>
 										<br />
 										<div class="form-group text-center">
-											<input type="submit" value="Tạo Kho Hàng" class="btn btn-success" />
+											<button type="submit" class="btn btn-success btn-lg mt-3 px-4 py-1 rounded-pill hover-scale">
+											Tạo Kho Hàng
+											</button>
+
+											@{
+												var backAction = User.IsInRole("Admin") ? "Index" : "IndexUser";
+											}
+											<a asp-action="@backAction" class="btn btn-outline-secondary px-4 py-2 rounded-pill hover-scale mt-3">
+												<i class="fas fa-arrow-left me-2"></i>Trở lại
+											</a>
 										</div>
 									</form>
 								</div>
 							</div>
 						</div>
 					</div>
-
-					<div class="text-center mt-3">
-						<a asp-action="Index" class="btn btn-secondary">Trở lại danh sách</a>
-					</div>
+				
 				</div>
 			</div>
 

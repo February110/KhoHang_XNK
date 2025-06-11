@@ -315,15 +315,17 @@
 
                     <!-- Buttons -->
                     <div class="form-group text-center">
-                        <button type="submit" class="btn btn-success btn-lg mt-3">Thêm Nhân Viên</button>
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <a asp-action="Index" class="btn btn-secondary btn-lg mt-3">Quay lại</a>                            
-                        }
-                        else
-                        {
-                            <a asp-controller="NhanVien" asp-action="IndexUser" class="btn btn-secondary btn-sm">Quay lại danh sách</a>
-                        }
+						<button type="submit" class="btn btn-success btn-lg mt-3 px-4 py-2 rounded-pill hover-scale">
+							<i class="fas fa-user-plus me-2"></i>Thêm Nhân Viên
+						</button>
+
+
+						@{
+							var backAction = User.IsInRole("Admin") ? "Index" : "IndexUser";
+						}
+						<a asp-action="@backAction" class="btn btn-outline-secondary px-4 py-2 rounded-pill hover-scale mt-3">
+							<i class="fas fa-arrow-left me-2"></i>Trở lại
+						</a>
                         
                     </div>
                 </form>
@@ -331,9 +333,3 @@
         </div>
     </div>
 </div>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}

@@ -304,12 +304,17 @@
 
 					<!-- Nút thao tác -->
 					<div class="d-flex justify-content-between">
-						<a asp-action="Index" class="btn btn-secondary">
-							<i class="fas fa-arrow-left"></i> Quay lại
-						</a>
+					
 						<button type="submit" class="btn btn-primary">
 							<i class="fas fa-save"></i> Lưu
 						</button>
+
+						@{
+							var backAction = User.IsInRole("Admin") ? "Index" : "IndexUser";
+						}
+						<a asp-action="@backAction" class="btn btn-outline-secondary px-4 py-2 rounded-pill hover-scale mt-3">
+							<i class="fas fa-arrow-left me-2"></i>Trở lại
+						</a>
 					</div>
 				</form>
 			</div>

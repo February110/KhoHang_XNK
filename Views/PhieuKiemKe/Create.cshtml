@@ -294,23 +294,19 @@
 
 					<!-- Submit Button -->
 					<div class="form-group">
-						
+						<button type="submit" class="btn btn-success px-4 py-2 rounded-pill hover-scale mt-3">
+							<i class="fas fa-plus me-2"></i>Tạo mới
+						</button>
+
+						@{
+							var backAction = User.IsInRole("Admin") ? "Index" : "IndexUser";
+						}
+						<a asp-action="@backAction" class="btn btn-outline-secondary px-4 py-2 rounded-pill hover-scale mt-3">
+							<i class="fas fa-arrow-left me-2"></i>Trở lại
+						</a>
 					</div>
 				</form>
 			</div>
-		</div>
-
-		<div>
-			<button type="submit" class="btn btn-success px-4 py-2 rounded-pill hover-scale mt-3">
-				<i class="fas fa-plus me-2"></i>Tạo mới
-			</button>
-
-			@{
-				var backAction = User.IsInRole("Admin") ? "Index" : "IndexUser";
-			}
-			<a asp-action="@backAction" class="btn btn-outline-secondary px-4 py-2 rounded-pill hover-scale mt-3">
-				<i class="fas fa-arrow-left me-2"></i>Trở lại
-			</a>
 		</div>
 	</div>
 </div>

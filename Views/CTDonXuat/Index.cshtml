@@ -300,12 +300,12 @@
 											<td>@item.DonGia.ToString("N0")</td>
 											<td>@(item.SoLuong * item.DonGia)</td>
 											<td class="text-center">
-												<a asp-action="Edit" asp-route-maDonNhap="@item.MaDonXuat" asp-route-maHangHoa="@item.MaHangHoa" class="btn btn-light rounded-pill">
+												<a asp-action="Edit" asp-route-maDonXuat="@item.MaDonXuat" asp-route-maHangHoa="@item.MaHangHoa" class="btn btn-light rounded-pill">
 													<i class="fas fa-edit"></i>
 												</a>
-												<a asp-action="Delete" asp-route-maDonNhap="@item.MaDonXuat" asp-route-maHangHoa="@item.MaHangHoa" class="btn btn-light rounded-pill"
+												<a asp-action="Delete" asp-route-maDonXuat="@item.MaDonXuat" asp-route-maHangHoa="@item.MaHangHoa" class="btn btn-light rounded-pill"
 												   onclick="return confirm('Bạn có chắc chắn muốn xóa không?');">
-													<i class="fas fa-trash-alt"></i>
+													<i class="fas fa-trash"></i>
 												</a>
 											</td>
 										</tr>

@@ -253,44 +253,73 @@
 </div>
 <!-- End Sidebar-->
 
-
-
-
 <div class="sidebar-overlay"></div>
-
 <!--Content Start-->
 <div class="content-start transition">
-		<div class="container-fluid dashboard">
-			<div class="content-header">
-				<h1>Chi Tiết Tồn Kho</h1>
-				<p></p>
-			</div>
+	<div class="container-fluid dashboard">
+		<div class="content-header mb-4">
+			<h1 class="text-primary font-weight-bold">Chi Tiết Tồn Kho</h1>
+			<p class="text-muted">Xem thông tin chi tiết về hàng tồn kho</p>
+		</div>
 
-	<div>
-		<dl class="row" style="color: black">
-			<dt class = "col-sm-2">
-				@Html.DisplayNameFor(model => model.SoLuong)
-			</dt>
-			<dd class = "col-sm-10">
-				@Html.DisplayFor(model => model.SoLuong)
-			</dd>
-			<dt class = "col-sm-2">
-				@Html.DisplayNameFor(model => model.KhoHang)
-			</dt>
-			<dd class = "col-sm-10">
-				@Html.DisplayFor(model => model.KhoHang.TenKho)
-			</dd>
-			<dt class = "col-sm-2">
-				@Html.DisplayNameFor(model => model.HangHoa)
-			</dt>
-			<dd class = "col-sm-10">
-				@Html.DisplayFor(model => model.HangHoa.TenHangHoa)
-			</dd>
-		</dl>
-	</div>
-	<div>
-			@Html.ActionLink("Sửa", "Edit", new { /* id = Model.PrimaryKey */ }) |
-		<a asp-action="Index">Trở lại danh sách tồn kho</a>
-	</div>
+		<div class="card shadow-sm mb-4">
+			<div class="card-body">
+				<div class="row mb-3">
+					<div class="col-md-6">
+						<div class="info-item">
+							<h5 class="text-secondary font-weight-bold">Số lượng tồn:</h5>
+							<p class="h4 text-dark">@Html.DisplayFor(model => model.SoLuong)</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="row mb-3">
+					<div class="col-md-6">
+						<div class="info-item">
+							<h5 class="text-secondary font-weight-bold">Kho hàng:</h5>
+							<p class="h5 text-dark">@Html.DisplayFor(model => model.KhoHang.TenKho)</p>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="info-item">
+							<h5 class="text-secondary font-weight-bold">Hàng hóa:</h5>
+							<p class="h5 text-dark">@Html.DisplayFor(model => model.HangHoa.TenHangHoa)</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="action-buttons mt-4">
+			@if (User.IsInRole("Admin"))
+			{
+				<a asp-action="Index" class="btn btn-outline-primary">
+					<i class="fas fa-arrow-left mr-2"></i>Trở lại danh sách tồn kho
+				</a>
+			}
+			else
+			{
+				<a asp-action="IndexUser" class="btn btn-outline-primary">
+					<i class="fas fa-arrow-left mr-2"></i>Trở lại danh sách tồn kho
+				</a>
+			}
+			
+			
+		</div>
 	</div>
 </div>
+
+<style>
+	.info-item {
+		background-color: #f8f9fa;
+		padding: 1rem;
+		border-radius: 0.5rem;
+		margin-bottom: 1rem;
+		border-left: 4px solid #007bff;
+	}
+
+	.card {
+		border: none;
+		border-radius: 0.75rem;
+	}
+</style>

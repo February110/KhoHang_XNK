@@ -257,46 +257,105 @@
 <div class="sidebar-overlay"></div>
 <!--Content Start-->
 <div class="content-start transition">
+	<div class="container-fluid dashboard py-5">
+		<div class="row justify-content-center">
+			<div class="col-md-8 col-lg-6">
+				<div class="card shadow-lg border-0 rounded-3">
+					<div class="card-body p-5">
+						<div class="d-flex justify-content-between align-items-center mb-4">
+							<h4 class="card-title mb-0 fw-bold text-primary">Chỉnh sửa tồn kho</h4>
+						
+						</div>
+						<hr class="my-4 border-secondary" />
+						<form asp-action="Edit" method="post" class="needs-validation" novalidate>
+							@Html.AntiForgeryToken()
+							<input type="hidden" asp-for="MaKho" />
+							<input type="hidden" asp-for="MaHangHoa" />
 
-	<div class="container-fluid dashboard">
+							<div class="form-group mb-4">
+								<label class="form-label fw-semibold text-muted">Kho hàng</label>
+								<select class="form-select form-select-lg rounded-pill" disabled>
+									<option selected value="@Model.MaKho">@Model.KhoHang?.TenKho</option>
+								</select>
+							</div>
 
-		<form asp-action="Edit" method="post">
-			@Html.AntiForgeryToken()
+							<div class="form-group mb-4">
+								<label class="form-label fw-semibold text-muted">Hàng hóa</label>
+								<select class="form-select form-select-lg rounded-pill" disabled>
+									<option selected value="@Model.MaHangHoa">@Model.HangHoa?.TenHangHoa</option>
+								</select>
+							</div>
 
-			@* Ẩn giá trị để gửi về khi submit *@
-			<input type="hidden" asp-for="MaKho" />
-			<input type="hidden" asp-for="MaHangHoa" />
+							<div class="form-group mb-4">
+								<label asp-for="SoLuong" class="form-label fw-semibold text-muted">Số lượng</label>
+								<input asp-for="SoLuong" class="form-control form-control-lg rounded-pill" type="number" min="0" placeholder="Nhập số lượng" />
+								<span asp-validation-for="SoLuong" class="text-danger small"></span>
+							</div>
 
-			<div class="form-group">
-				<label>Kho hàng</label>
-				<select class="form-control" disabled>
-					<option selected value="@Model.MaKho">@Model.KhoHang?.TenKho</option>
-				</select>
+							<div class="form-group text-center mt-5">
+								<button type="submit" class="btn btn-primary btn-lg px-5 py-2 rounded-pill shadow-sm hover-scale me-3">
+									<i class="fas fa-save me-2"></i>Lưu thay đổi
+								</button>
+								@if (User.IsInRole("Admin"))
+								{
+									<a asp-action="Index" class="btn btn-outline-secondary px-4 py-2 rounded-pill shadow-sm hover-scale">
+										<i class="fas fa-arrow-left me-2"></i>Trở lại
+									</a>
+								}
+								else
+								{
+									<a asp-action="IndexUser" class="btn btn-outline-secondary px-4 py-2 rounded-pill shadow-sm hover-scale">
+										<i class="fas fa-arrow-left me-2"></i>Trở lại
+									</a>
+								}
+							
+							</div>
+						</form>
+					</div>
+				</div>
 			</div>
-
-			<div class="form-group">
-				<label>Hàng hóa</label>
-				<select class="form-control" disabled>
-					<option selected value="@Model.MaHangHoa">@Model.HangHoa?.TenHangHoa</option>
-				</select>
-			</div>
-
-			<div class="form-group">
-				<label asp-for="SoLuong" class="control-label">Số lượng</label>
-				<input asp-for="SoLuong" class="form-control" type="number" min="0" />
-				<span asp-validation-for="SoLuong" class="text-danger"></span>
-			</div>
-
-			<div class="form-group mt-3">
-				<button type="submit" class="btn btn-primary">Lưu thay đổi</button>
-				<a asp-action="Index" class="btn btn-secondary">Hủy</a>
-			</div>
-		</form>
+		</div>
 	</div>
 </div>
 
+<style>
+	.card {
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+	}
 
+		.card:hover {
+			transform: translateY(-5px);
+			box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+		}
 
-@section Scripts {
-	@await Html.PartialAsync("_ValidationScriptsPartial")
-}
+	.btn:hover, .form-control:hover, .form-select:hover {
+		transition: all 0.2s ease;
+	}
+
+	.hover-scale:hover {
+		transform: scale(1.05);
+	}
+
+	.text-primary {
+		color: #0d6efd !important;
+	}
+
+	.border-secondary {
+		border-color: #dee2e6 !important;
+	}
+
+	.rounded-pill {
+		border-radius: 50rem !important;
+	}
+
+	.form-control, .form-select {
+		border: 1px solid #ced4da;
+		background-color: #f8f9fa;
+	}
+
+		.form-control:focus, .form-select:focus {
+			border-color: #0d6efd;
+			box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+			background-color: #fff;
+		}
+</style>

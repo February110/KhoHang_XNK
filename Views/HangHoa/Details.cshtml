@@ -255,39 +255,92 @@
 
 <!--Content Start-->
 <div class="content-start transition">
-	<div class="container p-4">
-		<div class="content-header">
-			<h1>Chi tiết sản phẩm</h1>
-			<p></p>
+	<div class="container py-5">
+		<div class="row justify-content-center">
+			<div class="col-md-8 col-lg-6">
+				<div class="card shadow-lg border-0 rounded-3">
+					<div class="card-body p-5">
+						<div class="d-flex justify-content-between align-items-center mb-4">
+							<h4 class="card-title mb-0 fw-bold text-primary">Chi tiết sản phẩm</h4>
+						</div>
+						<hr class="my-4 border-secondary" />
+						<div class="text-center mb-4">
+							<h5 class="fw-semibold text-muted">@Model.HangHoa.TenHangHoa</h5>
+						</div>
+						<div class="table-responsive">
+							<table class="table table-bordered table-hover rounded-3 overflow-hidden">
+								<tbody>
+									<tr>
+										<th class="bg-light text-muted" style="width: 40%;">Mã hàng hóa</th>
+										<td>@Model.HangHoa.MaHangHoa</td>
+									</tr>
+									<tr>
+										<th class="bg-light text-muted">Loại hàng hóa</th>
+										<td>@Model.HangHoa.LoaiHangHoa?.TenLoaiHang</td>
+									</tr>
+									<tr>
+										<th class="bg-light text-muted">Tồn kho</th>
+										<td>@Model.TonKho</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="text-center mt-5">
+							@if (User.IsInRole("Admin"))
+							{
+								<a asp-action="Index" class="btn btn-outline-secondary px-4 py-2 rounded-pill shadow-sm hover-scale">
+									<i class="fas fa-arrow-left me-2"></i>Quay lại danh sách
+								</a>
+							}
+							else
+							{
+								<a asp-action="IndexUser" class="btn btn-outline-secondary px-4 py-2 rounded-pill shadow-sm hover-scale">
+									<i class="fas fa-arrow-left me-2"></i>Quay lại danh sách
+								</a>
+							}
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class="container p-4">
-    <div class="card shadow-sm p-4">
-        <div class="mb-3 text-center">
-            <h4>@Model.HangHoa.TenHangHoa</h4>
-        </div>
-
-        <table class="table table-bordered">
-            <tbody>
-                <tr>
-                    <th>Mã hàng hóa</th>
-                    <td>@Model.HangHoa.MaHangHoa</td>
-                </tr>
-                <tr>
-                    <th>Loại hàng hóa</th>
-                    <td>@Model.HangHoa.LoaiHangHoa?.TenLoaiHang</td>
-                </tr>
-                <tr>
-                    <th>Tồn kho</th>
-                    <td>@Model.TonKho</td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="text-center mt-3">
-            <a asp-action="Index" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Quay lại</a>
-        </div>
-    </div>
-</div>
 	</div>
 </div>
-	<!-- Thêm Font Awesome nếu cần -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+	.card {
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+	}
+
+		.card:hover {
+			transform: translateY(-5px);
+			box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+		}
+
+	.btn:hover {
+		transition: all 0.2s ease;
+	}
+
+	.hover-scale:hover {
+		transform: scale(1.05);
+	}
+
+	.text-primary {
+		color: #0d6efd !important;
+	}
+
+	.border-secondary {
+		border-color: #dee2e6 !important;
+	}
+
+	.rounded-pill {
+		border-radius: 50rem !important;
+	}
+
+	.table th, .table td {
+		vertical-align: middle;
+	}
+
+	.table-hover tbody tr:hover {
+		background-color: #f8f9fa;
+	}
+</style>

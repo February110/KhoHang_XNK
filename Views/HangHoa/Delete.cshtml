@@ -255,62 +255,121 @@
 
 <div class="sidebar-overlay"></div>
 
-<!--Content Start-->
 <div class="content-start transition">
-	<div class="container p-4">
-		<div class="content-header">
-			<h1>Xóa hàng hóa</h1>
-			<p></p>
-		</div>
-		<div class="container p-4">
-			<div class="card shadow-sm p-4">
-				<p class="text-center">Bạn có chắc chắn muốn xóa sản phẩm này không?</p>
-
-				<table class="table table-bordered">
-					<tbody>
-						<tr>
-							<th>Mã hàng hóa</th>
-							<td>@Model.MaHangHoa</td>
-						</tr>
-						<tr>
-							<th>Tên hàng hóa</th>
-							<td>@Model.TenHangHoa</td>
-						</tr>
-						<tr>
-							<th>Mô tả</th>
-							<td>@Model.MoTa</td>
-						</tr>
-						<tr>
-							<th>Đơn vị tính</th>
-							<td>@Model.DonViTinh</td>
-						</tr>
-						<tr>
-							<th>Hạn sử dụng</th>
-							<td>@Model.HanSuDung.ToString("dd/MM/yyyy")</td>
-						</tr>
-						<tr>
-							<th>Hình ảnh</th>
-							<td>
-								<img src="@Model.ImageUrl" alt="Hình ảnh hàng hóa" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;" />
-							</td>
-						</tr>
-						<tr>
-							<th>Loại hàng hóa</th>
-							<td>@Model.LoaiHangHoa?.TenLoaiHang</td>
-						</tr>
-					</tbody>
-				</table>
-
-				<form asp-action="Delete">
-					<input type="hidden" asp-for="MaHangHoa" />
-					<div class="text-center mt-3">
-						<button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Xóa</button>
-						<a asp-action="Index" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Quay lại</a>
+	<div class="container py-5">
+		<div class="row justify-content-center">
+			<div class="col-md-8 col-lg-6">
+				<div class="card shadow-lg border-0 rounded-3">
+					<div class="card-body p-5">
+						<div class="d-flex justify-content-between align-items-center mb-4">
+							<h4 class="card-title mb-0 fw-bold text-primary">Xóa hàng hóa</h4>
+						</div>
+						<hr class="my-4 border-secondary" />
+						<p class="text-center text-muted mb-4">Bạn có chắc chắn muốn xóa sản phẩm này không?</p>
+						<div class="table-responsive">
+							<table class="table table-bordered table-hover rounded-3 overflow-hidden">
+								<tbody>
+									<tr>
+										<th class="bg-light text-muted" style="width: 40%;">Mã hàng hóa</th>
+										<td>@Model.MaHangHoa</td>
+									</tr>
+									<tr>
+										<th class="bg-light text-muted">Tên hàng hóa</th>
+										<td>@Model.TenHangHoa</td>
+									</tr>
+									<tr>
+										<th class="bg-light text-muted">Mô tả</th>
+										<td>@Model.MoTa</td>
+									</tr>
+									<tr>
+										<th class="bg-light text-muted">Đơn vị tính</th>
+										<td>@Model.DonViTinh</td>
+									</tr>
+									<tr>
+										<th class="bg-light text-muted">Hạn sử dụng</th>
+										<td>@Model.HanSuDung.ToString("dd/MM/yyyy")</td>
+									</tr>
+									<tr>
+										<th class="bg-light text-muted">Hình ảnh</th>
+										<td>
+											@if (!string.IsNullOrEmpty(Model.ImageUrl))
+											{
+												<img src="@Model.ImageUrl" alt="Hình ảnh hàng hóa" class="img-thumbnail border-0 shadow-sm rounded-circle" style="width: 120px; height: 120px; object-fit: cover;" />
+											}
+											else
+											{
+												<span class="text-muted fst-italic">Không có ảnh</span>
+											}
+										</td>
+									</tr>
+									<tr>
+										<th class="bg-light text-muted">Loại hàng hóa</th>
+										<td>@Model.LoaiHangHoa?.TenLoaiHang</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<form asp-action="Delete">
+							<input type="hidden" asp-for="MaHangHoa" />
+							<div class="text-center mt-5">
+								<button type="submit" class="btn btn-danger btn-lg px-4 py-2 rounded-pill shadow-sm hover-scale me-3">
+									<i class="fas fa-trash me-2"></i>Xóa
+								</button>
+								<a asp-action="Index" class="btn btn-outline-secondary px-4 py-2 rounded-pill shadow-sm hover-scale">
+									<i class="fas fa-arrow-left me-2"></i>Quay lại
+								</a>
+							</div>
+						</form>
 					</div>
-				</form>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<!-- Thêm Font Awesome nếu cần -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+	.card {
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+	}
+
+	.card:hover {
+		transform: translateY(-5px);
+		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+	}
+
+	.btn:hover {
+		transition: all 0.2s ease;
+	}
+
+	.hover-scale:hover {
+		transform: scale(1.05);
+	}
+
+	.text-primary {
+		color: #0d6efd !important;
+	}
+
+	.border-secondary {
+		border-color: #dee2e6 !important;
+	}
+
+	.rounded-pill {
+		border-radius: 50rem !important;
+	}
+
+	.table th, .table td {
+		vertical-align: middle;
+	}
+
+	.table-hover tbody tr:hover {
+		background-color: #f8f9fa;
+	}
+
+	.img-thumbnail {
+		transition: transform 0.3s ease;
+	}
+
+	.img-thumbnail:hover {
+		transform: scale(1.1);
+	}
+</style>

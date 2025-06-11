@@ -257,50 +257,62 @@
 
 <!--Content Start-->
 <div class="content-start transition">
-	<div class="container-fluid dashboard">
-		<div class="container-fluid p-4">
-			<h1 class="text-center mb-4">Chỉnh Sửa Nhà Cung Cấp</h1>
-
-			<div class="row justify-content-center">
-				<div class="col-md-8">
-					<h4 class="mb-3">Thông tin Nhà Cung Cấp</h4>
-					<hr />
-					<form asp-action="Edit">
-						<div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
-
-						<input type="hidden" asp-for="MaNCC" />
-
-						<div class="form-group mb-3">
-							<label asp-for="TenNCC" class="control-label">Tên Nhà Cung Cấp</label>
-							<input asp-for="TenNCC" class="form-control" />
-							<span asp-validation-for="TenNCC" class="text-danger"></span>
+	<div class="container-fluid dashboard py-5">
+		<div class="row justify-content-center">
+			<div class="col-md-8 col-lg-6">
+				<div class="card shadow-lg border-0 rounded-3">
+					<div class="card-body p-5">
+						<div class="d-flex justify-content-between align-items-center mb-4">
+							<h4 class="card-title mb-0 fw-bold text-primary">Chỉnh sửa nhà cung cấp</h4>
 						</div>
+						<hr class="my-4 border-secondary" />
+						<form asp-action="Edit" class="needs-validation" novalidate>
+							<div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+							<input type="hidden" asp-for="MaNCC" />
 
-						<div class="form-group mb-3">
-							<label asp-for="DiaChi" class="control-label">Địa Chỉ</label>
-							<input asp-for="DiaChi" class="form-control" />
-							<span asp-validation-for="DiaChi" class="text-danger"></span>
-						</div>
+							<div class="form-group mb-4">
+								<label asp-for="TenNCC" class="form-label fw-semibold text-muted">Tên nhà cung cấp</label>
+								<input asp-for="TenNCC" class="form-control form-control-lg rounded-pill" placeholder="Nhập tên nhà cung cấp" />
+								<span asp-validation-for="TenNCC" class="text-danger small"></span>
+							</div>
 
-						<div class="form-group mb-3">
-							<label asp-for="SoDienThoai" class="control-label">Số Điện Thoại</label>
-							<input asp-for="SoDienThoai" class="form-control" />
-							<span asp-validation-for="SoDienThoai" class="text-danger"></span>
-						</div>
+							<div class="form-group mb-4">
+								<label asp-for="DiaChi" class="form-label fw-semibold text-muted">Địa chỉ</label>
+								<input asp-for="DiaChi" class="form-control form-control-lg rounded-pill" placeholder="Nhập địa chỉ" />
+								<span asp-validation-for="DiaChi" class="text-danger small"></span>
+							</div>
 
-						<div class="form-group mb-3">
-							<label asp-for="Email" class="control-label">Email</label>
-							<input asp-for="Email" class="form-control" />
-							<span asp-validation-for="Email" class="text-danger"></span>
-						</div>
+							<div class="form-group mb-4">
+								<label asp-for="SoDienThoai" class="form-label fw-semibold text-muted">Số điện thoại</label>
+								<input asp-for="SoDienThoai" class="form-control form-control-lg rounded-pill" placeholder="Nhập số điện thoại" />
+								<span asp-validation-for="SoDienThoai" class="text-danger small"></span>
+							</div>
 
-						<div class="form-group text-center mb-4">
-							<input type="submit" value="Lưu Thay Đổi" class="btn btn-success" />
-						</div>
-					</form>
+							<div class="form-group mb-4">
+								<label asp-for="Email" class="form-label fw-semibold text-muted"></label>
+								<input asp-for="Email" class="form-control form-control-lg rounded-pill" placeholder="Nhập email" />
+								<span asp-validation-for="Email" class="text-danger small"></span>
+							</div>
 
-					<div class="text-center">
-						<a asp-action="Index" class="btn btn-secondary btn-sm">Quay lại danh sách</a>
+							<div class="form-group text-center mt-5">
+								<input type="submit" value="Lưu thay đổi" class="btn btn-success btn-lg px-5 py-2 rounded-pill shadow-sm hover-scale me-3" />
+								@if (User.IsInRole("Admin"))
+								{
+									<a asp-action="Index" class="btn btn-outline-secondary px-4 py-2 rounded-pill shadow-sm hover-scale">
+										<i class="fas fa-arrow-left me-2"></i>Quay lại danh sách
+									</a>
+								}
+								else
+								{
+									<a asp-action="IndexUser" class="btn btn-outline-secondary px-4 py-2 rounded-pill shadow-sm hover-scale">
+										<i class="fas fa-arrow-left me-2"></i>Quay lại danh sách
+									</a>
+								}
+
+
+								
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
@@ -308,9 +320,44 @@
 	</div>
 </div>
 
+<style>
+	.card {
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+	}
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
+		.card:hover {
+			transform: translateY(-5px);
+			box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+		}
+
+	.btn:hover, .form-control:hover {
+		transition: all 0.2s ease;
+	}
+
+	.hover-scale:hover {
+		transform: scale(1.05);
+	}
+
+	.text-primary {
+		color: #0d6efd !important;
+	}
+
+	.border-secondary {
+		border-color: #dee2e6 !important;
+	}
+
+	.rounded-pill {
+		border-radius: 50rem !important;
+	}
+
+	.form-control {
+		border: 1px solid #ced4da;
+		background-color: #f8f9fa;
+	}
+
+		.form-control:focus {
+			border-color: #0d6efd;
+			box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+			background-color: #fff;
+		}
+</style>

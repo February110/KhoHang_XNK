@@ -33,11 +33,15 @@ namespace KhoHang_XNK.Repositories
             await _context.SaveChangesAsync();
         }
 
-        // Phương thức xóa chi tiết đơn xuất
-        public async Task DeleteAsync(ChiTietDonXuat chiTietDonXuat)
+        public async Task DeleteAsync(int maDonXuat, int maHangHoa)
         {
-            _context.ChiTietDonXuats.Remove(chiTietDonXuat);
-            await _context.SaveChangesAsync();
+            var chiTietDonXuat = await GetByIdAsync(maDonXuat, maHangHoa);
+            if (chiTietDonXuat != null)
+            {
+                _context.ChiTietDonXuats.Remove(chiTietDonXuat);
+                await _context.SaveChangesAsync();
+            }
+            
         }
 
         // Phương thức lấy tất cả chi tiết đơn xuất
@@ -54,9 +58,19 @@ namespace KhoHang_XNK.Repositories
                 .Include(ct => ct.HangHoa)
                 .ToListAsync();
         }
+        public async Task<IEnumerable<ChiTietDonXuat>> GetByHangHoaAndKhoAsync(int maKho)
+        {
+            return await _context.ChiTietDonXuats
+                .Include(ct => ct.HangHoa)
+                .Include(ct => ct.DonXuatHang)
+                .Where(ct => ct.DonXuatHang.KhoHang.MaKho == maKho)
+                .ToListAsync();
+        }
         public async Task<ChiTietDonXuat> GetByIdAsync(int maDonXuat, int maHangHoa)
         {
             return await _context.ChiTietDonXuats
+                .Include(ct => ct.DonXuatHang)
+                .Include(ct => ct.HangHoa)
                 .FirstOrDefaultAsync(c => c.MaDonXuat == maDonXuat && c.MaHangHoa == maHangHoa);
         }
 

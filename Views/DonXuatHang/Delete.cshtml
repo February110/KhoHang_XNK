@@ -256,43 +256,109 @@
 
 <!--Content Start-->
 <div class="content-start transition">
-	<div class="container-fluid dashboard">
-		<div>
-			<h4>Xóa đơn xuất hàng</h4>
-			<hr />
-			<dl class="row">
-				<dt class="col-sm-2">
-					@Html.DisplayNameFor(model => model.NgayXuat)
-				</dt>
-				<dd class="col-sm-10">
-					@Html.DisplayFor(model => model.NgayXuat)
-				</dd>
-				<dt class="col-sm-2">
-					@Html.DisplayNameFor(model => model.KhachHang)
-				</dt>
-				<dd class="col-sm-10">
-					@Html.DisplayFor(model => model.KhachHang.TenKH)
-				</dd>
-				<dt class="col-sm-2">
-					@Html.DisplayNameFor(model => model.NhanVien)
-				</dt>
-				<dd class="col-sm-10">
-					@Html.DisplayFor(model => model.NhanVien.HoTen)
-				</dd>
-				<dt class="col-sm-2">
-					@Html.DisplayNameFor(model => model.KhoHang)
-				</dt>
-				<dd class="col-sm-10">
-					@Html.DisplayFor(model => model.KhoHang.TenKho)
-				</dd>
-			</dl>
+	<div class="container-fluid dashboard py-5">
+		<div class="row justify-content-center">
+			<div class="col-md-10 col-lg-8">
+				<div class="card shadow-lg border-0 rounded-3">
+					<div class="card-body p-5">
+						<div class="d-flex justify-content-between align-items-center mb-4">
+							<h4 class="card-title mb-0 fw-bold text-primary">Xóa Đơn Xuất Hàng</h4>
+						</div>
+						<hr class="my-4 border-secondary" />
 
-			<form asp-action="Delete">
-				<input type="hidden" asp-for="MaDonXuat" />
-				<input type="submit" value="Xóa" class="btn btn-danger" /> |
-				<a asp-action="Index">Trở lại</a>
-			</form>
+						<div class="row" style="color:black">
+							<div class="col-12">
+								<dl class="row">
+									<!-- Ngày xuất -->
+									<dt class="col-sm-4 fw-semibold text-muted mb-3">Ngày xuất</dt>
+									<dd class="col-sm-8 mb-3">
+										<div class="bg-light p-3 rounded-pill">
+											@Html.DisplayFor(model => model.NgayXuat)
+										</div>
+									</dd>
+
+									<!-- Khách hàng -->
+									<dt class="col-sm-4 fw-semibold text-muted mb-3">Khách hàng</dt>
+									<dd class="col-sm-8 mb-3">
+										<div class="bg-light p-3 rounded-pill">
+											<i class="fas fa-user text-muted me-2"></i>
+											@Html.DisplayFor(model => model.KhachHang.TenKH)
+										</div>
+									</dd>
+
+									<!-- Nhân viên -->
+									<dt class="col-sm-4 fw-semibold text-muted mb-3">Nhân viên</dt>
+									<dd class="col-sm-8 mb-3">
+										<div class="bg-light p-3 rounded-pill">
+											<i class="fas fa-user-tie text-muted me-2"></i>
+											@Html.DisplayFor(model => model.NhanVien.HoTen)
+										</div>
+									</dd>
+
+									<!-- Kho hàng -->
+									<dt class="col-sm-4 fw-semibold text-muted mb-3">Kho hàng</dt>
+									<dd class="col-sm-8 mb-3">
+										<div class="bg-light p-3 rounded-pill">
+											<i class="fas fa-warehouse text-muted me-2"></i>
+											@Html.DisplayFor(model => model.KhoHang.TenKho)
+										</div>
+									</dd>
+								</dl>
+							</div>
+						</div>
+
+						<form asp-action="Delete" onsubmit="return confirmDelete()" class="mt-5">
+							<input type="hidden" asp-for="MaDonXuat" />
+
+							<div class="form-group text-center">
+								<button type="submit" class="btn btn-danger btn-lg px-5 py-2 rounded-pill shadow-sm hover-scale me-3">
+									<i class="fas fa-trash-alt me-2"></i>Xóa đơn xuất
+								</button>
+								@if (User.IsInRole("Admin"))
+								{
+									<a asp-action="Index" class="btn btn-outline-secondary px-4 py-2 rounded-pill hover-scale">
+										<i class="fas fa-arrow-left me-2"></i>Quay lại
+									</a>
+								}
+								else
+								{
+									<a asp-action="IndexUser" class="btn btn-outline-secondary px-4 py-2 rounded-pill hover-scale">
+										<i class="fas fa-arrow-left me-2"></i>Quay lại
+									</a>
+								}
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
-
 	</div>
 </div>
+
+<script>
+	function confirmDelete() {
+		return confirm("Bạn có chắc chắn muốn xóa đơn xuất hàng này? Hành động này không thể hoàn tác!");
+	}
+</script>
+
+<style>
+	.hover-scale {
+		transition: transform 0.2s;
+	}
+
+		.hover-scale:hover {
+			transform: scale(1.05);
+		}
+
+	.rounded-pill {
+		border-radius: 50rem !important;
+	}
+
+	.rounded-3 {
+		border-radius: 1rem !important;
+	}
+
+	.text-muted {
+		color: #6c757d !important;
+	}
+</style>

@@ -258,6 +258,7 @@
 <div class="sidebar-overlay"></div>
 
 <!--Content Start-->
+<!--Content Start-->
 <div class="content-start transition">
 	<div class="container-fluid dashboard">
 		<div class="row">
@@ -277,7 +278,7 @@
 					<!-- Nhân Viên (Employee) -->
 					<div class="form-group">
 						<label asp-for="MaNV" class="control-label">Nhân Viên</label>
-						<select asp-for="MaNV" class="form-control" asp-items="ViewBag.NhanViens">
+						<select asp-for="MaNV" class="form-control" id="MaNV">
 							<option value="">-- Chọn Nhân Viên --</option>
 						</select>
 						<span asp-validation-for="MaNV" class="text-danger"></span>
@@ -287,11 +288,11 @@
 					<div class="form-group">
 						<label asp-for="NgayKiemKe" class="control-label">Ngày Kiểm Kê</label>
 						<input asp-for="NgayKiemKe" class="form-control" id="NgayKiemKe" type="date" />
-						<span id="NgayKiemKeError" class="text-danger"></span> <!-- Thông báo lỗi tùy chỉnh -->
-						<span asp-validation-for="NgayKiemKe" class="text-danger"></span> <!-- Lỗi từ model validation -->
+						<span id="NgayKiemKeError" class="text-danger"></span>
+						<span asp-validation-for="NgayKiemKe" class="text-danger"></span>
 					</div>
 
-					<!-- Nút Submit -->
+					<!-- Submit Button -->
 					<div class="form-group">
 						<input type="submit" value="Tạo Phiếu Kiểm Kê" class="btn btn-primary" />
 					</div>
@@ -305,37 +306,60 @@
 	</div>
 </div>
 
-
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+
+	<script>
+		$(document).ready(function () {
+			// Validate inventory check date
+			$('#NgayKiemKe').on('change focusout', function () {
+				var ngayKiemKe = new Date(this.value);
+				var ngayHienTai = new Date();
+				ngayHienTai.setHours(0, 0, 0, 0); // Normalize to midnight
+
+				var errorElement = $('#NgayKiemKeError');
+				if (!this.value) {
+					errorElement.text("Vui lòng chọn ngày kiểm kê.");
+				} else if (ngayKiemKe > ngayHienTai) {
+					errorElement.text("Ngày kiểm kê không được lớn hơn ngày hiện tại.");
+				} else {
+					errorElement.text("");
+				}
+			});
+
+			// Load employees based on selected warehouse
+			$('#MaKho').change(function () {
+				var maKho = parseInt($(this).val());
+				var nhanVienDropdown = $('#MaNV');
+
+				nhanVienDropdown.prop('disabled', true).empty().append('<option value="">-- Đang tải... --</option>');
+
+				if (!isNaN(maKho)) {
+					$.ajax({
+						url: '/PhieuKiemKe/GetNhanViensByKho',
+						type: 'GET',
+						data: { maKho: maKho },
+						dataType: 'json',
+						success: function (data) {
+							nhanVienDropdown.empty().append('<option value="">-- Chọn Nhân Viên --</option>');
+							$.each(data, function (index, item) {
+								nhanVienDropdown.append('<option value="' + item.maNV + '">' + item.hoTen + '</option>');
+							});
+							nhanVienDropdown.prop('disabled', false);
+						},
+						error: function () {
+							nhanVienDropdown.empty().append('<option value="">-- Lỗi khi tải nhân viên --</option>');
+							nhanVienDropdown.prop('disabled', false);
+							alert("Không thể tải danh sách nhân viên. Vui lòng thử lại.");
+						}
+					});
+				} else {
+					nhanVienDropdown.empty().append('<option value="">-- Chọn Nhân Viên --</option>');
+					nhanVienDropdown.prop('disabled', false);
+				}
+			});
+		});
+	</script>
 }
-
-<script>
-    // Kiểm tra ngày kiểm kê không được lớn hơn ngày hiện tại
-    document.getElementById('NgayKiemKe').addEventListener('change', function () {
-        var ngayKiemKe = new Date(this.value);  // Lấy ngày kiểm kê người dùng nhập vào
-        var ngayHienTai = new Date();  // Lấy ngày hiện tại
-
-        // Kiểm tra nếu ngày kiểm kê lớn hơn ngày hiện tại
-        if (ngayKiemKe < ngayHienTai) {
-            // Hiển thị thông báo lỗi nếu ngày kiểm kê lớn hơn ngày hiện tại
-            document.getElementById('NgayKiemKeError').textContent = "Ngày kiểm kê không được nhỏ hơn ngày hiện tại.";
-        } else {
-            // Ẩn thông báo lỗi nếu người dùng chọn ngày hợp lệ
-            document.getElementById('NgayKiemKeError').textContent = "";
-        }
-    });
-
-    // Kiểm tra khi người dùng rời khỏi trường nhập ngày (focusout)
-    document.getElementById('NgayKiemKe').addEventListener('focusout', function () {
-        var ngayKiemKe = new Date(this.value);  // Lấy ngày kiểm kê người dùng nhập vào
-        var ngayHienTai = new Date();  // Lấy ngày hiện tại
-
-        // Nếu ngày hợp lệ, ẩn thông báo lỗi
-        if (ngayKiemKe <= ngayHienTai && this.value !== "") {
-            document.getElementById('NgayKiemKeError').textContent = "";  // Ẩn thông báo lỗi khi ngày hợp lệ
-        }
-    });
-</script>

@@ -252,79 +252,401 @@
 <div class="sidebar-overlay"></div>
 
 <!--Content Start-->
+<style>
+    .employee-dashboard {
+        background: linear-gradient(135deg, #f8f9ff 0%, #e8f4f8 100%);
+        border-radius: 15px;
+        padding: 2rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        margin: 1rem 0;
+    }
+
+    .employee-header {
+        background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+        color: white;
+        padding: 1.5rem;
+        border-radius: 12px;
+        margin-bottom: 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .employee-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: rgba(255,255,255,0.1);
+            transform: rotate(45deg);
+            transition: all 0.3s ease;
+        }
+
+        .employee-header:hover::before {
+            right: -30%;
+        }
+
+    .employee-details {
+        background: rgba(255,255,255,0.15);
+        padding: 1.5rem;
+        border-radius: 10px;
+        backdrop-filter: blur(10px);
+    }
+
+    .detail-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+
+    .detail-label {
+        font-weight: 600;
+        opacity: 0.9;
+    }
+
+    .detail-value {
+        font-weight: 500;
+        font-size: 1.1rem;
+    }
+
+    .employee-avatar {
+        width: 60px;
+        height: 60px;
+        background: rgba(255,255,255,0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+    }
+
+    .section-card {
+        background: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        border: 1px solid rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+    }
+
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+        }
+
+    .section-header {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #e9ecef;
+    }
+
+    .section-icon {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 18px;
+    }
+
+    .modern-table {
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(0,0,0,0.05);
+        border: none;
+    }
+
+        .modern-table thead th {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            font-weight: 600;
+            padding: 1rem;
+            border: none;
+            position: relative;
+        }
+
+        .modern-table tbody tr {
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+            .modern-table tbody tr:hover {
+                background: linear-gradient(90deg, #f8f9fa 0%, #e9ecef 100%);
+                transform: scale(1.01);
+            }
+
+        .modern-table tbody td {
+            padding: 1rem;
+            border: none;
+            border-bottom: 1px solid #f1f3f4;
+        }
+
+    .back-button {
+        background: linear-gradient(135deg, #2c5aa0 0%, #1e3c72 100%);
+        border: none;
+        padding: 0.75rem 2rem;
+        border-radius: 25px;
+        color: white;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+    }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+            color: white;
+        }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .stat-card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        transition: all 0.3s ease;
+    }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+        }
+
+    .stat-number {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #667eea;
+        margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+        color: #6c757d;
+        font-size: 0.9rem;
+    }
+
+    .employee-details {
+        padding: 1rem;
+    }
+
+    .detail-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+
+    .modern-table {
+        font-size: 0.9rem;
+    }
+
+        .modern-table thead th,
+        .modern-table tbody td {
+            padding: 0.75rem 0.5rem;
+        }
+
+    }
+</style>
+
 <div class="content-start transition">
-	<div class="container-fluid dashboard">
-		<h2 class="text-primary">Thông tin Nhân Viên</h2>
-		<p><strong>Mã NV:</strong> @Model.NhanVien.MaNV</p>
-		<p><strong>Họ Tên:</strong> @Model.NhanVien.HoTen</p>
+    <div class="container-fluid employee-dashboard">
+        <!-- Employee Header -->
+        <div class="employee-header">
+            <div class="text-center">
+                <div class="employee-avatar mx-auto mb-3">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h2 class="mb-3">Thông tin Nhân Viên</h2>
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="employee-details">
+                            <div class="detail-item mb-2">
+                                <span class="detail-value">Mã NV: @Model.NhanVien.MaNV</span>            
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-value">Họ tên: @Model.NhanVien.HoTen</span>                       
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-		<h3 class="mt-4 text-success">Đơn Nhập Hàng</h3>
-		<table class="table table-striped">
-			<thead class="thead-dark">
-				<tr>
-					<th>Mã Đơn</th>
-					<th>Ngày Nhập</th>
-					<th>Nhà Cung Cấp</th>
-				</tr>
-			</thead>
-			<tbody>
-				@foreach (var don in Model.DonNhapHangs)
-				{
-					<tr>
-						<td>@don.MaDonNhap</td>
-						<td>@don.NgayNhap.ToShortDateString()</td>
-						<td>@don.NhaCungCap.TenNCC</td>
-					</tr>
-				}
-			</tbody>
-		</table>
+        <!-- Statistics Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">@Model.DonNhapHangs.Count()</div>
+                <div class="stat-label">Đơn Nhập Hàng</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">@Model.DonXuatHangs.Count()</div>
+                <div class="stat-label">Đơn Xuất Hàng</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">@Model.PhieuKiemKes.Count()</div>
+                <div class="stat-label">Phiếu Kiểm Kê</div>
+            </div>
+        </div>
 
-		<h3 class="mt-4 text-success">Đơn Xuất Hàng</h3>
-		<table class="table table-striped">
-			<thead class="thead-dark">
-				<tr>
-					<th>Mã Đơn</th>
-					<th>Ngày Xuất</th>
-					<th>Khách Hàng</th>
-				</tr>
-			</thead>
-			<tbody>
-				@foreach (var don in Model.DonXuatHangs)
-				{
-					<tr>
-						<td>@don.MaDonXuat</td>
-						<td>@don.NgayXuat.ToShortDateString()</td>
-						<td>@don.KhachHang.TenKH</td>
-					</tr>
-				}
-			</tbody>
-		</table>
+        <!-- Đơn Nhập Hàng Section -->
+        <div class="section-card">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-box-open"></i>
+                </div>
+                <h3 class="mb-0 text-success">Đơn Nhập Hàng</h3>
+            </div>
+            <div class="table-responsive">
+                <table class="table modern-table">
+                    <thead>
+                        <tr>
+                            <th><i class="fas fa-hashtag me-2"></i>Mã Đơn</th>
+                            <th><i class="fas fa-calendar-alt me-2"></i>Ngày Nhập</th>
+                            <th><i class="fas fa-building me-2"></i>Nhà Cung Cấp</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var don in Model.DonNhapHangs)
+                        {
+                            <tr>
+                                <td>@don.MaDonNhap</td>
+                                <td>@don.NgayNhap.ToShortDateString()</td>
+                                <td>@don.NhaCungCap.TenNCC</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-		<h3 class="mt-4 text-success">Phiếu Kiểm Kê</h3>
-		<table class="table table-striped">
-			<thead class="thead-dark">
-				<tr>
-					<th>Mã Phiếu</th>
-					<th>Ngày Kiểm Kê</th>
-					<th>Kho Hàng</th>
-				</tr>
-			</thead>
-			<tbody>
-				@foreach (var phieu in Model.PhieuKiemKes)
-				{
-					<tr>
-						<td>@phieu.MaKiemKe</td>
-						<td>@phieu.NgayKiemKe.ToShortDateString()</td>
-						<td>@phieu.KhoHang.TenKho</td>
-					</tr>
-				}
-			</tbody>
-		</table>
+        <!-- Đơn Xuất Hàng Section -->
+        <div class="section-card">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-shipping-fast"></i>
+                </div>
+                <h3 class="mb-0 text-success">Đơn Xuất Hàng</h3>
+            </div>
+            <div class="table-responsive">
+                <table class="table modern-table">
+                    <thead>
+                        <tr>
+                            <th><i class="fas fa-hashtag me-2"></i>Mã Đơn</th>
+                            <th><i class="fas fa-calendar-alt me-2"></i>Ngày Xuất</th>
+                            <th><i class="fas fa-user-friends me-2"></i>Khách Hàng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var don in Model.DonXuatHangs)
+                        {
+                            <tr>
+                                <td>@don.MaDonXuat</td>
+                                <td>@don.NgayXuat.ToShortDateString()</td>
+                                <td>@don.KhachHang.TenKH</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-		<div class="mt-4">
-			<a asp-action="Index" class="btn btn-secondary btn-lg">Quay lại danh sách</a>
-		</div>
+        <!-- Phiếu Kiểm Kê Section -->
+        <div class="section-card">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-clipboard-check"></i>
+                </div>
+                <h3 class="mb-0 text-success">Phiếu Kiểm Kê</h3>
+            </div>
+            <div class="table-responsive">
+                <table class="table modern-table">
+                    <thead>
+                        <tr>
+                            <th><i class="fas fa-hashtag me-2"></i>Mã Phiếu</th>
+                            <th><i class="fas fa-calendar-alt me-2"></i>Ngày Kiểm Kê</th>
+                            <th><i class="fas fa-warehouse me-2"></i>Kho Hàng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var phieu in Model.PhieuKiemKes)
+                        {
+                            <tr>
+                                <td>@phieu.MaKiemKe</td>
+                                <td>@phieu.NgayKiemKe.ToShortDateString()</td>
+                                <td>@phieu.KhoHang.TenKho</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-	</div>
+        <!-- Back Button -->
+        <div class="mt-4 text-center">
+            @if (User.IsInRole("Admin"))
+			{
+                <a asp-action="Index" class="back-button">
+                    <i class="fas fa-arrow-left"></i>
+                    Quay lại danh sách
+                </a>
+            }
+            else {
+                <a asp-action="IndexUser" class="back-button">
+                    <i class="fas fa-arrow-left"></i>
+                    Quay lại danh sách
+                </a>
+            }
+        </div>
+    </div>
 </div>
 
+<script>
+    // Add smooth animations
+    document.addEventListener('DOMContentLoaded', function() {
+        // Animate cards on load
+        const cards = document.querySelectorAll('.section-card, .stat-card');
+        cards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                card.style.transition = 'all 0.6s ease';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, index * 100);
+        });
+
+        // Add table row hover effects
+        const tableRows = document.querySelectorAll('.modern-table tbody tr');
+        tableRows.forEach(row => {
+            row.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
+            });
+
+            row.addEventListener('mouseleave', function() {
+                this.style.boxShadow = 'none';
+            });
+        });
+    });
+</script>

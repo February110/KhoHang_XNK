@@ -258,85 +258,154 @@
 
 <!--Content Start-->
 <div class="content-start transition">
-	<div class="container-fluid dashboard">
-		<h4>Phiếu Kiểm Kê</h4>
-		<hr />
-		<div class="row">
-			<div class="col-md-6">
-				<form asp-action="Edit">
-					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-					<input type="hidden" asp-for="MaKiemKe" />
+	<div class="container-fluid dashboard py-5">
+		<div class="row justify-content-center">
+			<div class="col-md-10 col-lg-8">
+				<div class="card shadow-lg border-0 rounded-3">
+					<div class="card-body p-5">
+						<div class="d-flex justify-content-between align-items-center mb-4">
+							<h4 class="card-title mb-0 fw-bold text-primary">Chỉnh sửa phiếu kiểm kê</h4>
+						</div>
+						<hr class="my-4 border-secondary" />
 
-					<!-- Chọn Nhân Viên -->
-					<div class="form-group">
-						<label asp-for="MaNV" class="control-label">Nhân Viên</label>
-						<select asp-for="MaNV" class="form-control" asp-items="ViewBag.NhanViens">
-							<option value="">-- Chọn Nhân Viên --</option>
-						</select>
-						<span asp-validation-for="MaNV" class="text-danger"></span>
-					</div>
+						<form asp-action="Edit" method="post" class="needs-validation" novalidate>
+							<div asp-validation-summary="ModelOnly" class="alert alert-danger d-none"></div>
+							<input type="hidden" asp-for="MaKiemKe" />
 
-					<!-- Chọn Kho -->
-					<div class="form-group">
-						<label asp-for="MaKho" class="control-label">Kho Hàng</label>
-						<select asp-for="MaKho" class="form-control" asp-items="ViewBag.Khos">
-							<option value="">-- Chọn Kho --</option>
-						</select>
-						<span asp-validation-for="MaKho" class="text-danger"></span>
-					</div>
+							<div class="row">
+								<div class="col-md-6">
+									<!-- Nhân viên -->
+									<div class="form-group mb-4">
+										<label asp-for="MaNV" class="form-label fw-semibold text-muted">Nhân viên</label>
+										<div class="input-group">
+											<span class="input-group-text bg-light border-0 rounded-start-pill">
+												<i class="fas fa-user-tie text-muted"></i>
+											</span>
+											<select asp-for="MaNV" class="form-select form-select-lg rounded-end-pill" asp-items="ViewBag.NhanViens" aria-label="Chọn nhân viên">
+												<option value="">Chọn nhân viên</option>
+											</select>
+										</div>
+										<span asp-validation-for="MaNV" class="text-danger small"></span>
+									</div>
 
-					<!-- Ngày Kiểm Kê -->
-					<div class="form-group">
-						<label asp-for="NgayKiemKe" class="control-label">Ngày Kiểm Kê</label>
-						<input asp-for="NgayKiemKe" class="form-control" type="date" id="NgayKiemKe" />
-						<span id="NgayKiemKeError" class="text-danger"></span> <!-- Hiển thị lỗi -->
-						<span asp-validation-for="NgayKiemKe" class="text-danger"></span>
-					</div>
+									<!-- Kho hàng -->
+									<div class="form-group mb-4">
+										<label asp-for="MaKho" class="form-label fw-semibold text-muted">Kho hàng</label>
+										<div class="input-group">
+											<span class="input-group-text bg-light border-0 rounded-start-pill">
+												<i class="fas fa-warehouse text-muted"></i>
+											</span>
+											<select asp-for="MaKho" class="form-select form-select-lg rounded-end-pill" asp-items="ViewBag.Khos" aria-label="Chọn kho hàng">
+												<option value="">Chọn kho hàng</option>
+											</select>
+										</div>
+										<span asp-validation-for="MaKho" class="text-danger small"></span>
+									</div>
+								</div>
 
-					<div class="form-group">
-						<input type="submit" value="Lưu Thay Đổi" class="btn btn-primary" />
+								<div class="col-md-6">
+									<!-- Ngày kiểm kê -->
+									<div class="form-group mb-4">
+										<label asp-for="NgayKiemKe" class="form-label fw-semibold text-muted">Ngày kiểm kê</label>
+										<div class="input-group">
+											<span class="input-group-text bg-light border-0 rounded-start-pill">
+												<i class="fas fa-calendar-alt text-muted"></i>
+											</span>
+											<input asp-for="NgayKiemKe" class="form-control form-control-lg rounded-end-pill" type="date" id="NgayKiemKe" placeholder="Chọn ngày kiểm kê" aria-label="Ngày kiểm kê" />
+										</div>
+										<span id="NgayKiemKeError" class="text-danger small"></span>
+										<span asp-validation-for="NgayKiemKe" class="text-danger small"></span>
+									</div>
+								</div>
+							</div>
+
+							<!-- Nút hành động -->
+							<div class="form-group text-center mt-5">
+								<button type="submit" class="btn btn-primary btn-lg px-5 py-2 rounded-pill shadow-sm hover-scale me-3">
+									<i class="fas fa-save me-2"></i>Lưu thay đổi
+								</button>
+								@if (User.IsInRole("Admin"))
+								{
+									<a asp-action="Index" class="btn btn-outline-secondary px-4 py-2 rounded-pill hover-scale">
+										<i class="fas fa-arrow-left me-2"></i>Quay lại
+									</a>
+								}
+								else
+								{
+									<a asp-action="IndexUser" class="btn btn-outline-secondary px-4 py-2 rounded-pill hover-scale">
+										<i class="fas fa-arrow-left me-2"></i>Quay lại
+									</a>
+								}
+							</div>
+						</form>
 					</div>
-				</form>
+				</div>
 			</div>
-		</div>
-
-		<div>
-			<a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
 		</div>
 	</div>
 </div>
 
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
-
 <script>
-    // Kiểm tra ngày kiểm kê không lớn hơn ngày hiện tại
-    document.getElementById('NgayKiemKe').addEventListener('change', function () {
-        var ngayKiemKe = new Date(this.value);  // Lấy ngày kiểm kê người dùng nhập vào
-        var ngayHienTai = new Date();  // Lấy ngày hiện tại
+	// Kiểm tra ngày kiểm kê không lớn hơn ngày hiện tại
+	document.getElementById('NgayKiemKe').addEventListener('change', function () {
+		var ngayKiemKe = new Date(this.value);
+		var ngayHienTai = new Date();
+		ngayHienTai.setHours(0, 0, 0, 0); // Đặt giờ về 0 để so sánh chỉ ngày
 
-        // Kiểm tra nếu ngày kiểm kê lớn hơn ngày hiện tại
-        if (ngayKiemKe > ngayHienTai) {
-            // Hiển thị thông báo lỗi nếu ngày kiểm kê lớn hơn ngày hiện tại
-            document.getElementById('NgayKiemKeError').textContent = "Ngày kiểm kê không được lớn hơn ngày hiện tại.";
-        } else {
-            // Ẩn thông báo lỗi nếu người dùng chọn ngày hợp lệ
-            document.getElementById('NgayKiemKeError').textContent = "";
-        }
-    });
+		if (ngayKiemKe > ngayHienTai) {
+			document.getElementById('NgayKiemKeError').textContent = "Ngày kiểm kê không được lớn hơn ngày hiện tại.";
+			this.setCustomValidity("Ngày kiểm kê không hợp lệ.");
+		} else {
+			document.getElementById('NgayKiemKeError').textContent = "";
+			this.setCustomValidity("");
+		}
+	});
 
-    // Kiểm tra khi người dùng rời khỏi trường nhập ngày (focusout)
-    document.getElementById('NgayKiemKe').addEventListener('focusout', function () {
-        var ngayKiemKe = new Date(this.value);  // Lấy ngày kiểm kê người dùng nhập vào
-        var ngayHienTai = new Date();  // Lấy ngày hiện tại
+	// Kiểm tra khi rời khỏi trường nhập ngày
+	document.getElementById('NgayKiemKe').addEventListener('focusout', function () {
+		var ngayKiemKe = new Date(this.value);
+		var ngayHienTai = new Date();
+		ngayHienTai.setHours(0, 0, 0, 0);
 
-        // Nếu ngày hợp lệ, ẩn thông báo lỗi
-        if (ngayKiemKe <= ngayHienTai && this.value !== "") {
-            document.getElementById('NgayKiemKeError').textContent = "";  // Ẩn thông báo lỗi khi ngày hợp lệ
-        }
-    });
+		if (ngayKiemKe <= ngayHienTai && this.value !== "") {
+			document.getElementById('NgayKiemKeError').textContent = "";
+			this.setCustomValidity("");
+		}
+	});
 </script>
+
+<style>
+	.hover-scale {
+		transition: transform 0.2s;
+	}
+
+		.hover-scale:hover {
+			transform: scale(1.05);
+		}
+
+	.rounded-pill {
+		border-radius: 50rem !important;
+	}
+
+	.rounded-start-pill {
+		border-top-left-radius: 50rem !important;
+		border-bottom-left-radius: 50rem !important;
+	}
+
+	.rounded-end-pill {
+		border-top-right-radius: 50rem !important;
+		border-bottom-right-radius: 50rem !important;
+	}
+
+	.rounded-3 {
+		border-radius: 1rem !important;
+	}
+
+	.text-muted {
+		color: #6c757d !important;
+	}
+
+	.input-group-text {
+		border: none;
+	}
+</style>

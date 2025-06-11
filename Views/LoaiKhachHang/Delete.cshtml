@@ -257,44 +257,82 @@
 
 <!--Content Start-->
 <div class="content-start transition">
-	<div class="container-fluid dashboard">
-		<div class="container mt-4">
-			<h1 class="text-center text-danger">Xóa Loại Khách Hàng</h1>
-			<h3 class="text-center">Bạn có chắc chắn muốn xóa loại khách hàng này?</h3>
-			<hr />
-
-			<div class="row justify-content-center" style="color:black">
-				<div class="col-md-6">
-					<div>
-						<h4 class="text-primary">Loại Khách Hàng</h4>
-						<dl class="row">
-							<dt class="col-sm-3">Tên Loại:</dt>
-							<dd class="col-sm-9">
-								@Html.DisplayFor(model => model.TenLoai)
-							</dd>
-						</dl>
-					</div>
-
-					<form asp-action="Delete" method="post">
-						<input type="hidden" asp-for="MaLoaiKH" />
-
-						<div class="text-center">
-							<button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Xóa</button>
-							<a asp-action="Index" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Quay lại</a>
+	<div class="container-fluid dashboard py-5">
+		<div class="row justify-content-center">
+			<div class="col-md-8 col-lg-6">
+				<div class="card shadow-lg border-0 rounded-3">
+					<div class="card-body p-5">
+						<div class="d-flex justify-content-between align-items-center mb-4">
+							<h4 class="card-title mb-0 fw-bold text-primary">Xóa loại khách hàng</h4>
 						</div>
-					</form>
+						<hr class="my-4 border-secondary" />
+						<p class="text-center text-warning fw-semibold mb-4">Bạn có chắc chắn muốn xóa loại khách hàng này không?</p>
+						<div class="row g-4">
+							<div class="col-12">
+								<h5 class="fw-semibold text-muted mb-3">Thông tin loại khách hàng</h5>
+								<dl class="row mb-0" style="color:black">
+									<dt class="col-sm-4 fw-semibold text-muted">Tên loại</dt>
+									<dd class="col-sm-8">@Html.DisplayFor(model => model.TenLoai)</dd>
+								</dl>
+							</div>
+						</div>
+						<form asp-action="Delete" method="post">
+							<input type="hidden" asp-for="MaLoaiKH" />
+							<div class="text-center mt-5">
+								<button type="submit" class="btn btn-danger btn-lg px-4 py-2 rounded-pill shadow-sm hover-scale me-3">
+									<i class="fas fa-trash me-2"></i>Xóa
+								</button>
+								@if (User.IsInRole("Admin"))
+								{
+									<a asp-action="Index" class="btn btn-outline-secondary px-4 py-2 rounded-pill shadow-sm hover-scale">
+										<i class="fas fa-arrow-left me-2"></i>Quay lại danh sách
+									</a>
+								}
+								else
+								{
+									<a asp-action="IndexUser" class="btn btn-outline-secondary px-4 py-2 rounded-pill shadow-sm hover-scale">
+										<i class="fas fa-arrow-left me-2"></i>Quay lại danh sách
+									</a>
+								}
+
+
+								
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
 
+<style>
+	.card {
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+	}
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
+		.card:hover {
+			transform: translateY(-5px);
+			box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+		}
 
-<!-- Thêm Font Awesome nếu cần -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+	.btn:hover {
+		transition: all 0.2s ease;
+	}
+
+	.hover-scale:hover {
+		transform: scale(1.05);
+	}
+
+	.text-primary {
+		color: #0d6efd !important;
+	}
+
+	.border-secondary {
+		border-color: #dee2e6 !important;
+	}
+
+	.rounded-pill {
+		border-radius: 50rem !important;
+	}
+</style>

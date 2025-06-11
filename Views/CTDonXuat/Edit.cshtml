@@ -256,44 +256,151 @@
 
 <!--Content Start-->
 <div class="content-start transition">
-	<div class="container-fluid dashboard">
-		<form asp-action="Edit" method="post">
-			<!-- Hidden fields for MaDonXuat and MaHangHoa -->
-			<input type="hidden" asp-for="MaDonXuat" />
-			<input type="hidden" asp-for="MaHangHoa" />
+	<div class="container-fluid dashboard py-5">
+		<div class="row justify-content-center">
+			<div class="col-md-10 col-lg-8">
+				<div class="card shadow-lg border-0 rounded-3">
+					<div class="card-body p-5">
+						<div class="d-flex justify-content-between align-items-center mb-4">
+							<h4 class="card-title mb-0 fw-bold text-primary">Chỉnh Sửa Chi Tiết Đơn Xuất</h4>
+						</div>
+						<hr class="my-4 border-secondary" />
 
-			<!-- Đơn Xuất -->
-			<div class="form-group">
-				<label>Đơn Xuất</label>
-				<select asp-for="MaDonXuat" class="form-control" asp-items="ViewBag.DonXuatHangs" disabled></select>
-				<!-- Disabled select box, to show but not modify MaDonXuat -->
+						<form asp-action="Edit" method="post">
+							<!-- Hidden fields -->
+							<input type="hidden" asp-for="MaDonXuat" />
+							<input type="hidden" asp-for="MaHangHoa" />
+
+							<!-- Đơn Xuất -->
+							<div class="form-group mb-4">
+								<label class="control-label fw-semibold text-muted">Đơn Xuất</label>
+								<div class="input-group">
+									<span class="input-group-text bg-light rounded-pill-left">
+										<i class="fas fa-file-export text-muted"></i>
+									</span>
+									<select asp-for="MaDonXuat" class="form-control rounded-pill-right" asp-items="ViewBag.DonXuatHangs" disabled></select>
+								</div>
+							</div>
+
+							<!-- Hàng Hóa -->
+							<div class="form-group mb-4">
+								<label class="control-label fw-semibold text-muted">Hàng Hóa</label>
+								<div class="input-group">
+									<span class="input-group-text bg-light rounded-pill-left">
+										<i class="fas fa-box text-muted"></i>
+									</span>
+									<select asp-for="MaHangHoa" class="form-control rounded-pill-right" asp-items="ViewBag.HangHoas" disabled></select>
+								</div>
+							</div>
+
+							<!-- Số Lượng -->
+							<div class="form-group mb-4">
+								<label asp-for="SoLuong" class="control-label fw-semibold text-muted">Số Lượng</label>
+								<div class="input-group">
+									<span class="input-group-text bg-light rounded-pill-left">
+										<i class="fas fa-cubes text-muted"></i>
+									</span>
+									<input asp-for="SoLuong" class="form-control rounded-pill-right" type="number" min="1" id="SoLuong" />
+								</div>
+								<span asp-validation-for="SoLuong" class="text-danger"></span>
+								<span id="SoLuongError" class="text-danger"></span>
+							</div>
+
+							<!-- Đơn Giá -->
+							<div class="form-group mb-4">
+								<label asp-for="DonGia" class="control-label fw-semibold text-muted">Đơn Giá</label>
+								<div class="input-group">
+									<span class="input-group-text bg-light rounded-pill-left">
+										<i class="fas fa-money-bill text-muted"></i>
+									</span>
+									<input asp-for="DonGia" class="form-control rounded-pill-right" type="number" step="0.01" min="0" id="DonGia" />
+								</div>
+								<span asp-validation-for="DonGia" class="text-danger"></span>
+								<span id="DonGiaError" class="text-danger"></span>
+							</div>
+
+							<!-- Buttons -->
+							<div class="form-group text-center mt-5">
+								<button type="submit" class="btn btn-primary btn-lg px-5 py-2 rounded-pill shadow-sm hover-scale me-3">
+									<i class="fas fa-save me-2"></i>Lưu Thay Đổi
+								</button>
+								@if (User.IsInRole("Admin"))
+								{
+									<a asp-action="Index" class="btn btn-outline-secondary px-4 py-2 rounded-pill hover-scale">
+										<i class="fas fa-arrow-left me-2"></i>Quay lại
+									</a>
+								}
+								else
+								{
+									<a asp-action="IndexUser" class="btn btn-outline-secondary px-4 py-2 rounded-pill hover-scale">
+										<i class="fas fa-arrow-left me-2"></i>Quay lại
+									</a>
+								}
+							</div>
+						</form>
+					</div>
+				</div>
 			</div>
-
-			<!-- Hàng Hóa -->
-			<div class="form-group">
-				<label>Hàng Hóa</label>
-				<select asp-for="MaHangHoa" class="form-control" asp-items="ViewBag.HangHoas" disabled></select>
-				<!-- Disabled select box, to show but not modify MaHangHoa -->
-			</div>
-
-			<!-- Số Lượng -->
-			<div class="form-group">
-				<label>Số Lượng</label>
-				<input asp-for="SoLuong" class="form-control" />
-				<span asp-validation-for="SoLuong" class="text-danger"></span>
-			</div>
-
-			<!-- Đơn Giá -->
-			<div class="form-group">
-				<label>Đơn Giá</label>
-				<input asp-for="DonGia" class="form-control" />
-				<span asp-validation-for="DonGia" class="text-danger"></span>
-			</div>
-
-			<!-- Save and Cancel buttons -->
-			<button type="submit" class="btn btn-primary">Lưu</button>
-			<a asp-action="Index" class="btn btn-secondary">Quay lại</a>
-		</form>
-
+		</div>
 	</div>
 </div>
+
+<script>
+	// Validation for SoLuong
+	document.getElementById('SoLuong').addEventListener('input', function () {
+		var soLuong = parseInt(this.value);
+		if (soLuong < 1 || isNaN(soLuong)) {
+			document.getElementById('SoLuongError').textContent = "Số lượng phải là số nguyên dương.";
+			this.setCustomValidity("Số lượng không hợp lệ.");
+		} else {
+			document.getElementById('SoLuongError').textContent = "";
+			this.setCustomValidity("");
+		}
+	});
+
+	// Validation for DonGia
+	document.getElementById('DonGia').addEventListener('input', function () {
+		var donGia = parseFloat(this.value);
+		if (donGia < 0 || isNaN(donGia)) {
+			document.getElementById('DonGiaError').textContent = "Đơn giá phải là số không âm.";
+			this.setCustomValidity("Đơn giá không hợp lệ.");
+		} else {
+			document.getElementById('DonGiaError').textContent = "";
+			this.setCustomValidity("");
+		}
+	});
+</script>
+
+<style>
+	.hover-scale {
+		transition: transform 0.2s;
+	}
+
+		.hover-scale:hover {
+			transform: scale(1.05);
+		}
+
+	.rounded-pill {
+		border-radius: 50rem !important;
+	}
+
+	.rounded-pill-left {
+		border-radius: 50rem 0 0 50rem !important;
+	}
+
+	.rounded-pill-right {
+		border-radius: 0 50rem 50rem 0 !important;
+	}
+
+	.rounded-3 {
+		border-radius: 1rem !important;
+	}
+
+	.text-muted {
+		color: #6c757d !important;
+	}
+
+	.input-group-text {
+		border: none;
+	}
+</style>

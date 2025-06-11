@@ -44,63 +44,6 @@ namespace KhoHang_XNK.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create(ChiTietDonXuat chiTietDonXuat)
-        //{
-        //    if (chiTietDonXuat == null)
-        //    {
-        //        ModelState.AddModelError("", "Dữ liệu không hợp lệ.");
-        //        ViewBag.DonXuatHangs = new SelectList(await _donXuatHangRepository.GetAllAsync(), "MaDonXuat", "MaDonXuat");
-        //        ViewBag.HangHoas = new SelectList(await _hangHoaRepository.GetAllAsync(), "MaHangHoa", "TenHangHoa");
-        //        return View(chiTietDonXuat);
-        //    }
-
-        //    // Lấy mã đơn xuất
-        //    var madon = chiTietDonXuat.MaDonXuat;
-
-        //    // Tìm mã kho từ đơn xuất
-        //    var maKho = await _donXuatHangRepository.GetKhoByMaDonXuatAsync(madon);
-        //    if (maKho == null)
-        //    {
-        //        ModelState.AddModelError("", "Không tìm thấy kho hàng của đơn xuất.");
-        //        return View(chiTietDonXuat);
-        //    }
-
-        //    // Kiểm tra tồn kho
-        //    var existingTonKho = await _tonKhoRepository.GetTonKhoByIdsAsync(maKho, chiTietDonXuat.MaHangHoa);
-        //    if (existingTonKho == null || existingTonKho.SoLuong < chiTietDonXuat.SoLuong)
-        //    {
-        //        ModelState.AddModelError("", "Số lượng tồn kho không đủ để xuất hàng.");
-        //        return View(chiTietDonXuat);
-        //    }
-
-        //    // Kiểm tra chi tiết đơn xuất
-        //    var existingChiTiet = await _chiTietDonXuatRepository.GetChiTietDonXuatByDonXuatAndHangHoa(chiTietDonXuat.MaDonXuat, chiTietDonXuat.MaHangHoa);
-        //    if (existingChiTiet != null)
-        //    {
-        //        existingChiTiet.SoLuong += chiTietDonXuat.SoLuong;
-        //        if (chiTietDonXuat.DonGia > 0)
-        //        {
-        //            existingChiTiet.DonGia = chiTietDonXuat.DonGia;
-        //        }
-
-        //        await _chiTietDonXuatRepository.UpdateAsync(existingChiTiet);
-        //    }
-        //    else
-        //    {
-        //        await _chiTietDonXuatRepository.AddAsync(chiTietDonXuat);
-        //    }
-
-        //    // Cập nhật tồn kho
-        //    if (existingTonKho != null)
-        //    {
-        //        existingTonKho.SoLuong -= chiTietDonXuat.SoLuong;
-        //        await _tonKhoRepository.UpdateTonKhoAsync(existingTonKho);
-        //    }
-
-        //    return RedirectToAction(nameof(Index));
-        //}
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ChiTietDonXuat chiTietDonXuat)
@@ -167,8 +110,6 @@ namespace KhoHang_XNK.Controllers
 
 
 
-        // Phương thức hiển thị danh sách chi tiết đơn xuất (Index)
-
         public async Task<IActionResult> Edit(int maDonXuat, int maHangHoa)
         {
             var chiTietDonXuat = await _chiTietDonXuatRepository.GetByIdAsync(maDonXuat, maHangHoa);
@@ -178,7 +119,6 @@ namespace KhoHang_XNK.Controllers
                 return NotFound();
             }
 
-            // Đổ dữ liệu vào ViewBag để hiển thị dropdown trong form
             ViewBag.DonXuatHangs = new SelectList(await _donXuatHangRepository.GetAllAsync(), "MaDonXuat", "MaDonXuat", chiTietDonXuat.MaDonXuat);
             ViewBag.HangHoas = new SelectList(await _hangHoaRepository.GetAllAsync(), "MaHangHoa", "TenHangHoa", chiTietDonXuat.MaHangHoa);
 
@@ -213,7 +153,6 @@ namespace KhoHang_XNK.Controllers
                 }
             }
 
-            // Nếu có lỗi, load lại danh mục đơn xuất và hàng hóa
             ViewBag.DonXuatHangs = new SelectList(await _donXuatHangRepository.GetAllAsync(), "MaDonXuat", "MaDonXuat", chiTietDonXuat.MaDonXuat);
             ViewBag.HangHoas = new SelectList(await _hangHoaRepository.GetAllAsync(), "MaHangHoa", "TenHangHoa", chiTietDonXuat.MaHangHoa);
 
@@ -229,16 +168,13 @@ namespace KhoHang_XNK.Controllers
             }
             return View(chiTietDonXuat);
         }
+
+        // POST: ChiTietDonXuat/Delete/5/10
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int maDonXuat, int maHangHoa)
         {
-            var chiTietDonXuat = await _chiTietDonXuatRepository.GetByIdAsync(maDonXuat, maHangHoa);
-            if (chiTietDonXuat == null)
-            {
-                return NotFound();
-            }
-            await _chiTietDonXuatRepository.DeleteAsync(chiTietDonXuat);
+            await _chiTietDonXuatRepository.DeleteAsync(maDonXuat, maHangHoa);
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]

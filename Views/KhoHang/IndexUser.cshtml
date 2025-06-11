@@ -13,20 +13,20 @@
 			<ul class="side-menu">
 
 				<!-- Tổng Quan -->
-				<li>
-					@if (User.IsInRole("Admin"))
-					{
-						<a asp-controller="TongQuan" asp-action="Index">
-							<i class="bx bxs-dashboard icon"></i> Tổng Quan
-						</a>
-					}
-					else if (User.IsInRole("User"))
-					{
-						<a asp-controller="TongQuan" asp-action="IndexUser">
-							<i class="bx bxs-dashboard icon"></i> Tổng Quan
-						</a>
-					}
-				</li>
+				@* <li> *@
+				@* 	@if (User.IsInRole("Admin")) *@
+				@* 	{ *@
+				@* 		<a asp-controller="TongQuan" asp-action="Index"> *@
+				@* 			<i class="bx bxs-dashboard icon"></i> Tổng Quan *@
+				@* 		</a> *@
+				@* 	} *@
+				@* 	else if (User.IsInRole("User")) *@
+				@* 	{ *@
+				@* 		<a asp-controller="TongQuan" asp-action="IndexUser"> *@
+				@* 			<i class="bx bxs-dashboard icon"></i> Tổng Quan *@
+				@* 		</a> *@
+				@* 	} *@
+				@* </li> *@
 				<!-- Divider-->
 				<li class="divider" data-text="STARTER">Quản lý Kho Hàng</li>
 

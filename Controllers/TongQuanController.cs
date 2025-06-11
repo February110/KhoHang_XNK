@@ -60,17 +60,7 @@ namespace KhoHang_XNK.Controllers
                 tongTienXuat = x.SoLuongDon
             });
 
-            //var hangHoaBanHang = await _ctDonXuatRepository.GetByHangHoaAsync();
-            //var top10HangHoa = hangHoaBanHang
-            //    .GroupBy(h => h.HangHoa.TenHangHoa)
-            //    .Select(g => new
-            //    {
-            //        HangHoa = g.Key,
-            //        SoLuongBan = g.Sum(h => h.SoLuong)
-            //    })
-            //    .OrderByDescending(g => g.SoLuongBan)
-            //    .Take(10)
-            //    .ToList();
+         
             // Top 10 hàng hóa
             var hangHoaBanHang = await _ctDonXuatRepository.GetByHangHoaAsync();
             var top10HangHoa = hangHoaBanHang
@@ -97,17 +87,66 @@ namespace KhoHang_XNK.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var khoHangs = await _khoHangRepository.GetAllKhoHangsForUserAsync(userId);
-
             var kho = await _khoHangRepository.GetKhoHangByIdUser(userId);
+
+            if (kho == null)
+            {
+                // Handle case where user has no warehouse assigned
+                ViewBag.ErrorMessage = "Không tìm thấy kho hàng cho người dùng này.";
+                return View();
+            }
+
             var nhanViens = await _nhanVienRepository.GetNhanVienByKhoHang(kho.MaKho);
             var hangHoas = await _hangHoaRepository.GetAllAsync();
             var nhaCungCaps = await _nhaCungCapRepository.GetAllNhaCungCapsAsync();
 
+            // Set ViewBag for counts
             ViewBag.SoLuongKhoHang = khoHangs.Count();
             ViewBag.SoLuongHangHoa = hangHoas.Count();
             ViewBag.SoLuongNhaCungCap = nhaCungCaps.Count();
             ViewBag.SoLuongNhanVien = nhanViens.Count();
 
+           
+            var donXuatHangs = await _donXuatHangRepository.GetAllKhachHangByKhoAsync(kho.MaKho);
+            var top10KhachHang = donXuatHangs
+                .GroupBy(d => d.KhachHang.TenKH)
+                .Select(g => new
+                {
+                    KhachHang = g.Key,
+                    SoLuongDon = g.Count()
+                })
+                .OrderByDescending(g => g.SoLuongDon)
+                .Take(10)
+                .ToList();
+
+            var chartData = top10KhachHang.Select(x => new
+            {
+                label = x.KhachHang,
+                tongTienXuat = x.SoLuongDon
+            });
+
+            // Top 10 products for the user's warehouse
+            var hangHoaBanHang = await _ctDonXuatRepository.GetByHangHoaAndKhoAsync(kho.MaKho);
+            var top10HangHoa = hangHoaBanHang
+                .GroupBy(h => h.HangHoa.TenHangHoa)
+                .Select(g => new
+                {
+                    HangHoa = g.Key,
+                    SoLuongBan = g.Sum(h => h.SoLuong)
+                })
+                .OrderByDescending(g => g.SoLuongBan)
+                .Take(10)
+                .ToList();
+
+            var chartDataHangHoa = top10HangHoa.Select(x => new
+            {
+                label = x.HangHoa,
+                tongTienXuat = x.SoLuongBan
+            });
+
+            // Serialize chart data to JSON
+            ViewBag.ChartData = JsonConvert.SerializeObject(chartData);
+            ViewBag.ChartDataHangHoa = JsonConvert.SerializeObject(chartDataHangHoa);
 
             return View(khoHangs);
         }

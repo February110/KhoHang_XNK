@@ -257,54 +257,111 @@
 
 <!--Content Start-->
 <div class="content-start transition">
-	<div class="container-fluid dashboard">
-		<div>
-			<h4>Thông tin chi tiết phiếu kiểm kê</h4>
-			<hr />
-			<dl class="row">
-				<dt class="col-sm-2">
-					@Html.DisplayNameFor(model => model.SoLuongThucTe)
-				</dt>
-				<dd class="col-sm-10">
-					@Html.DisplayFor(model => model.SoLuongThucTe)
-				</dd>
+	<div class="container-fluid dashboard py-5">
+		<div class="row justify-content-center">
+			<div class="col-md-10 col-lg-8">
+				<div class="card shadow-lg border-0 rounded-3">
+					<div class="card-body p-5">
+						<div class="d-flex justify-content-between align-items-center mb-4">
+							<h4 class="card-title mb-0 fw-bold text-primary">Thông tin chi tiết phiếu kiểm kê</h4>
+						</div>
+						<hr class="my-4 border-secondary" />
 
-				<dt class="col-sm-2">
-					@Html.DisplayNameFor(model => model.SoLuongChenhLech)
-				</dt>
-				<dd class="col-sm-10">
-					@Html.DisplayFor(model => model.SoLuongChenhLech)
-				</dd>
+						<div class="row" style="color:black">
+							<div class="col-12">
+								<dl class="row">
+									<!-- Số lượng thực tế -->
+									<dt class="col-sm-4 fw-semibold text-muted mb-3">Số lượng thực tế</dt>
+									<dd class="col-sm-8 mb-3">
+										<div class="bg-light p-3 rounded-pill">
+											<i class="fas fa-cubes text-muted me-2"></i>
+											@Html.DisplayFor(model => model.SoLuongThucTe)
+										</div>
+									</dd>
 
-				<dt class="col-sm-2">
-					@Html.DisplayNameFor(model => model.PhieuKiemKe)
-				</dt>
-				<dd class="col-sm-10">
-					@Html.DisplayFor(model => model.PhieuKiemKe.MaKiemKe)
-				</dd>
+									<!-- Số lượng chênh lệch -->
+									<dt class="col-sm-4 fw-semibold text-muted mb-3">Số lượng chênh lệch</dt>
+									<dd class="col-sm-8 mb-3">
+										<div class="bg-light p-3 rounded-pill">
+											<i class="fas fa-balance-scale text-muted me-2"></i>
+											@Html.DisplayFor(model => model.SoLuongChenhLech)
+										</div>
+									</dd>
 
-				<dt class="col-sm-2">
-					@Html.DisplayNameFor(model => model.HangHoa)
-				</dt>
-				<dd class="col-sm-10">
-					@Html.DisplayFor(model => model.HangHoa.TenHangHoa)
-				</dd>
-			</dl>
+									<!-- Mã kiểm kê -->
+									<dt class="col-sm-4 fw-semibold text-muted mb-3">Mã kiểm kê</dt>
+									<dd class="col-sm-8 mb-3">
+										<div class="bg-light p-3 rounded-pill">
+											<i class="fas fa-file-alt text-muted me-2"></i>
+											@Html.DisplayFor(model => model.PhieuKiemKe.MaKiemKe)
+										</div>
+									</dd>
 
-			<form asp-action="Delete">
-				<!-- Hidden fields to pass the necessary IDs -->
-				<input type="hidden" asp-for="MaKiemKe" />
-				<input type="hidden" asp-for="MaHangHoa" />
+									<!-- Tên hàng hóa -->
+									<dt class="col-sm-4 fw-semibold text-muted mb-3">Tên hàng hóa</dt>
+									<dd class="col-sm-8 mb-3">
+										<div class="bg-light p-3 rounded-pill">
+											<i class="fas fa-box text-muted me-2"></i>
+											@Html.DisplayFor(model => model.HangHoa.TenHangHoa)
+										</div>
+									</dd>
+								</dl>
+							</div>
+						</div>
 
-				<div class="mt-3">
-					<!-- Delete button -->
-					<input type="submit" value="Xóa" class="btn btn-danger" />
-					<span>|</span>
-					<!-- Back to List button -->
-					<a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
+						<form asp-action="Delete" method="post" onsubmit="return confirmDelete()" class="mt-5">
+							<input type="hidden" asp-for="MaKiemKe" />
+							<input type="hidden" asp-for="MaHangHoa" />
+
+							<div class="form-group text-center">
+								<button type="submit" class="btn btn-danger btn-lg px-5 py-2 rounded-pill shadow-sm hover-scale me-3">
+									<i class="fas fa-trash-alt me-2"></i>Xóa chi tiết
+								</button>
+								@if (User.IsInRole("Admin"))
+								{
+									<a asp-action="Index" class="btn btn-outline-secondary px-4 py-2 rounded-pill hover-scale">
+										<i class="fas fa-arrow-left me-2"></i>Quay lại danh sách
+									</a>
+								}
+								else
+								{
+									<a asp-action="IndexUser" class="btn btn-outline-secondary px-4 py-2 rounded-pill hover-scale">
+										<i class="fas fa-arrow-left me-2"></i>Quay lại danh sách
+									</a>
+								}
+							</div>
+						</form>
+					</div>
 				</div>
-			</form>
+			</div>
 		</div>
-
 	</div>
 </div>
+
+<script>
+	function confirmDelete() {
+		return confirm("Bạn có chắc chắn muốn xóa chi tiết phiếu kiểm kê này? Hành động này không thể hoàn tác!");
+	}
+</script>
+
+<style>
+	.hover-scale {
+		transition: transform 0.2s;
+	}
+
+		.hover-scale:hover {
+			transform: scale(1.05);
+		}
+
+	.rounded-pill {
+		border-radius: 50rem !important;
+	}
+
+	.rounded-3 {
+		border-radius: 1rem !important;
+	}
+
+	.text-muted {
+		color: #6c757d !important;
+	}
+</style>

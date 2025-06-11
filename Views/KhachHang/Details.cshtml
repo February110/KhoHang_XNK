@@ -255,49 +255,91 @@
 
 <div class="sidebar-overlay"></div>
 
-<!--Content Start-->
 <div class="content-start transition">
-	<div class="container-fluid dashboard">
-		<div style="color:black">
-			<h4>Thông tin khách hàng</h4>
-			<hr />
-			<dl class="row">
-				<dt class="col-sm-2">
-					@Html.DisplayNameFor(model => model.TenKH)
-				</dt>
-				<dd class="col-sm-10">
-					@Html.DisplayFor(model => model.TenKH)
-				</dd>
-				<dt class="col-sm-2">
-					@Html.DisplayNameFor(model => model.DiaChi)
-				</dt>
-				<dd class="col-sm-10">
-					@Html.DisplayFor(model => model.DiaChi)
-				</dd>
-				<dt class="col-sm-2">
-					@Html.DisplayNameFor(model => model.SoDienThoai)
-				</dt>
-				<dd class="col-sm-10">
-					@Html.DisplayFor(model => model.SoDienThoai)
-				</dd>
-				<dt class="col-sm-2">
-					@Html.DisplayNameFor(model => model.Email)
-				</dt>
-				<dd class="col-sm-10">
-					@Html.DisplayFor(model => model.Email)
-				</dd>
-				<dt class="col-sm-2">
-					@Html.DisplayNameFor(model => model.LoaiKhachHang)
-				</dt>
-				<dd class="col-sm-10">
-					@Html.DisplayFor(model => model.LoaiKhachHang.TenLoai)
-				</dd>
-			</dl>
-		</div>
-		<div>
-			<a asp-action="Edit" asp-route-id="@Model?.MaKH">Chỉnh sửa</a> |
-			<a asp-action="Index">Trở lại</a>
-		</div>
+	<div class="container-fluid dashboard py-5">
+		<div class="row justify-content-center" style="color: black">
+			<div class="col-md-8 col-lg-6">
+				<div class="card shadow-lg border-0 rounded-3">
+					<div class="card-body p-5">
+						<div class="d-flex justify-content-between align-items-center mb-4">
+							<h4 class="card-title mb-0 fw-bold text-primary">Thông tin khách hàng</h4>
+						</div>
+						<hr class="my-4 border-secondary" />
+						<div class="row g-4">
+							<div class="col-md-6">
+								<dl class="row mb-0">
+									<dt class="col-sm-4 fw-semibold text-muted">Tên khách hàng</dt>
+									<dd class="col-sm-8">@Html.DisplayFor(model => model.TenKH)</dd>
 
+									<dt class="col-sm-4 fw-semibold text-muted">Địa chỉ</dt>
+									<dd class="col-sm-8">@Html.DisplayFor(model => model.DiaChi)</dd>
+
+									<dt class="col-sm-4 fw-semibold text-muted">Số điện thoại</dt>
+									<dd class="col-sm-8">@Html.DisplayFor(model => model.SoDienThoai)</dd>
+								</dl>
+							</div>
+							<div class="col-md-6">
+								<dl class="row mb-0">
+									<dt class="col-sm-4 fw-semibold text-muted">@Html.DisplayNameFor(model => model.Email)</dt>
+									<dd class="col-sm-8">@Html.DisplayFor(model => model.Email)</dd>
+
+									<dt class="col-sm-4 fw-semibold text-muted">Loại khách hàng</dt>
+									<dd class="col-sm-8">@Html.DisplayFor(model => model.LoaiKhachHang.TenLoai)</dd>
+								</dl>
+							</div>
+						</div>
+						<div class="text-center mt-5">
+							<a asp-action="Edit" asp-route-id="@Model?.MaKH" class="btn btn-primary btn-lg px-4 py-2 rounded-pill shadow-sm hover-scale me-3">
+								<i class="fas fa-edit me-2"></i>Chỉnh sửa
+							</a>
+							@if (User.IsInRole("Admin"))
+							{
+								<a asp-action="Index" class="btn btn-outline-secondary px-4 py-2 rounded-pill hover-scale">
+									<i class="fas fa-arrow-left me-2"></i>Trở lại danh sách
+								</a>
+							}
+							else
+							{
+								<a asp-action="IndexUser" class="btn btn-outline-secondary px-4 py-2 rounded-pill hover-scale">
+									<i class="fas fa-arrow-left me-2"></i>Trở lại danh sách
+								</a>
+							}
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
+
+<style>
+	.card {
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+	}
+
+		.card:hover {
+			transform: translateY(-5px);
+			box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+		}
+
+	.btn:hover {
+		transition: all 0.2s ease;
+	}
+
+	.hover-scale:hover {
+		transform: scale(1.05);
+	}
+
+	.text-primary {
+		color: #0d6efd !important;
+	}
+
+	.border-secondary {
+		border-color: #dee2e6 !important;
+	}
+
+	.rounded-pill {
+		border-radius: 50rem !important;
+	}
+</style>

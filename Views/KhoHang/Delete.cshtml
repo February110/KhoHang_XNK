@@ -247,52 +247,43 @@
 <div class="sidebar-overlay"></div>
 
 <div class="content-start transition">
-	<div class="content-header">
-		<h1>Chi tiết kho hàng</h1>
-		<p></p>
-	</div>
+	<div style="max-width: 800px; margin: 0 auto; padding: 20px; color: black; font-family: Arial, sans-serif;">
+		<h1 style="text-align: center; color: black;">Xóa Kho Hàng</h1>
 
-	<h1 class="text-center">Xóa Kho Hàng</h1>
-	<hr />
+		<div style="background-color: #fff3cd; padding: 15px; border-radius: 5px; margin: 20px 0; text-align: center;">
+			<h3 style="color: black; margin-top: 0;">Bạn có chắc chắn muốn xóa kho này không?</h3>
+			<p style="color: black; margin-bottom: 0;">Hành động này không thể hoàn tác.</p>
+		</div>
 
-	<h3 class="text-center">Bạn có chắc chắn muốn xóa kho này không?</h3>
+		<div style="margin: 30px 0;">
+			<h2 style="color: black; border-bottom: 1px solid #ddd; padding-bottom: 10px;">Thông tin Kho Hàng</h2>
 
-	<div>
-		<h4>Thông tin Kho Hàng</h4>
-		<hr />
-		<dl class="row" style="color: black;">
-			<dt class="col-sm-2">
-				@Html.DisplayNameFor(model => model.TenKho)
-			</dt>
-			<dd class="col-sm-10">
-				@Html.DisplayFor(model => model.TenKho)
-			</dd>
-			<dt class="col-sm-2">
-				@Html.DisplayNameFor(model => model.DiaChi)
-			</dt>
-			<dd class="col-sm-10">
-				@Html.DisplayFor(model => model.DiaChi)
-			</dd>
-			<dt class="col-sm-2">
-				@Html.DisplayNameFor(model => model.SucChua)
-			</dt>
-			<dd class="col-sm-10">
-				@Html.DisplayFor(model => model.SucChua)
-			</dd>
-			<dt class="col-sm-2">
-				@Html.DisplayNameFor(model => model.ImageUrl)
-			</dt>
-			<dd class="col-sm-10">
-				@if (!string.IsNullOrEmpty(Model.ImageUrl))
-				{
-					<img src="@Model.ImageUrl" alt="Kho Hàng Image" class="img-thumbnail" style="max-width: 150px;" />
-				}
-				else
-				{
-					<span>Không có hình ảnh</span>
-				}
-			</dd>
-		</dl>
+			<table style="width: 100%; border-collapse: collapse;">
+				<tr>
+					<td style="padding: 8px; font-weight: bold; width: 150px;">Tên kho:</td>
+					<td style="padding: 8px;">Kho Long Điền</td>
+				</tr>
+				<tr>
+					<td style="padding: 8px; font-weight: bold;">Địa chỉ:</td>
+					<td style="padding: 8px;">Long Điền</td>
+				</tr>
+				<tr>
+					<td style="padding: 8px; font-weight: bold;">Sức chứa:</td>
+					<td style="padding: 8px;">5000</td>
+				</tr>
+				<tr>
+					<td style="padding: 8px; font-weight: bold;">Hình ảnh:</td>
+					<td style="padding: 8px;">@if (!string.IsNullOrEmpty(Model.ImageUrl))
+                        {
+                            <img src="@Model.ImageUrl" alt="Kho Hàng" style="max-width: 150px;">
+                        }
+                        else
+                        {
+                            <span>Không có hình ảnh</span>
+                        }</td>
+				</tr>
+			</table>
+		</div>
 
 		<div class="text-center">
 			<form asp-action="Delete" method="post">
@@ -306,9 +297,9 @@
 			}
 			else
 			{
-				<a asp-controller="User" asp-action="Index" class="btn btn-secondary btn-sm">Trở lại danh sách</a>
+				<a asp-action="IndexUser" class="btn btn-secondary btn-sm">Trở lại danh sách</a>
 			}
-        
+
 		</div>
 	</div>
 </div>

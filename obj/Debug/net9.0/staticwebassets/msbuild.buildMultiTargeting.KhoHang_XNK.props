@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\KhoHang_XNK.props" />
-</Project>

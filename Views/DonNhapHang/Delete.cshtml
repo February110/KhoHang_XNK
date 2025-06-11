@@ -257,45 +257,113 @@
 
 <!--Content Start-->
 <div class="content-start transition">
-	<div class="container-fluid dashboard">
-		<div class="card mt-4">
-			<div class="card-body">
-				<h4 class="card-title">Thông Tin Đơn Nhập</h4>
-				<hr />
-				<dl class="row">
-					<dt class="col-sm-3 font-weight-bold">Ngày Nhập:</dt>
-					<dd class="col-sm-9">@Html.DisplayFor(model => model.NgayNhap)</dd>
+	<div class="container-fluid dashboard py-5">
+		<div class="row justify-content-center">
+			<div class="col-md-10 col-lg-8">
+				<div class="card shadow-lg border-0 rounded-3">
+					<div class="card-body p-5">
+						<div class="d-flex justify-content-between align-items-center mb-4">
+							<h4 class="card-title mb-0 fw-bold text-primary">Thông Tin Chi Tiết Đơn Nhập</h4>
+						</div>
+						<hr class="my-4 border-secondary" />
 
-					<dt class="col-sm-3 font-weight-bold">Nhà Cung Cấp:</dt>
-					<dd class="col-sm-9">@Html.DisplayFor(model => model.NhaCungCap.TenNCC)</dd>
+						<div class="row" style="color:black">
+							<div class="col-12">
+								<dl class="row">
+									<!-- Ngày nhập -->
+									<dt class="col-sm-4 fw-semibold text-muted mb-3">Ngày nhập</dt>
+									<dd class="col-sm-8 mb-3">
+										<div class="bg-light p-3 rounded-pill">
+											@Html.DisplayFor(model => model.NgayNhap)
+										</div>
+									</dd>
 
-					<dt class="col-sm-3 font-weight-bold">Kho Hàng:</dt>
-					<dd class="col-sm-9">@Html.DisplayFor(model => model.KhoHang.TenKho)</dd>
+									<!-- Nhà cung cấp -->
+									<dt class="col-sm-4 fw-semibold text-muted mb-3">Nhà cung cấp</dt>
+									<dd class="col-sm-8 mb-3">
+										<div class="bg-light p-3 rounded-pill">
+											<i class="fas fa-truck text-muted me-2"></i>
+											@Html.DisplayFor(model => model.NhaCungCap.TenNCC)
+										</div>
+									</dd>
 
-					<dt class="col-sm-3 font-weight-bold">Nhân Viên:</dt>
-					<dd class="col-sm-9">@Html.DisplayFor(model => model.NhanVien.HoTen)</dd>
-				</dl>
+									<!-- Kho hàng -->
+									<dt class="col-sm-4 fw-semibold text-muted mb-3">Kho hàng</dt>
+									<dd class="col-sm-8 mb-3">
+										<div class="bg-light p-3 rounded-pill">
+											<i class="fas fa-warehouse text-muted me-2"></i>
+											@Html.DisplayFor(model => model.KhoHang.TenKho)
+										</div>
+									</dd>
+
+									<!-- Nhân viên -->
+									<dt class="col-sm-4 fw-semibold text-muted mb-3">Nhân viên</dt>
+									<dd class="col-sm-8 mb-3">
+										<div class="bg-light p-3 rounded-pill">
+											<i class="fas fa-user text-muted me-2"></i>
+											@Html.DisplayFor(model => model.NhanVien.HoTen)
+										</div>
+									</dd>
+								</dl>
+							</div>
+						</div>
+
+						<form asp-action="Delete" onsubmit="return confirmDelete()" class="mt-5">
+							<input type="hidden" asp-for="MaDonNhap" />
+
+							<div class="form-group text-center">
+								<button type="submit" class="btn btn-danger btn-lg px-5 py-2 rounded-pill shadow-sm hover-scale me-3">
+									<i class="fas fa-trash-alt me-2"></i>Xóa đơn nhập
+								</button>
+								@if (User.IsInRole("Admin"))
+								{
+
+									<a asp-action="Index" class="btn btn-outline-secondary px-4 py-2 rounded-pill hover-scale">
+										<i class="fas fa-arrow-left me-2"></i>Quay lại
+									</a>
+								}
+								else
+								{
+
+									<a asp-action="IndexUser" class="btn btn-outline-secondary px-4 py-2 rounded-pill hover-scale">
+										<i class="fas fa-arrow-left me-2"></i>Quay lại
+									</a>
+								}
+
+
+							</div>
+						</form>
+					</div>
+				</div>
 			</div>
 		</div>
-
-		<form asp-action="Delete" onsubmit="return confirmDelete()">
-			<input type="hidden" asp-for="MaDonNhap" />
-
-			<div class="mt-3">
-				<button type="submit" class="btn btn-danger">
-					<i class="fas fa-trash-alt"></i> Xóa
-				</button>
-				<a asp-action="Index" class="btn btn-secondary">
-					<i class="fas fa-arrow-left"></i> Quay lại danh sách
-				</a>
-			</div>
-		</form>
 	</div>
 </div>
 
-
 <script>
-    function confirmDelete() {
-        return confirm("Bạn có chắc chắn muốn xóa đơn nhập hàng này? Hành động này không thể hoàn tác!");
-    }
+	function confirmDelete() {
+		return confirm("Bạn có chắc chắn muốn xóa đơn nhập hàng này? Hành động này không thể hoàn tác!");
+	}
 </script>
+
+<style>
+	.hover-scale {
+		transition: transform 0.2s;
+	}
+
+		.hover-scale:hover {
+			transform: scale(1.05);
+		}
+
+	.rounded-pill {
+		border-radius: 50rem !important;
+	}
+
+	.rounded-3 {
+		border-radius: 1rem !important;
+	}
+
+	.text-muted {
+		color: #6c757d !important;
+	}
+</style>

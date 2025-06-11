@@ -54,7 +54,21 @@ namespace KhoHang_XNK.Controllers
 
             return View();
         }
-
+        [HttpGet]
+        public async Task<JsonResult> GetNhanViensByKho(int maKho)
+        {
+            try
+            {
+                var nhanViens = await _nhanVienRepository.GetByKhoAsync(maKho);
+                var result = nhanViens.Select(nv => new { maNV = nv.MaNV, hoTen = nv.HoTen });
+                return Json(result);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (e.g., using ILogger)
+                return Json(new { error = "Không thể tải danh sách nhân viên." });
+            }
+        }
         // POST: Tạo mới phiếu kiểm kê
         [HttpPost]
         [ValidateAntiForgeryToken]
